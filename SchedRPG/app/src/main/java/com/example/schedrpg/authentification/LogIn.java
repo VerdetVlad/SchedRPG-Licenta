@@ -1,4 +1,4 @@
-package com.example.schedrpg;
+package com.example.schedrpg.authentification;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.schedrpg.tabs.LogInSuccess;
+import com.example.schedrpg.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class LogIn extends AppCompatActivity implements View.OnClickListener{
 
     private TextView createAccount;
     private EditText editTextEmail, editTextPassword;
@@ -96,10 +98,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(MainActivity.this,LogInSuccess.class));
+                    startActivity(new Intent(LogIn.this, LogInSuccess.class));
                 }
                 else{
-                    Toast.makeText(MainActivity.this,"Failed to LogIn. Please check your credentials and try again.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LogIn.this,"Failed to LogIn. Please check your credentials and try again.",Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                 }
             }

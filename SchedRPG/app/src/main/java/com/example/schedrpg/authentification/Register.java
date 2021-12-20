@@ -1,4 +1,4 @@
-package com.example.schedrpg;
+package com.example.schedrpg.authentification;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.schedrpg.R;
+import com.example.schedrpg.user.User;
+import com.example.schedrpg.user.UserTask;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -52,7 +55,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.appNameReg:
-                startActivity(new Intent(this,MainActivity.class));
+                startActivity(new Intent(this, LogIn.class));
                 break;
             case R.id.buttonRegister:
                 registerUser();
@@ -107,7 +110,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             User user = new User(fullName,email);
-                            FirebaseDatabase.getInstance().getReference("Users")
+                            user.addTask(new UserTask(1,2,"Run","I like to run"));
+                            FirebaseDatabase.getInstance().getReference(User.class.getSimpleName())
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -116,7 +120,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                                     {
                                         Toast.makeText(Register.this,"User has been registered successfully.",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-                                        startActivity(new Intent(Register.this,MainActivity.class));
+                                        startActivity(new Intent(Register.this, LogIn.class));
 
                                     }
                                     else

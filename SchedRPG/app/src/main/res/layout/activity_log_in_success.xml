@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogInSuccess">
+    tools:context=".tabs.LogInSuccess">
 
     <TextView
         android:id="@+id/emailProfile"
@@ -23,6 +23,22 @@
         android:layout_marginTop="320dp"
         android:backgroundTint="#21BEDA"
         android:text="LOGOUT"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textSize="24sp" />
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="248dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="432dp"
+        android:backgroundTint="#21BEDA"
+        android:clickable="true"
+        android:text="TEST"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
