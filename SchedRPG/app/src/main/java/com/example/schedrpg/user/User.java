@@ -3,8 +3,8 @@ package com.example.schedrpg.user;
 import java.util.ArrayList;
 
 public class User {
-    private String fullName, email;
-    private ArrayList <UserTask> tasks;
+    private static String fullName, email;
+    private static ArrayList <UserTask> tasks;
 
     public User() {
     }
@@ -36,7 +36,7 @@ public class User {
                 '}';
     }
 
-    public void remove(UserTask task)
+    public void removeTask(UserTask task)
     {
         tasks.remove(task);
     }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tabs.TaskCreationTab">
+
+
+    <TextView
+        android:id="@+id/createTaskTitle"
+        android:layout_width="248dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:text="Create Task"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/createTaskDescription"
+        android:layout_width="310dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="28dp"
+        android:hint="task descrption (optional)"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTaskName"
+        tools:ignore="HardcodedText,LabelFor" />
+
+    <EditText
+        android:id="@+id/createTaskName"
+        android:layout_width="310dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="88dp"
+        android:hint="task name"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTaskTitle"
+        tools:ignore="HardcodedText,LabelFor" />
+
+    <Button
+        android:id="@+id/createTaskBack"
+        android:layout_width="232dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="44dp"
+        android:text="Back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTaskSubmit" />
+
+    <Button
+        android:id="@+id/createTaskSubmit"
+        android:layout_width="232dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="64dp"
+        android:text="Create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTaskType" />
+
+    <Spinner
+        android:id="@+id/createTaskDifficulty"
+        android:layout_width="310dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTaskDescription"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Spinner
+        android:id="@+id/createTaskType"
+        android:layout_width="310dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="28dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTaskDifficulty"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

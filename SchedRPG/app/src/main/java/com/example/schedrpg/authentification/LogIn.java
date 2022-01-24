@@ -52,7 +52,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.createAccount:
-                startActivity(new Intent(this,Register.class));
+                startActivity(new Intent(this, Register.class));
                 break;
             case R.id.buttonLogin:
                 userLogin();

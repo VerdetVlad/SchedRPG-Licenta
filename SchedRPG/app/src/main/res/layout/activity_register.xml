@@ -24,8 +24,8 @@
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="#21BEDA"
-        android:text="REGISTER"
-        android:textColor="#FFFFFF"
+        android:text="@string/register"
+        android:textColor="#455A64"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
@@ -35,7 +35,7 @@
 
     <EditText
         android:id="@+id/passwordReg"
-        android:layout_width="380dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:autofillHints=""
@@ -50,7 +50,7 @@
 
     <EditText
         android:id="@+id/emailReg"
-        android:layout_width="380dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:autofillHints=""
@@ -64,8 +64,8 @@
 
     <EditText
         android:id="@+id/fullName"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="73dp"
         android:layout_marginTop="50dp"
         android:autofillHints=""
         android:ems="10"

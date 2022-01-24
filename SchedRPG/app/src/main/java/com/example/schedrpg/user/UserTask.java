@@ -1,15 +1,17 @@
 package com.example.schedrpg.user;
 
+import android.widget.ArrayAdapter;
+
 import java.util.Objects;
 
 public class UserTask {
-    // 1 - STR, 2 - DEX, 3 - CON, 4 - WIS, 5 - INT, 6 - CHA
+    // 0 - STR, 1 - DEX, 2 - CON, 3 - WIS, 4 - INT, 5 - CHA
     private int type;
 
     //minutes
     //private int duration;
 
-    //1- very easy, 2 - easy, 3 - medium, 4 - hard, 5 - very hard
+    // 0 - very easy, 1 - easy, 2 - medium, 3 - hard, 4 - very hard
     private int difficulty;
 
     private String name;
@@ -90,5 +92,24 @@ public class UserTask {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public String dificultyStringValue()
+    {
+        String[] difficultyStrings = new String[]{"very easy", "easy", "medium", "hard", "very hard"};
+
+        return difficultyStrings[difficulty];
+
+    }
+
+    public String typeStringValue() {
+        String[] stats = new String[]{"Strength" ,
+                "Dexterity" ,
+                "Constitution" ,
+                "Wisdom" ,
+                "Intelligence" ,
+                "Charisma"};
+
+        return stats[type];
     }
 }
