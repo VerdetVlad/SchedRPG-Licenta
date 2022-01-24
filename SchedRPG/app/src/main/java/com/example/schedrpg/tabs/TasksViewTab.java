@@ -1,29 +1,26 @@
 package com.example.schedrpg.tabs;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.schedrpg.R;
-import com.example.schedrpg.databinding.ActivityTaskCreationTabBinding;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.schedrpg.databinding.ActivityTasksViewTabBinding;
 import com.example.schedrpg.myfirebasetool.ChangeFirebaseData;
 import com.example.schedrpg.user.User;
 import com.example.schedrpg.user.UserTask;
 
-import java.util.ArrayList;
-
 public class TasksViewTab extends AppCompatActivity {
 
     ActivityTasksViewTabBinding binding;
     static User user = new User();
+    @SuppressLint("StaticFieldLeak")
     static ListView listView;
+    @SuppressLint("StaticFieldLeak")
     static Context context;
     static TaskListAdapter listAdapter;
 
