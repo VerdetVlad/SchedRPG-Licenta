@@ -3,14 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1775" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/drawable/ic_dashboard.xml" value="0.1775" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1775" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout-v26/activity_task_creation_tab.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_log_in_success.xml" value="0.25" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_log_in_success.xml" value="0.1" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_login.xml" value="0.12735042735042734" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_main.xml" value="0.1893162393162393" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_nav_controller.xml" value="0.1893162393162393" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_register1.xml" value="0.1765625" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_tab_controller.xml" value="0.125923820352473" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_task_creation_tab.xml" value="0.18" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_tasks_view_tab.xml" value="0.19957264957264959" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/task_view_item.xml" value="0.19957264957264959" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/menu/buttom_nav.xml" value="0.1893162393162393" />
       </map>
     </option>
   </component>

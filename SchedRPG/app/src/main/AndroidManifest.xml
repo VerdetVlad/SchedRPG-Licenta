@@ -9,6 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SchedRPG">
+        <activity
+            android:name="com.vladv.questsched.tabs.NavigController"
+            android:exported="false"
+            android:label="@string/title_activity_nav_controller" />
+        <activity
+            android:name="com.vladv.questsched.tabs.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.vladv.questsched.tabs.TabController"
+            android:exported="false" />
         <activity android:name="com.vladv.questsched.tabs.TasksViewTab" />
         <activity android:name="com.vladv.questsched.tabs.TaskCreationTab" />
         <activity android:name="com.vladv.questsched.tabs.LogInSuccess" />

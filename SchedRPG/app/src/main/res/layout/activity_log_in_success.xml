@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.vladv.questsched.tabs.LogInSuccess">
 
+
     <TextView
         android:id="@+id/emailProfile"
         android:layout_width="wrap_content"
@@ -21,9 +22,7 @@
         android:layout_width="248dp"
         android:layout_height="65dp"
         android:layout_marginTop="320dp"
-        android:backgroundTint="#21BEDA"
         android:text="LOGOUT"
-        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -36,10 +35,8 @@
         android:layout_width="248dp"
         android:layout_height="65dp"
         android:layout_marginTop="432dp"
-        android:backgroundTint="#21BEDA"
         android:clickable="true"
         android:text="Create Task"
-        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -52,10 +49,8 @@
         android:layout_width="248dp"
         android:layout_height="65dp"
         android:layout_marginTop="52dp"
-        android:backgroundTint="#21BEDA"
         android:clickable="true"
         android:text="View Task"
-        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -95,5 +90,7 @@
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullNameProfile" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
