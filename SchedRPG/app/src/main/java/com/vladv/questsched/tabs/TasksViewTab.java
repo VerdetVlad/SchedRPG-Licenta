@@ -1,4 +1,4 @@
-package com.example.schedrpg.tabs;
+package com.vladv.questsched.tabs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,9 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.schedrpg.databinding.ActivityTasksViewTabBinding;
-import com.example.schedrpg.myfirebasetool.ChangeFirebaseData;
-import com.example.schedrpg.user.User;
-import com.example.schedrpg.user.UserTask;
+import com.vladv.questsched.myfirebasetool.ChangeFirebaseData;
+import com.vladv.questsched.user.User;
+import com.vladv.questsched.user.UserTask;
 
 public class TasksViewTab extends AppCompatActivity {
 

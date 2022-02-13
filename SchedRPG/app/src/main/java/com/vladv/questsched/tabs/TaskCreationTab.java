@@ -1,17 +1,16 @@
-package com.example.schedrpg.tabs;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.vladv.questsched.tabs;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-import com.example.schedrpg.authentification.LogIn;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.schedrpg.databinding.ActivityTaskCreationTabBinding;
-import com.example.schedrpg.myfirebasetool.ChangeFirebaseData;
-import com.example.schedrpg.user.User;
-import com.example.schedrpg.user.UserTask;
+import com.vladv.questsched.user.UserTask;
+import com.vladv.questsched.myfirebasetool.ChangeFirebaseData;
+import com.vladv.questsched.user.User;
 
 public class TaskCreationTab extends AppCompatActivity {
 
@@ -41,19 +40,9 @@ public class TaskCreationTab extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, difficulty);
         binding.createTaskDifficulty.setAdapter(adapter2);
 
-        binding.createTaskSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addTaskToFirebase();
-            }
-        });
+        binding.createTaskSubmit.setOnClickListener(v -> addTaskToFirebase());
 
-        binding.createTaskBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TaskCreationTab.this, LogInSuccess.class));
-            }
-        });
+        binding.createTaskBack.setOnClickListener(v -> startActivity(new Intent(TaskCreationTab.this, LogInSuccess.class)));
 
     }
 

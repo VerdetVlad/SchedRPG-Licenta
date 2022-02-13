@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SchedRPG">
-        <activity android:name=".tabs.TasksViewTab" />
-        <activity android:name=".tabs.TaskCreationTab" />
-        <activity android:name=".tabs.LogInSuccess" />
-        <activity android:name=".authentification.Register" />
+        <activity android:name="com.vladv.questsched.tabs.TasksViewTab" />
+        <activity android:name="com.vladv.questsched.tabs.TaskCreationTab" />
+        <activity android:name="com.vladv.questsched.tabs.LogInSuccess" />
+        <activity android:name="com.vladv.questsched.authentification.Register" />
         <activity
-            android:name=".authentification.LogIn"
+            android:name="com.vladv.questsched.authentification.LogIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

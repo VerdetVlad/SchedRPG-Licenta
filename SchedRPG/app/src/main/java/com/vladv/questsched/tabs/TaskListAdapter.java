@@ -1,4 +1,4 @@
-package com.example.schedrpg.tabs;
+package com.vladv.questsched.tabs;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,19 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.schedrpg.R;
-import com.example.schedrpg.myfirebasetool.ChangeFirebaseData;
-import com.example.schedrpg.user.User;
-import com.example.schedrpg.user.UserTask;
-
-import org.w3c.dom.Text;
+import com.vladv.questsched.user.UserTask;
 
 import java.util.ArrayList;
 
@@ -54,12 +48,7 @@ public class TaskListAdapter extends ArrayAdapter<UserTask> {
         type.setText(userTask.typeStringValue());
         description.setText(userTask.getDescription());
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TasksViewTab.removeItem(userTask);
-            }
-        });
+        deleteButton.setOnClickListener(v -> TasksViewTab.removeItem(userTask));
 
 
         return convertView;

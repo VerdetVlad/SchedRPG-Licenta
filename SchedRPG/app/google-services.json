@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "27624007332",
+    "firebase_url": "https://schedulerrpg-default-rtdb.firebaseio.com",
     "project_id": "schedulerrpg",
     "storage_bucket": "schedulerrpg.appspot.com"
   },
@@ -10,6 +11,35 @@
         "mobilesdk_app_id": "1:27624007332:android:69ef4e5c7e060b378ca831",
         "android_client_info": {
           "package_name": "com.example.schedrpg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27624007332-e1okjockv3bu1bnjhvj66q6qudcaoo9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVgibSvDXPic6nRxjlMAagwVC-tXp9RLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27624007332-e1okjockv3bu1bnjhvj66q6qudcaoo9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27624007332:android:162014b8f91cb1568ca831",
+        "android_client_info": {
+          "package_name": "com.vladv.questsched"
         }
       },
       "oauth_client": [
