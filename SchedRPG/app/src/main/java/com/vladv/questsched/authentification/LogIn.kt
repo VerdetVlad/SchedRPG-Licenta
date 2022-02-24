@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
+import android.view.Window
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -12,6 +13,7 @@ import com.example.schedrpg.databinding.ActivityLoginBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.vladv.questsched.tabs.FragmentManager
 import com.vladv.questsched.tabs.LogInSuccess
 
 class LogIn : AppCompatActivity() {
@@ -20,11 +22,14 @@ class LogIn : AppCompatActivity() {
     private var progressBar: ProgressBar? = null
     private var mAuth: FirebaseAuth? = null
     private var binding: ActivityLoginBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view: View = binding!!.root
         setContentView(view)
+
+
         mAuth = FirebaseAuth.getInstance()
         binding!!.createAccount.setOnClickListener {
             startActivity(
@@ -68,7 +73,7 @@ class LogIn : AppCompatActivity() {
             .addOnCompleteListener { task: Task<AuthResult?> ->
                 if (task.isSuccessful) {
                     progressBar!!.visibility = View.GONE
-                    startActivity(Intent(this@LogIn, LogInSuccess::class.java))
+                    startActivity(Intent(this@LogIn, FragmentManager::class.java))
                 } else {
                     Toast.makeText(
                         this@LogIn,
