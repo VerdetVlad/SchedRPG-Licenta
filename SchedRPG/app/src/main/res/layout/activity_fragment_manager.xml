@@ -7,10 +7,24 @@
     tools:context="com.vladv.questsched.tabs.FragmentManager"
     android:id="@+id/drawerLayout">
 
-    <FrameLayout
-        android:id="@+id/flFragment"
-        android:layout_width="90dp"
-        android:layout_height="90dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <FrameLayout
+            android:id="@+id/flFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 
     <com.google.android.material.navigation.NavigationView

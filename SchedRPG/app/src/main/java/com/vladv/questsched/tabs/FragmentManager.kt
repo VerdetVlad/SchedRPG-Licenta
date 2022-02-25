@@ -1,32 +1,54 @@
 package com.vladv.questsched.tabs
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.ActivityFragmentManagerBinding
 import com.google.android.material.navigation.NavigationView
 import com.vladv.questsched.authentification.LogIn
-import com.vladv.questsched.tabs.fragments.LogInSuccess2
-import com.vladv.questsched.tabs.fragments.TaskCreation
+import com.vladv.questsched.tabs.fragments.HomeFragment
+import com.vladv.questsched.tabs.fragments.TaskCreationFragment
+
 
 class FragmentManager : AppCompatActivity() {
-    var binding : ActivityFragmentManagerBinding? = null
+    private lateinit var binding: ActivityFragmentManagerBinding
     lateinit var toggle : ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFragmentManagerBinding.inflate(layoutInflater)
-        val view: View = binding!!.root
+        val view: View = binding.root
         setContentView(view)
 
-        val drawerLayout : DrawerLayout = binding!!.drawerLayout
-        val navView : NavigationView = binding!!.navView
+        configureDrawer()
+        configureToolbar()
+
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(binding.flFragment.id, HomeFragment())
+            commit()
+        }
+
+    }
+
+
+    fun openDrawer() {
+        binding.drawerLayout.openDrawer(GravityCompat.START)
+    }
+
+    private fun configureDrawer()
+    {
+        val drawerLayout : DrawerLayout  = binding.drawerLayout
+        val navView : NavigationView = binding.navView
         toggle = ActionBarDrawerToggle(this,drawerLayout, R.string.open,R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -36,13 +58,13 @@ class FragmentManager : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.nav_home -> supportFragmentManager.beginTransaction().apply {
-                    replace(binding!!.flFragment.id, LogInSuccess2())
+                    replace(binding.flFragment.id, HomeFragment())
                     commit()
                     drawerLayout.closeDrawers()
                 }
 
                 R.id.nav_new_quest -> supportFragmentManager.beginTransaction().apply {
-                    replace(binding!!.flFragment.id, TaskCreation())
+                    replace(binding.flFragment.id, TaskCreationFragment())
                     commit()
                     drawerLayout.closeDrawers()
                 }
@@ -64,17 +86,14 @@ class FragmentManager : AppCompatActivity() {
 
             true
         }
+    }
 
-        supportFragmentManager.beginTransaction().apply {
-            replace(binding!!.flFragment.id, LogInSuccess2())
-            commit()
-        }
-
-
-
-
-
-
+    private fun configureToolbar() {
+        val toolbar: Toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+        val actionbar: ActionBar = supportActionBar!!
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_display_drawer)
+        actionbar.setDisplayHomeAsUpEnabled(true)
     }
 
 

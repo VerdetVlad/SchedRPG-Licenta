@@ -1,46 +1,42 @@
-package com.vladv.questsched.tabs
+package com.vladv.questsched.tabs.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
-import android.view.Window
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.ui.setupWithNavController
-import com.example.schedrpg.R
-import com.example.schedrpg.databinding.ActivityLogInSuccessBinding
-import com.google.android.material.navigation.NavigationView
+import com.example.schedrpg.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vladv.questsched.authentification.LogIn
+import com.vladv.questsched.tabs.TaskCreationTab
+import com.vladv.questsched.tabs.TasksViewTab
 import com.vladv.questsched.user.User
 
-class LogInSuccess : AppCompatActivity() {
 
+class HomeFragment : Fragment() {
 
-    private lateinit var binding: ActivityLogInSuccessBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLogInSuccessBinding.inflate(
-            layoutInflater
-        )
-        val view: View = binding.root
-
-        setContentView(view)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
 
         binding.viewTaskButton.setOnClickListener {
             startActivity(
                 Intent(
-                    this@LogInSuccess,
+                    activity,
                     TasksViewTab::class.java
                 )
             )
@@ -48,7 +44,7 @@ class LogInSuccess : AppCompatActivity() {
         binding.createTaskButton.setOnClickListener {
             startActivity(
                 Intent(
-                    this@LogInSuccess,
+                    activity,
                     TaskCreationTab::class.java
                 )
             )
@@ -56,7 +52,7 @@ class LogInSuccess : AppCompatActivity() {
         binding.LogOutButton.setOnClickListener {
             startActivity(
                 Intent(
-                    this@LogInSuccess,
+                    activity,
                     LogIn::class.java
                 )
             )
@@ -74,14 +70,20 @@ class LogInSuccess : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@LogInSuccess, "Something went wrong: $error", Toast.LENGTH_LONG)
+                Toast.makeText(activity, "Something went wrong: $error", Toast.LENGTH_LONG)
                     .show()
             }
         })
+
+        return binding.root
     }
 
     companion object {
         var userProfile: User? = User("ceva", "ceva")
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
