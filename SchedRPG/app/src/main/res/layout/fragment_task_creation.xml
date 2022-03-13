@@ -50,19 +50,6 @@
         tools:ignore="HardcodedText,LabelFor" />
 
     <Button
-        android:id="@+id/createTaskBack"
-        android:layout_width="232dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="44dp"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskSubmit"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
         android:id="@+id/createTaskSubmit"
         android:layout_width="232dp"
         android:layout_height="59dp"

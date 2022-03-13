@@ -13,13 +13,16 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.ActivityFragmentManagerBinding
+import com.example.schedrpg.databinding.NavHeaderBinding
 import com.google.android.material.navigation.NavigationView
 import com.vladv.questsched.authentification.LogIn
+import com.vladv.questsched.tabs.fragments.CalendarFragment
 import com.vladv.questsched.tabs.fragments.HomeFragment
 import com.vladv.questsched.tabs.fragments.TaskCreationFragment
+import com.vladv.questsched.tabs.fragments.TaskListFragment
 
 
-class FragmentManager : AppCompatActivity() {
+class MyFragmentManager : AppCompatActivity() {
     private lateinit var binding: ActivityFragmentManagerBinding
     lateinit var toggle : ActionBarDrawerToggle
 
@@ -29,16 +32,24 @@ class FragmentManager : AppCompatActivity() {
         val view: View = binding.root
         setContentView(view)
 
+        stopLoading()
+
+        //drawer setup
         configureDrawer()
         configureToolbar()
 
 
+
+
+        //Fragment managing
         supportFragmentManager.beginTransaction().apply {
             replace(binding.flFragment.id, HomeFragment())
             commit()
         }
 
     }
+
+
 
 
     fun openDrawer() {
@@ -59,25 +70,35 @@ class FragmentManager : AppCompatActivity() {
 
                 R.id.nav_home -> supportFragmentManager.beginTransaction().apply {
                     replace(binding.flFragment.id, HomeFragment())
+                    addToBackStack("")
                     commit()
                     drawerLayout.closeDrawers()
                 }
 
                 R.id.nav_new_quest -> supportFragmentManager.beginTransaction().apply {
                     replace(binding.flFragment.id, TaskCreationFragment())
+                    addToBackStack("")
                     commit()
                     drawerLayout.closeDrawers()
                 }
-                R.id.nav_quest_list -> startActivity(
-                    Intent(
-                        this@FragmentManager,
-                        TasksViewTab::class.java
-                    )
-                )
+                R.id.nav_quest_list -> supportFragmentManager.beginTransaction().apply {
+                    replace(binding.flFragment.id, TaskListFragment())
+                    addToBackStack("")
+                    commit()
+                    drawerLayout.closeDrawers()
+                }
+
+                R.id.nav_calendar -> supportFragmentManager.beginTransaction().apply {
+                    replace(binding.flFragment.id, CalendarFragment())
+                    addToBackStack("")
+                    commit()
+                    drawerLayout.closeDrawers()
+                }
+
                 R.id.nav_setting -> Toast.makeText(applicationContext,"Clicked Setting",Toast.LENGTH_SHORT).show()
                 R.id.nav_logout -> startActivity(
                     Intent(
-                        this@FragmentManager,
+                        this@MyFragmentManager,
                         LogIn::class.java
                     )
                 )
@@ -97,6 +118,7 @@ class FragmentManager : AppCompatActivity() {
     }
 
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if (toggle.onOptionsItemSelected(item)){
@@ -107,4 +129,17 @@ class FragmentManager : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
+    fun startLoading()
+    {
+        binding.progressBarContainer.visibility = View.VISIBLE
+    }
+    fun stopLoading()
+    {
+        binding.progressBarContainer.visibility = View.GONE
+    }
+
+
+
 }

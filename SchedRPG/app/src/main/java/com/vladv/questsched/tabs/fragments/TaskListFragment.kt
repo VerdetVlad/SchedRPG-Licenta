@@ -1,0 +1,60 @@
+package com.vladv.questsched.tabs.fragments
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ListView
+import androidx.fragment.app.Fragment
+import com.example.schedrpg.databinding.FragmentTaskViewBinding
+import com.vladv.questsched.myfirebasetool.ChangeFirebaseData
+import com.vladv.questsched.user.User
+import com.vladv.questsched.user.UserTask
+
+class TaskListFragment : Fragment() {
+
+    private var _binding: FragmentTaskViewBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentTaskViewBinding.inflate(inflater, container, false)
+        activity?.title = "Task View"
+
+        val user = User()
+        listAdapter = TaskListAdapter(requireContext(), user.tasks)
+        listView = binding.listview
+        listView!!.adapter = listAdapter
+
+
+        return binding.root
+    }
+
+
+
+
+    companion object {
+        private var user = User()
+
+        @SuppressLint("StaticFieldLeak")
+        var listView: ListView? = null
+
+
+        @SuppressLint("StaticFieldLeak")
+        var context: Context? = null
+        var listAdapter: TaskListAdapter? = null
+        fun removeItem(task: UserTask) {
+            user.removeTask(task)
+            val changeFirebaseData = ChangeFirebaseData()
+            changeFirebaseData.updateUserData(user)
+            listView!!.adapter = listAdapter
+        }
+
+
+    }
+}

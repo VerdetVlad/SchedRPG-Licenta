@@ -1,17 +1,15 @@
 package com.vladv.questsched.tabs.fragments
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentTaskCreationBinding
 import com.vladv.questsched.myfirebasetool.ChangeFirebaseData
-import com.vladv.questsched.tabs.TasksViewTab
+import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.User
 import com.vladv.questsched.user.UserTask
 
@@ -29,28 +27,26 @@ class TaskCreationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskCreationBinding.inflate(inflater, container, false)
+        activity?.title = "Task Creation";
 
-//        val stats = arrayOf(
-//            "Strength",
-//            "Dexterity",
-//            "Constitution",
-//            "Wisdom",
-//            "Intelligence",
-//            "Charisma"
-//        )
-//        val adapter = ArrayAdapter(requireView().context, android.R.layout.simple_spinner_dropdown_item, stats)
-//        binding.createTaskType.adapter = adapter
-//        val difficulty = arrayOf("very easy", "easy", "medium", "hard", "very hard")
-//        val adapter2 = ArrayAdapter(requireView().context, android.R.layout.simple_spinner_dropdown_item, difficulty)
-//        binding.createTaskDifficulty.adapter = adapter2
+        val stats = arrayOf("Strength","Dexterity", "Constitution", "Wisdom", "Intelligence","Charisma")
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            stats)
+        binding.createTaskType.adapter = adapter
+
+        val difficulty = arrayOf("very easy", "easy", "medium", "hard", "very hard")
+        val adapter2 = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            difficulty)
+        binding.createTaskDifficulty.adapter = adapter2
 
         binding.createTaskSubmit.setOnClickListener { addTaskToFirebase() }
 
-        binding.createTaskBack.setOnClickListener {
-            val transaction = requireFragmentManager().beginTransaction()
-            transaction.replace(R.id.flFragment, HomeFragment());
-            transaction.commit()
-        }
+
+
 
 
 
@@ -72,21 +68,20 @@ class TaskCreationFragment : Fragment() {
         user.addTask(userTask)
         val changeFirebaseData = ChangeFirebaseData()
         changeFirebaseData.updateUserData(user)
-        makeToast("Task: " + userTask.name + " created succesfully")
-        refreshFragment()
+        makeToast("Quest: " + userTask.name + " created succesfully")
+        resetFields()
     }
 
     private fun makeToast(s: String) {
-        Toast.makeText(TasksViewTab.context, s, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
     }
 
-    private fun refreshFragment()
+    private fun resetFields()
     {
-        val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
-        if (Build.VERSION.SDK_INT >= 26) {
-            ft.setReorderingAllowed(false)
-        }
-        ft.detach(this).attach(this).commit()
+        binding.createTaskName.setText("")
+        binding.createTaskDescription.setText("")
+        binding.createTaskDifficulty.setSelection(0)
+        binding.createTaskType.setSelection(0)
     }
 
 }

@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs
+package com.vladv.questsched.tabs.fragments
 
 import android.content.Context
 import com.vladv.questsched.user.UserTask
@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import com.vladv.questsched.tabs.TasksViewTab
+import com.vladv.questsched.tabs.fragments.TaskListFragment
 import java.util.ArrayList
 
 class TaskListAdapter(context: Context?, userArrayList: ArrayList<UserTask>?) :
@@ -32,7 +32,9 @@ class TaskListAdapter(context: Context?, userArrayList: ArrayList<UserTask>?) :
         difficulty.text = userTask.dificultyStringValue()
         type.text = userTask.typeStringValue()
         description.text = userTask.description
-        deleteButton.setOnClickListener { TasksViewTab.removeItem(userTask) }
+        deleteButton.setOnClickListener {
+            TaskListFragment.removeItem(userTask)
+        }
         return convtView
     }
 }

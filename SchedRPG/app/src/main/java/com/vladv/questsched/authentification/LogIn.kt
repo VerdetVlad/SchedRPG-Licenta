@@ -13,13 +13,11 @@ import com.example.schedrpg.databinding.ActivityLoginBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.vladv.questsched.tabs.FragmentManager
-import com.vladv.questsched.tabs.LogInSuccess
+import com.vladv.questsched.tabs.MyFragmentManager
 
 class LogIn : AppCompatActivity() {
     private var editTextEmail: EditText? = null
     private var editTextPassword: EditText? = null
-    private var progressBar: ProgressBar? = null
     private var mAuth: FirebaseAuth? = null
     private var binding: ActivityLoginBinding? = null
 
@@ -42,7 +40,14 @@ class LogIn : AppCompatActivity() {
         binding!!.buttonLogin.setOnClickListener { userLogin() }
         editTextEmail = binding!!.email
         editTextPassword = binding!!.password
-        progressBar = binding!!.progressBar
+        binding!!.progressBarContainer.visibility = View.GONE
+
+
+
+        //for testing only
+        editTextEmail!!.setText("a@g.com")
+        editTextPassword!!.setText("123456")
+
     }
 
     private fun userLogin() {
@@ -68,19 +73,20 @@ class LogIn : AppCompatActivity() {
             editTextPassword!!.requestFocus()
             return
         }
-        progressBar!!.visibility = View.VISIBLE
+        binding!!.progressBarContainer.visibility = View.VISIBLE
         mAuth!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task: Task<AuthResult?> ->
                 if (task.isSuccessful) {
-                    progressBar!!.visibility = View.GONE
-                    startActivity(Intent(this@LogIn, FragmentManager::class.java))
+                    binding!!.progressBarContainer.visibility = View.GONE
+                    startActivity(Intent(this@LogIn, MyFragmentManager::class.java))
+                    finish()
                 } else {
                     Toast.makeText(
                         this@LogIn,
                         "Failed to LogIn. Please check your credentials and try again.",
                         Toast.LENGTH_LONG
                     ).show()
-                    progressBar!!.visibility = View.GONE
+                    binding!!.progressBarContainer.visibility = View.GONE
                 }
             }
     }
