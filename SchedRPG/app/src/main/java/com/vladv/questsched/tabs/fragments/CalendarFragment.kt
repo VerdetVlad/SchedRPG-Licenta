@@ -22,9 +22,11 @@ class CalendarFragment : Fragment() {
     ): View {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
+        activity?.title = "Quest Calendar"
+
+
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            // Note that months are indexed from 0. So, 0 means January, 1 means february, 2 means march etc.
             val msg = "" + dayOfMonth + "/" + (month + 1) + "/" + year
 
             val bundle = Bundle()

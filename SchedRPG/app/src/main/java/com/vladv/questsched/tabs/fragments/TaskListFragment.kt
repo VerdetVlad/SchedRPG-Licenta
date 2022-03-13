@@ -24,7 +24,7 @@ class TaskListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskViewBinding.inflate(inflater, container, false)
-        activity?.title = "Task View"
+        activity?.title = "Quest List"
 
         val user = User()
         listAdapter = TaskListAdapter(requireContext(), user.tasks)

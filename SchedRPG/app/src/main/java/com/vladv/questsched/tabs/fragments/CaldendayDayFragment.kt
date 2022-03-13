@@ -22,6 +22,8 @@ class CaldendayDayFragment : Fragment() {
     ): View {
         _binding = FragmentCaldendayDayBinding.inflate(inflater, container, false)
 
+        activity?.title = ""
+
         val bundle = this.arguments
 
         if (bundle != null) {
@@ -29,6 +31,7 @@ class CaldendayDayFragment : Fragment() {
             val date = bundle.getString("date")
 
             binding.dateTextView.text = "Quest from $date"
+            activity?.title = "Quest from $date"
         }
 
 

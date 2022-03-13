@@ -27,7 +27,7 @@ class TaskCreationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskCreationBinding.inflate(inflater, container, false)
-        activity?.title = "Task Creation";
+        activity?.title = "Quest Creation";
 
         val stats = arrayOf("Strength","Dexterity", "Constitution", "Wisdom", "Intelligence","Charisma")
         val adapter = ArrayAdapter(

@@ -58,32 +58,14 @@ class HomeFragment : Fragment() {
             )
         }
 
-        (activity as MyFragmentManager).startLoading()
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val reference = FirebaseDatabase.getInstance().getReference(User::class.java.simpleName)
-        val userID = firebaseUser!!.uid
-        reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                userProfile = snapshot.getValue(
-                    User::class.java
-                )
-                binding.fullNameProfile.text = userProfile!!.fullName
-                binding.emailProfile.text = userProfile!!.email
-                (activity as MyFragmentManager).stopLoading()
-            }
+        binding.fullNameProfile.text = User().fullName
+        binding.emailProfile.text = User().email
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(activity, "Something went wrong: $error", Toast.LENGTH_LONG)
-                    .show()
-            }
-        })
 
         return binding.root
     }
 
-    companion object {
-        var userProfile: User? = null
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

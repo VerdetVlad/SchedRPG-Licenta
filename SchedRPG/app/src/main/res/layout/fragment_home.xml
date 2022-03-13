@@ -8,23 +8,16 @@
     android:id="@+id/drawerLayout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
-        <TextView
-            android:id="@+id/emailProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.148"
-            app:layout_constraintStart_toStartOf="@+id/emailTitle"
-            app:layout_constraintTop_toBottomOf="@+id/emailTitle" />
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="134dp">
 
         <Button
             android:id="@+id/LogOutButton"
             android:layout_width="248dp"
             android:layout_height="65dp"
-            android:layout_marginTop="320dp"
+            android:layout_marginTop="264dp"
             android:text="LOGOUT"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,16 +30,16 @@
             android:id="@+id/createTaskButton"
             android:layout_width="248dp"
             android:layout_height="65dp"
-            android:layout_marginTop="432dp"
+            android:layout_marginTop="52dp"
             android:clickable="true"
+            android:focusable="true"
             android:text="Create Task"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:textSize="24sp"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@+id/LogOutButton"
+            tools:textSize="24sp" />
 
         <Button
             android:id="@+id/viewTaskButton"
@@ -54,14 +47,14 @@
             android:layout_height="65dp"
             android:layout_marginTop="52dp"
             android:clickable="true"
+            android:focusable="true"
             android:text="View Task"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createTaskButton"
-            tools:textSize="24sp"
-            android:focusable="true" />
+            tools:textSize="24sp" />
 
         <TextView
             android:id="@+id/greeting"
@@ -96,9 +89,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fullNameProfile" />
 
+        <TextView
+            android:id="@+id/emailProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.148"
+            app:layout_constraintStart_toEndOf="@+id/emailTitle"
+            app:layout_constraintTop_toTopOf="@+id/emailTitle" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
