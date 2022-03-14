@@ -14,7 +14,6 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.vladv.questsched.user.User
-import com.vladv.questsched.user.UserTask
 
 class Register : AppCompatActivity() {
     private var editTextFullName: EditText? = null

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_marginTop="16dp"
     android:layout_marginStart="16dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context="com.vladv.questsched.tabs.MyFragmentManager">
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="60dp"

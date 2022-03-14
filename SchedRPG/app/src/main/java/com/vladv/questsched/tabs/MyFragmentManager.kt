@@ -4,16 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.ActivityFragmentManagerBinding
-import com.example.schedrpg.databinding.NavHeaderBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -30,7 +29,9 @@ import com.vladv.questsched.user.User
 
 class MyFragmentManager : AppCompatActivity() {
     private lateinit var binding: ActivityFragmentManagerBinding
-    lateinit var toggle : ActionBarDrawerToggle
+    private lateinit var toggle : ActionBarDrawerToggle
+    private lateinit var authStateListener : FirebaseAuth.AuthStateListener
+    private lateinit var firebaseAuth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +39,15 @@ class MyFragmentManager : AppCompatActivity() {
         val view: View = binding.root
         setContentView(view)
 
-        stopLoading()
+        firebaseAuth = FirebaseAuth.getInstance()
+        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val firebaseUser = firebaseAuth.currentUser
+            if (firebaseUser == null) {
+                val intent = Intent(this, LogIn::class.java)
+                startActivity(intent)
+            }
+        }
 
-
-        startLoading()
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val reference = FirebaseDatabase.getInstance().getReference(User::class.java.simpleName)
         val userID = firebaseUser!!.uid
@@ -52,6 +58,12 @@ class MyFragmentManager : AppCompatActivity() {
                 )
                 stopLoading()
 
+                val userName = findViewById<View>(R.id.nav_user_name) as TextView
+                val mailAddress = findViewById<View>(R.id.nav_mail_adress) as TextView
+
+                userName.text = userProfile!!.fullName
+                mailAddress.text = userProfile!!.email
+
                 supportFragmentManager.beginTransaction().apply {
                     replace(binding.flFragment.id, HomeFragment())
                     commit()
@@ -59,7 +71,7 @@ class MyFragmentManager : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Something went wrong: $error", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Something went wrong when retrieving data: $error", Toast.LENGTH_LONG).show()
                 stopLoading()
             }
         })
@@ -72,10 +84,17 @@ class MyFragmentManager : AppCompatActivity() {
 
     }
 
-
-    fun openDrawer() {
-        binding.drawerLayout.openDrawer(GravityCompat.START)
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth.addAuthStateListener(this.authStateListener)
     }
+
+    override fun onStop() {
+        super.onStop()
+        firebaseAuth.removeAuthStateListener(this.authStateListener)
+    }
+
+
 
     private fun configureDrawer()
     {
@@ -117,12 +136,7 @@ class MyFragmentManager : AppCompatActivity() {
                 }
 
                 R.id.nav_setting -> Toast.makeText(applicationContext,"Clicked Setting",Toast.LENGTH_SHORT).show()
-                R.id.nav_logout -> startActivity(
-                    Intent(
-                        this@MyFragmentManager,
-                        LogIn::class.java
-                    )
-                )
+                R.id.nav_logout -> FirebaseAuth.getInstance().signOut()
 
             }
 

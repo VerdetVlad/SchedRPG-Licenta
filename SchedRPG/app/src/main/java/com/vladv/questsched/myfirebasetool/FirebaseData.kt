@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.vladv.questsched.user.User
 
-class ChangeFirebaseData {
+class FirebaseData {
     private val databaseReference: DatabaseReference
     private val userID: String = FirebaseAuth.getInstance().currentUser!!.uid
     fun updateUserData(userData: User?) {

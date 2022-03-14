@@ -1,21 +1,13 @@
 package com.vladv.questsched.tabs.fragments
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.vladv.questsched.authentification.LogIn
-import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.User
 
 
@@ -31,7 +23,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        activity?.title = "Home";
+        activity?.title = "Home"
 
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         binding.createTaskButton.setOnClickListener {
@@ -50,12 +42,7 @@ class HomeFragment : Fragment() {
             }
         }
         binding.LogOutButton.setOnClickListener {
-            startActivity(
-                Intent(
-                    activity,
-                    LogIn::class.java
-                )
-            )
+            FirebaseAuth.getInstance().signOut()
         }
 
         binding.fullNameProfile.text = User().fullName

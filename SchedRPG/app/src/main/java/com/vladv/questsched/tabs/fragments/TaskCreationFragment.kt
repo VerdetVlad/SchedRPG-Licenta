@@ -8,8 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentTaskCreationBinding
-import com.vladv.questsched.myfirebasetool.ChangeFirebaseData
-import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.myfirebasetool.FirebaseData
 import com.vladv.questsched.user.User
 import com.vladv.questsched.user.UserTask
 
@@ -27,7 +26,7 @@ class TaskCreationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskCreationBinding.inflate(inflater, container, false)
-        activity?.title = "Quest Creation";
+        activity?.title = "Quest Creation"
 
         val stats = arrayOf("Strength","Dexterity", "Constitution", "Wisdom", "Intelligence","Charisma")
         val adapter = ArrayAdapter(
@@ -66,7 +65,7 @@ class TaskCreationFragment : Fragment() {
         }
         val userTask = UserTask(type, difficulty, name, description)
         user.addTask(userTask)
-        val changeFirebaseData = ChangeFirebaseData()
+        val changeFirebaseData = FirebaseData()
         changeFirebaseData.updateUserData(user)
         makeToast("Quest: " + userTask.name + " created succesfully")
         resetFields()

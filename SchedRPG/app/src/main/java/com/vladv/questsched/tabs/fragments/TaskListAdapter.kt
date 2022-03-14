@@ -1,27 +1,25 @@
 package com.vladv.questsched.tabs.fragments
 
 import android.content.Context
-import com.vladv.questsched.user.UserTask
-import android.widget.ArrayAdapter
-import com.example.schedrpg.R
-import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
-import com.vladv.questsched.tabs.fragments.TaskListFragment
-import java.util.ArrayList
+import com.example.schedrpg.R
+import com.vladv.questsched.user.UserTask
 
 class TaskListAdapter(context: Context?, userArrayList: ArrayList<UserTask>?) :
     ArrayAdapter<UserTask?>(
-        context!!, R.layout.task_view_item, userArrayList!! as List<UserTask?>
+        context!!, R.layout.fragment_task_view_item, userArrayList!! as List<UserTask?>
     ) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convtView = convertView
         val userTask = getItem(position)
         if (convtView == null) {
             convtView =
-                LayoutInflater.from(context).inflate(R.layout.task_view_item, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.fragment_task_view_item, parent, false)
         }
         val name = convtView!!.findViewById<TextView>(R.id.taskItemName)
         val difficulty = convtView.findViewById<TextView>(R.id.taskItemDifficulty)

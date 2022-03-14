@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.view.Window
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.schedrpg.databinding.ActivityLoginBinding
@@ -18,8 +16,14 @@ import com.vladv.questsched.tabs.MyFragmentManager
 class LogIn : AppCompatActivity() {
     private var editTextEmail: EditText? = null
     private var editTextPassword: EditText? = null
+
     private var mAuth: FirebaseAuth? = null
+    private lateinit var firebaseAuth : FirebaseAuth
+    private lateinit var authStateListener : FirebaseAuth.AuthStateListener
+
+
     private var binding: ActivityLoginBinding? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +31,17 @@ class LogIn : AppCompatActivity() {
         val view: View = binding!!.root
         setContentView(view)
 
+        firebaseAuth = FirebaseAuth.getInstance()
+        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val firebaseUser = firebaseAuth.currentUser
+            if (firebaseUser != null) {
+                val intent = Intent(this, MyFragmentManager::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
 
-        mAuth = FirebaseAuth.getInstance()
+
         binding!!.createAccount.setOnClickListener {
             startActivity(
                 Intent(
@@ -50,7 +63,19 @@ class LogIn : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth.addAuthStateListener(this.authStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firebaseAuth.removeAuthStateListener(this.authStateListener)
+    }
+
     private fun userLogin() {
+        mAuth = FirebaseAuth.getInstance()
+
         val email = editTextEmail!!.text.toString().trim { it <= ' ' }
         val password = editTextPassword!!.text.toString().trim { it <= ' ' }
         if (email.isEmpty()) {
@@ -74,6 +99,10 @@ class LogIn : AppCompatActivity() {
             return
         }
         binding!!.progressBarContainer.visibility = View.VISIBLE
+
+
+
+
         mAuth!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task: Task<AuthResult?> ->
                 if (task.isSuccessful) {
