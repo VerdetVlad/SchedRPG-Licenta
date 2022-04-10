@@ -8,11 +8,11 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import com.example.schedrpg.R
-import com.vladv.questsched.user.UserTask
+import com.vladv.questsched.user.Quest
 
-class TaskListAdapter(context: Context?, userArrayList: ArrayList<UserTask>?) :
-    ArrayAdapter<UserTask?>(
-        context!!, R.layout.fragment_task_view_item, userArrayList!! as List<UserTask?>
+class TaskListAdapter(context: Context?, userArrayList: ArrayList<Quest>?) :
+    ArrayAdapter<Quest?>(
+        context!!, R.layout.fragment_task_view_item, userArrayList!! as List<Quest?>
     ) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convtView = convertView

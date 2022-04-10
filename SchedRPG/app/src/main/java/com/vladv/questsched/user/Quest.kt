@@ -2,7 +2,7 @@ package com.vladv.questsched.user
 
 import java.util.*
 
-class UserTask {
+class Quest {
     // 0 - STR, 1 - DEX, 2 - CON, 3 - WIS, 4 - INT, 5 - CHA
     private var type = 0
 
@@ -35,7 +35,7 @@ class UserTask {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false
-        val task = other as UserTask
+        val task = other as Quest
         return type == task.type && difficulty == task.difficulty && name == task.name && description == task.description
     }
 

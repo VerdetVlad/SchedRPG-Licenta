@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentTaskViewBinding
 import com.vladv.questsched.myfirebasetool.FirebaseData
 import com.vladv.questsched.user.User
-import com.vladv.questsched.user.UserTask
+import com.vladv.questsched.user.Quest
 
 class TaskListFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class TaskListFragment : Fragment() {
         activity?.title = "Quest List"
 
         val user = User()
-        listAdapter = TaskListAdapter(requireContext(), user.tasks)
+        listAdapter = TaskListAdapter(requireContext(), user.quests)
         listView = binding.listview
         listView!!.adapter = listAdapter
 
@@ -48,8 +48,8 @@ class TaskListFragment : Fragment() {
         @SuppressLint("StaticFieldLeak")
         var context: Context? = null
         var listAdapter: TaskListAdapter? = null
-        fun removeItem(task: UserTask) {
-            user.removeTask(task)
+        fun removeItem(task: Quest) {
+            user.removeQuest(task)
             val changeFirebaseData = FirebaseData()
             changeFirebaseData.updateUserData(user)
             listView!!.adapter = listAdapter

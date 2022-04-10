@@ -32,7 +32,7 @@ class CalendarFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("date",msg)
 
-            val calendarDayFrag = CaldendayDayFragment()
+            val calendarDayFrag = CaldendarDayFragment()
             calendarDayFrag.arguments = bundle
 
 

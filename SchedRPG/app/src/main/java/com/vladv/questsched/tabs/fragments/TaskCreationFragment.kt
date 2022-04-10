@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentTaskCreationBinding
 import com.vladv.questsched.myfirebasetool.FirebaseData
 import com.vladv.questsched.user.User
-import com.vladv.questsched.user.UserTask
+import com.vladv.questsched.user.Quest
 
 
 @Suppress("DEPRECATION")
@@ -63,8 +63,8 @@ class TaskCreationFragment : Fragment() {
             binding.createTaskName.requestFocus()
             return
         }
-        val userTask = UserTask(type, difficulty, name, description)
-        user.addTask(userTask)
+        val userTask = Quest(type, difficulty, name, description)
+        user.addQuest(userTask)
         val changeFirebaseData = FirebaseData()
         changeFirebaseData.updateUserData(user)
         makeToast("Quest: " + userTask.name + " created succesfully")

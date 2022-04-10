@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentCaldendayDayBinding
 
-class CaldendayDayFragment : Fragment() {
+class CaldendarDayFragment : Fragment() {
 
     private var _binding: FragmentCaldendayDayBinding? = null
     private val binding get() = _binding!!
