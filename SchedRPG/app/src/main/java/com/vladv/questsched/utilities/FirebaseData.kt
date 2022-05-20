@@ -1,7 +1,6 @@
-package com.vladv.questsched.myfirebasetool
+package com.vladv.questsched.utilities
 
 import com.google.firebase.database.DatabaseReference
-import com.vladv.questsched.user.Quest
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.vladv.questsched.user.User

@@ -1,6 +1,5 @@
 package com.vladv.questsched.tabs.fragments
 
-import java.util.Vector
 import android.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -9,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentTaskCreationBinding
-import com.vladv.questsched.myfirebasetool.FirebaseData
-import com.vladv.questsched.user.Quest
-import com.vladv.questsched.user.RecurringQuest
+import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.Quest
+import com.vladv.questsched.utilities.Recurrence
 import com.vladv.questsched.user.User
 import java.util.*
 import kotlin.collections.ArrayList
@@ -95,18 +93,7 @@ class TaskCreationFragment : Fragment() {
         editTextDate = binding.editTextDate
         buttonDate = binding.buttonDate
         buttonDate!!.setOnClickListener { buttonSelectDate() }
-        val c = Calendar.getInstance()
-        lastSelectedYear = c[Calendar.YEAR]
-
-        lastSelectedMonth = c[Calendar.MONTH] + 1
-        var lastSelectedMonthString = "" + lastSelectedMonth
-        if(lastSelectedMonth<10) lastSelectedMonthString = "0" + lastSelectedMonthString;
-
-        lastSelectedDayOfMonth = c[Calendar.DAY_OF_MONTH]
-        var lastSelectedDayOfMonthString = "" + lastSelectedMonth
-        if(lastSelectedMonth<10) lastSelectedDayOfMonthString = "0" + lastSelectedDayOfMonthString;
-
-        editTextDate!!.setText(lastSelectedDayOfMonthString + "/" + lastSelectedMonthString + "/" + lastSelectedYear)
+        resetCalendarField()
 
 
 
@@ -127,7 +114,7 @@ class TaskCreationFragment : Fragment() {
         val difficulty = binding.createTaskDifficulty.selectedItemPosition
         val type = binding.createTaskType.selectedItemPosition
         val date = binding.editTextDate.text.toString()
-        val repeatType = binding.createTaskDifficulty.selectedItemPosition
+        val repeatType = binding.repeatSpinner.selectedItemPosition
 
         val checkedWeeks = arrayListOf(
             weekDays[0].isChecked,
@@ -140,7 +127,7 @@ class TaskCreationFragment : Fragment() {
         )
 
 
-        val repeat = RecurringQuest(repeatType,checkedWeeks)
+        val repeat = Recurrence(repeatType,checkedWeeks)
 
         val quest = Quest(name, description,date,repeat,type, difficulty)
         user.addQuest(quest)
@@ -159,6 +146,7 @@ class TaskCreationFragment : Fragment() {
         binding.createTaskName.setText("")
         binding.createTaskDescription.setText("")
         binding.repeatSpinner.setSelection(0)
+        resetCalendarField()
         resetWeekFields()
         binding.createTaskDifficulty.setSelection(0)
         binding.createTaskType.setSelection(0)
@@ -169,6 +157,23 @@ class TaskCreationFragment : Fragment() {
         for(w in weekDays)
             w.isChecked = false
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun resetCalendarField()
+    {
+        val c = Calendar.getInstance()
+        lastSelectedYear = c[Calendar.YEAR]
+
+        lastSelectedMonth = c[Calendar.MONTH] + 1
+        var lastSelectedMonthString = "" + lastSelectedMonth
+        if(lastSelectedMonth<10) lastSelectedMonthString = "0" + lastSelectedMonthString;
+
+        lastSelectedDayOfMonth = c[Calendar.DAY_OF_MONTH]
+        var lastSelectedDayOfMonthString = "" + lastSelectedMonth
+        if(lastSelectedMonth<10) lastSelectedDayOfMonthString = "0" + lastSelectedDayOfMonthString;
+
+        editTextDate!!.setText("$lastSelectedDayOfMonthString/$lastSelectedMonthString/$lastSelectedYear")
     }
 
 

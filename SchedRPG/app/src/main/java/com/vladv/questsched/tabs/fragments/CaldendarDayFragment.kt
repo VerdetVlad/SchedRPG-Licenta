@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentCaldendayDayBinding
-import com.vladv.questsched.myfirebasetool.FirebaseData
-import com.vladv.questsched.user.Quest
+import com.vladv.questsched.utilities.Quest
 import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.MyDate
 
 class CaldendarDayFragment : Fragment() {
 
@@ -29,8 +29,9 @@ class CaldendarDayFragment : Fragment() {
 
         activity?.title = ""
         val bundle = this.arguments
-        val date = bundle!!.getString("date")
-        activity?.title = "Quest from $date"
+        val dateString = bundle!!.getString("date")
+        val date = MyDate(dateString)
+        activity?.title = "Quest from ${date.toStringDate()}"
 
         binding.goBackButton.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -38,9 +39,15 @@ class CaldendarDayFragment : Fragment() {
 
 
         val user = User()
-        val questList = user.quests?.filter{x -> x.initialDate == date}
+        val questList = user.quests?.filter{ quest ->
+            quest.initialDate == date.toStringDate() ||
+            quest.repeat?.recurringFrequency == 1 ||
+            (quest.repeat?.recurringFrequency == 2 && quest.repeat?.recurringDays?.get(date.weekDay!!-1) == true) ||
+            (quest.repeat?.recurringFrequency == 3 && quest.getQuestDay() == date.day)
+
+        }
         val questArray = questList?.let { ArrayList<Quest>(it) }
-        listAdapter = CalendarDayAdapter(requireContext(), questArray, date)
+        listAdapter = CalendarDayAdapter(requireContext(), questArray)
         listView = binding.dayview
         listView!!.adapter = listAdapter
 

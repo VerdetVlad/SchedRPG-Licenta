@@ -1,6 +1,4 @@
-package com.vladv.questsched.user
-
-import java.util.*
+package com.vladv.questsched.utilities
 
 
 class Quest{
@@ -8,7 +6,7 @@ class Quest{
     var name: String?=null
     var description: String?=null
     var initialDate: String?=null
-    var repeat: RecurringQuest?=null
+    var repeat: Recurrence?=null
     var type: Int?=null// 0 - STR, 1 - DEX, 2 - CON, 3 - WIS, 4 - INT, 5 - CHA
     var difficulty: Int?=null// 0 - very easy, 1 - easy, 2 - medium, 3 - hard, 4 - very hard
 
@@ -17,7 +15,7 @@ class Quest{
         name: String?,
         description: String?,
         initialDate: String?,
-        repeat: RecurringQuest?,
+        repeat: Recurrence?,
         type: Int?,
         difficulty: Int?
     ) {
@@ -82,5 +80,11 @@ class Quest{
         result = 31 * result + type!!
         result = 31 * result + difficulty!!
         return result
+    }
+
+    fun getQuestDay(): Int {
+        val delim = "/"
+        val list = initialDate?.split(delim)
+        return list!![0].toInt()
     }
 }

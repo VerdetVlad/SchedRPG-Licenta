@@ -1,5 +1,7 @@
 package com.vladv.questsched.user
 
+import com.vladv.questsched.utilities.Quest
+
 class User {
 
     companion object {

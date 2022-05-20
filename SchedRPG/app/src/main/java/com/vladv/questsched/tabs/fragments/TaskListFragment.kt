@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentTaskViewBinding
-import com.vladv.questsched.myfirebasetool.FirebaseData
+import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.user.User
-import com.vladv.questsched.user.Quest
+import com.vladv.questsched.utilities.Quest
 
 class TaskListFragment : Fragment() {
 

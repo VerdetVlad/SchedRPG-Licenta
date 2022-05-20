@@ -1,6 +1,6 @@
-package com.vladv.questsched.user
+package com.vladv.questsched.utilities
 
-class RecurringQuest{
+class Recurrence{
 
     //0 - dont repeat; 1 - every day; 2 - every week; 3 - every month
     var recurringFrequency:Int? = null
@@ -29,7 +29,7 @@ class RecurringQuest{
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as RecurringQuest
+        other as Recurrence
 
         if (recurringFrequency != other.recurringFrequency) return false
         if (recurringDays != other.recurringDays) return false
