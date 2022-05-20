@@ -55,6 +55,5 @@ class TaskListFragment : Fragment() {
             listView!!.adapter = listAdapter
         }
 
-
     }
 }

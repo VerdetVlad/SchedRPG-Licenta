@@ -10,29 +10,31 @@ import android.widget.TextView
 import com.example.schedrpg.R
 import com.vladv.questsched.user.Quest
 
-class TaskListAdapter(context: Context?, userArrayList: ArrayList<Quest>?) :
+
+class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?, date:String?) :
     ArrayAdapter<Quest?>(
-        context!!, R.layout.fragment_task_view_item, userArrayList!! as List<Quest?>
+        context!!, R.layout.fragment_calendar_day_item, questList!! as List<Quest?>
     ) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+
         var convtView = convertView
-        val userTask = getItem(position)
+        val quest = getItem(position)
         if (convtView == null) {
             convtView =
-                LayoutInflater.from(context).inflate(R.layout.fragment_task_view_item, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.fragment_calendar_day_item, parent, false)
         }
         val name = convtView!!.findViewById<TextView>(R.id.taskItemName)
         val difficulty = convtView.findViewById<TextView>(R.id.taskItemDifficulty)
         val type = convtView.findViewById<TextView>(R.id.taskItemType)
         val description = convtView.findViewById<TextView>(R.id.taskItemDescription)
-        val deleteButton = convtView.findViewById<Button>(R.id.abandonQuestButton)
-        name.text = userTask!!.name
-        difficulty.text = userTask.dificultyStringValue()
-        type.text = userTask.typeStringValue()
-        description.text = userTask.description
-        deleteButton.setOnClickListener {
-            TaskListFragment.removeItem(userTask)
-        }
+        //buttons
+
+
+
+        name.text = quest!!.name
+        difficulty.text = quest.dificultyStringValue()
+        type.text = quest.typeStringValue()
+        description.text = quest.description
         return convtView
     }
 }

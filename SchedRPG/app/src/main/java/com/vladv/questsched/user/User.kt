@@ -29,6 +29,7 @@ class User {
     }
 
     fun addQuest(quest: Quest) {
+        if(quests==null) Companion.quests = ArrayList()
         Companion.quests!!.add(quest)
     }
 

@@ -1,5 +1,6 @@
 package com.vladv.questsched.tabs.fragments
 
+import java.util.Vector
 import android.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -13,8 +14,10 @@ import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentTaskCreationBinding
 import com.vladv.questsched.myfirebasetool.FirebaseData
 import com.vladv.questsched.user.Quest
+import com.vladv.questsched.user.RecurringQuest
 import com.vladv.questsched.user.User
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATION")
@@ -29,6 +32,7 @@ class TaskCreationFragment : Fragment() {
     private var lastSelectedYear = 0
     private var lastSelectedMonth = 0
     private var lastSelectedDayOfMonth = 0
+    private  var weekDays: ArrayList<CheckBox> = ArrayList<CheckBox>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -59,11 +63,27 @@ class TaskCreationFragment : Fragment() {
             R.layout.simple_spinner_dropdown_item,
             repeatOptions)
         binding.repeatSpinner.adapter = adapter3
+
+
+        weekDays.addAll(listOf(
+            binding.monRB,
+            binding.tueRB,
+            binding.wenRB,
+            binding.thrRB,
+            binding.frdRB,
+            binding.satRB,
+            binding.sunRB
+        ))
+
+
         binding.repeatSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
                 val spinChoice = binding.repeatSpinner.selectedItemPosition
                 if(spinChoice==2) binding.creationLinLayout.visibility = View.VISIBLE
-                else binding.creationLinLayout.visibility = View.GONE
+                else {
+                    binding.creationLinLayout.visibility = View.GONE
+                    resetWeekFields()
+                }
             }
             override fun onNothingSelected(adapterView: AdapterView<*>?) {
                 return
@@ -98,20 +118,35 @@ class TaskCreationFragment : Fragment() {
 
     private fun addTaskToFirebase() {
         val name = binding.createTaskName.text.toString().trim { it <= ' ' }
-        val description = binding.createTaskDescription.text.toString().trim { it <= ' ' }
-        val difficulty = binding.createTaskDifficulty.selectedItemPosition
-        val type = binding.createTaskType.selectedItemPosition
-        val date = binding.editTextDate.text.toString()
         if (name.isEmpty()) {
             binding.createTaskName.error = "Name is required."
             binding.createTaskName.requestFocus()
             return
         }
-        val userTask = Quest(name, description, type, difficulty, date)
-        user.addQuest(userTask)
+        val description = binding.createTaskDescription.text.toString().trim { it <= ' ' }
+        val difficulty = binding.createTaskDifficulty.selectedItemPosition
+        val type = binding.createTaskType.selectedItemPosition
+        val date = binding.editTextDate.text.toString()
+        val repeatType = binding.createTaskDifficulty.selectedItemPosition
+
+        val checkedWeeks = arrayListOf(
+            weekDays[0].isChecked,
+            weekDays[1].isChecked,
+            weekDays[2].isChecked,
+            weekDays[3].isChecked,
+            weekDays[4].isChecked,
+            weekDays[5].isChecked,
+            weekDays[6].isChecked
+        )
+
+
+        val repeat = RecurringQuest(repeatType,checkedWeeks)
+
+        val quest = Quest(name, description,date,repeat,type, difficulty)
+        user.addQuest(quest)
         val changeFirebaseData = FirebaseData()
         changeFirebaseData.updateUserData(user)
-        makeToast("Quest: " + userTask.name + " created succesfully")
+        makeToast("Quest: " + quest.name + " created succesfully")
         resetFields()
     }
 
@@ -123,8 +158,17 @@ class TaskCreationFragment : Fragment() {
     {
         binding.createTaskName.setText("")
         binding.createTaskDescription.setText("")
+        binding.repeatSpinner.setSelection(0)
+        resetWeekFields()
         binding.createTaskDifficulty.setSelection(0)
         binding.createTaskType.setSelection(0)
+    }
+
+    private fun resetWeekFields()
+    {
+        for(w in weekDays)
+            w.isChecked = false
+
     }
 
 
