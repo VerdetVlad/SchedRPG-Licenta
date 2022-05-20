@@ -25,14 +25,13 @@ class CaldendarDayFragment : Fragment() {
         activity?.title = ""
 
         val bundle = this.arguments
+        val date = bundle!!.getString("date")
 
-        if (bundle != null) {
 
-            val date = bundle.getString("date")
 
-            binding.dateTextView.text = "Quest from $date"
-            activity?.title = "Quest from $date"
-        }
+        binding.dateTextView.text = "Quest from $date"
+        activity?.title = "Quest from $date"
+
 
 
         binding.goBackButton.setOnClickListener {

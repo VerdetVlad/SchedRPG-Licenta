@@ -1,36 +1,46 @@
 package com.vladv.questsched.user
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class Quest {
     // 0 - STR, 1 - DEX, 2 - CON, 3 - WIS, 4 - INT, 5 - CHA
-    private var type = 0
+    var type = 0
 
     //minutes
     //private int duration;
     // 0 - very easy, 1 - easy, 2 - medium, 3 - hard, 4 - very hard
-    private var difficulty = 0
+    var difficulty = 0
     var name: String? = null
     var description: String? = null
 
+    var initialDate: String? = null
+
     constructor()
+
+
+
     constructor(
+        name: String?, description: String?,
         type: Int,  /*int duration,*/
-        difficulty: Int, name: String?, description: String?
-    ) {
+        difficulty: Int,
+        date:String?)
+    {
+        this.name = name
+        this.description = description
+
+        this.initialDate = date
+
+
         this.type = type
         //this.duration = duration;
         this.difficulty = difficulty
-        this.name = name
-        this.description = description
+
     }
 
-    constructor(type: Int, difficulty: Int, name: String?) {
-        this.type = type
-        this.difficulty = difficulty
-        this.name = name
-        description = ""
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
