@@ -14,6 +14,7 @@ import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.Quest
 import com.vladv.questsched.utilities.Recurrence
 import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.MyDate
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,8 +26,7 @@ class TaskCreationFragment : Fragment() {
     private val binding get() = _binding!!
     private var user = User()
 
-    private var editTextDate: EditText? = null
-    private var buttonDate: Button? = null
+
     private var lastSelectedYear = 0
     private var lastSelectedMonth = 0
     private var lastSelectedDayOfMonth = 0
@@ -55,6 +55,14 @@ class TaskCreationFragment : Fragment() {
             difficulty)
         binding.createTaskDifficulty.adapter = adapter2
 
+
+
+        binding.buttonDate.setOnClickListener { buttonSelectDate(binding.editTextDate) }
+        binding.repeatUntilButton.setOnClickListener { buttonSelectDate(binding.repeatUntileText) }
+        resetCalendarField()
+
+
+
         val repeatOptions = arrayOf("never", "daily", "weekly", "monthly")
         val adapter3 = ArrayAdapter(
             requireContext(),
@@ -77,9 +85,19 @@ class TaskCreationFragment : Fragment() {
         binding.repeatSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
                 val spinChoice = binding.repeatSpinner.selectedItemPosition
-                if(spinChoice==2) binding.creationLinLayout.visibility = View.VISIBLE
+                if(spinChoice!=0) {
+                    if(spinChoice==2) {
+                        binding.creationLinLayout.visibility = View.VISIBLE
+                        binding.repeatConstrLayout.visibility = View.VISIBLE
+                    }
+                    else {
+                        binding.creationLinLayout.visibility = View.GONE
+                        binding.repeatConstrLayout.visibility = View.VISIBLE
+                    }
+                }
                 else {
                     binding.creationLinLayout.visibility = View.GONE
+                    binding.repeatConstrLayout.visibility = View.GONE
                     resetWeekFields()
                 }
             }
@@ -89,12 +107,17 @@ class TaskCreationFragment : Fragment() {
         }
 
 
-
-        editTextDate = binding.editTextDate
-        buttonDate = binding.buttonDate
-        buttonDate!!.setOnClickListener { buttonSelectDate() }
-        resetCalendarField()
-
+        binding.repeatCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked)
+            {
+                binding.repeatUntileText.visibility = View.GONE
+                binding.repeatUntilButton.visibility = View.GONE
+            }
+            else {
+                binding.repeatUntileText.visibility = View.VISIBLE
+                binding.repeatUntilButton.visibility = View.VISIBLE
+            }
+        }
 
 
         binding.createTaskSubmit.setOnClickListener { addTaskToFirebase() }
@@ -115,6 +138,8 @@ class TaskCreationFragment : Fragment() {
         val type = binding.createTaskType.selectedItemPosition
         val date = binding.editTextDate.text.toString()
         val repeatType = binding.repeatSpinner.selectedItemPosition
+        val repeatUntil = binding.repeatUntileText.text.toString()
+        val repeatForeverCheck = binding.repeatCheckBox.isChecked
 
         val checkedWeeks = arrayListOf(
             weekDays[0].isChecked,
@@ -126,8 +151,13 @@ class TaskCreationFragment : Fragment() {
             weekDays[6].isChecked
         )
 
+        val untilDate = when {
+            repeatType == 0 -> MyDate(date)
+            repeatForeverCheck -> MyDate("12 12 9999")
+            else -> MyDate(repeatUntil)
+        }
 
-        val repeat = Recurrence(repeatType,checkedWeeks)
+        val repeat = Recurrence(repeatType,checkedWeeks, untilDate)
 
         val quest = Quest(name, description,date,repeat,type, difficulty)
         user.addQuest(quest)
@@ -148,6 +178,8 @@ class TaskCreationFragment : Fragment() {
         binding.repeatSpinner.setSelection(0)
         resetCalendarField()
         resetWeekFields()
+        binding.repeatUntileText.setText("")
+        binding.repeatCheckBox.isChecked = false
         binding.createTaskDifficulty.setSelection(0)
         binding.createTaskType.setSelection(0)
     }
@@ -164,26 +196,20 @@ class TaskCreationFragment : Fragment() {
     {
         val c = Calendar.getInstance()
         lastSelectedYear = c[Calendar.YEAR]
-
-        lastSelectedMonth = c[Calendar.MONTH] + 1
-        var lastSelectedMonthString = "" + lastSelectedMonth
-        if(lastSelectedMonth<10) lastSelectedMonthString = "0" + lastSelectedMonthString;
-
+        lastSelectedMonth = c[Calendar.MONTH]
         lastSelectedDayOfMonth = c[Calendar.DAY_OF_MONTH]
-        var lastSelectedDayOfMonthString = "" + lastSelectedMonth
-        if(lastSelectedMonth<10) lastSelectedDayOfMonthString = "0" + lastSelectedDayOfMonthString;
 
-        editTextDate!!.setText("$lastSelectedDayOfMonthString/$lastSelectedMonthString/$lastSelectedYear")
+        binding.editTextDate.setText(myDateFormat(lastSelectedDayOfMonth,lastSelectedMonth,lastSelectedYear))
     }
 
 
     @SuppressLint("SetTextI18n")
-    private fun buttonSelectDate() {
+    private fun buttonSelectDate(editText: EditText) {
 
         // Date Select Listener.
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                editTextDate!!.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
+                editText.setText(myDateFormat(dayOfMonth,monthOfYear,year))
                 lastSelectedYear = year
                 lastSelectedMonth = monthOfYear
                 lastSelectedDayOfMonth = dayOfMonth
@@ -201,4 +227,16 @@ class TaskCreationFragment : Fragment() {
         datePickerDialog.show()
     }
 
+
+    private fun myDateFormat(day:Int,month:Int,year:Int) : String
+    {
+        var d = day.toString()
+        var m = (month+1).toString()
+        val y = year.toString()
+
+        if((month+1)<10) m = "0" + m;
+        if(day<10) d = "0" + d;
+
+        return "$d/$m/$y"
+    }
 }

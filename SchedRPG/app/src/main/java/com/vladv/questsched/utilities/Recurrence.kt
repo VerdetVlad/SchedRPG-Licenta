@@ -5,11 +5,14 @@ class Recurrence{
     //0 - dont repeat; 1 - every day; 2 - every week; 3 - every month
     var recurringFrequency:Int? = null
     var recurringDays:ArrayList<Boolean>? = null
+    var untilDate:MyDate? = null
 
     constructor()
-    constructor(recurringFrequency: Int?, recurringDays: ArrayList<Boolean>?) {
+
+    constructor(recurringFrequency: Int?, recurringDays: ArrayList<Boolean>?, untilDate: MyDate?) {
         this.recurringFrequency = recurringFrequency
         this.recurringDays = recurringDays
+        this.untilDate = untilDate
     }
 
 

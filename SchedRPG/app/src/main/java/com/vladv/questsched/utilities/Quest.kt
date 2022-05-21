@@ -1,11 +1,13 @@
 package com.vladv.questsched.utilities
 
+import java.util.*
+
 
 class Quest{
 
     var name: String?=null
     var description: String?=null
-    var initialDate: String?=null
+    var initialDate: MyDate?=null
     var repeat: Recurrence?=null
     var type: Int?=null// 0 - STR, 1 - DEX, 2 - CON, 3 - WIS, 4 - INT, 5 - CHA
     var difficulty: Int?=null// 0 - very easy, 1 - easy, 2 - medium, 3 - hard, 4 - very hard
@@ -21,7 +23,7 @@ class Quest{
     ) {
         this.name = name
         this.description = description
-        this.initialDate = initialDate
+        this.initialDate = MyDate(initialDate)
         this.repeat = repeat
         this.type = type
         this.difficulty = difficulty
@@ -82,9 +84,24 @@ class Quest{
         return result
     }
 
-    fun getQuestDay(): Int {
-        val delim = "/"
-        val list = initialDate?.split(delim)
-        return list!![0].toInt()
+    private fun getQuestDay(): Int {
+        return initialDate?.day!!
     }
+
+    fun validDate(date:MyDate):Boolean
+    {
+
+        val currentDate:Calendar = Calendar.getInstance()
+
+        if(!date.compareDates(MyDate(currentDate))) return false
+        if(!date.compareDates(initialDate!!)) return false
+        if(this.repeat?.untilDate?.compareDates(date) == false) return false
+        return  this.initialDate == date ||
+                this.repeat?.recurringFrequency == 1 ||
+                (this.repeat?.recurringFrequency == 2 && this.repeat?.recurringDays?.get(date.weekDay!!-1) == true) ||
+                (this.repeat?.recurringFrequency == 3 && this.getQuestDay() == date.day)
+    }
+
+
+
 }

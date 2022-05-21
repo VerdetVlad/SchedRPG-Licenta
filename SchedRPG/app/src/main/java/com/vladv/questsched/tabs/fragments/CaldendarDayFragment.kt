@@ -40,11 +40,7 @@ class CaldendarDayFragment : Fragment() {
 
         val user = User()
         val questList = user.quests?.filter{ quest ->
-            quest.initialDate == date.toStringDate() ||
-            quest.repeat?.recurringFrequency == 1 ||
-            (quest.repeat?.recurringFrequency == 2 && quest.repeat?.recurringDays?.get(date.weekDay!!-1) == true) ||
-            (quest.repeat?.recurringFrequency == 3 && quest.getQuestDay() == date.day)
-
+            quest.validDate(date)
         }
         val questArray = questList?.let { ArrayList<Quest>(it) }
         listAdapter = CalendarDayAdapter(requireContext(), questArray)

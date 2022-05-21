@@ -1,157 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/creationConstrLayout"
+    android:id="@+id/creationSclrLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.vladv.questsched.tabs.fragments.TaskCreationFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/creationConstrLayout">
 
-    <EditText
-        android:id="@+id/createTaskDescription"
-        android:layout_width="310dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="task descrption (optional)"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskName"
-        tools:ignore="HardcodedText,LabelFor" />
+        <EditText
+            android:id="@+id/createTaskName"
+            android:layout_width="310dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:hint="task name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,LabelFor" />
 
-    <EditText
-        android:id="@+id/createTaskName"
-        android:layout_width="310dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="task name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText,LabelFor" />
+        <EditText
+            android:id="@+id/createTaskDescription"
+            android:layout_width="310dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:hint="task descrption (optional)"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createTaskName"
+            tools:ignore="HardcodedText,LabelFor" />
 
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="180dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskDescription"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.192"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createTaskDescription"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
-    <Button
-        android:id="@+id/buttonDate"
-        android:layout_width="108dp"
-        android:layout_height="58dp"
-        android:layout_marginEnd="40dp"
-        android:text="Select Date"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextDate" />
+        <Button
+            android:id="@+id/buttonDate"
+            android:layout_width="108dp"
+            android:layout_height="58dp"
+            android:layout_marginEnd="40dp"
+            android:text="Select Date"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editTextDate" />
 
-    <Button
-        android:id="@+id/createTaskSubmit"
-        android:layout_width="232dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="40dp"
-        android:text="Create"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creationDifficultyText" />
+        <TextView
+            android:id="@+id/repeatText"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:gravity="start|center_vertical"
+            android:text="Repeat"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/repeatSpinner"
+            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
-    <LinearLayout
-        android:id="@+id/creationLinLayout"
-        android:layout_width="338dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeatText">
+        <Spinner
+            android:id="@+id/repeatSpinner"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="40dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="@+id/repeatText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/repeatText"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-        <CheckBox
-            android:id="@+id/monRB"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/creationLinLayout"
+            android:layout_width="333dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="M" />
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeatText">
 
-        <CheckBox
-            android:id="@+id/tueRB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="T" />
+            <CheckBox
+                android:id="@+id/monRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableBottom="@android:drawable/btn_radio"
+                android:gravity="center"
+                android:text="M" />
 
-        <CheckBox
-            android:id="@+id/wenRB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="W" />
+            <CheckBox
+                android:id="@+id/tueRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableBottom="@android:drawable/btn_radio"
+                android:gravity="center"
+                android:text="T" />
 
-        <CheckBox
-            android:id="@+id/thrRB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="T" />
+            <CheckBox
+                android:id="@+id/wenRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableBottom="@android:drawable/btn_radio"
+                android:gravity="center"
+                android:text="W" />
 
-        <CheckBox
-            android:id="@+id/frdRB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="F" />
+            <CheckBox
+                android:id="@+id/thrRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableBottom="@android:drawable/btn_radio"
+                android:gravity="center"
+                android:text="T" />
 
-        <CheckBox
-            android:id="@+id/satRB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="S" />
+            <CheckBox
+                android:id="@+id/frdRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableBottom="@android:drawable/btn_radio"
+                android:gravity="center"
+                android:text="F" />
 
-        <CheckBox
-            android:id="@+id/sunRB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="S"
-            android:textColor="@color/green" /><![CDATA[/>
+            <CheckBox
+                android:id="@+id/satRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableBottom="@android:drawable/btn_radio"
+                android:gravity="center"
+                android:text="S" />
+
+            <CheckBox
+                android:id="@+id/sunRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableBottom="@android:drawable/btn_radio"
+                android:gravity="center"
+                android:text="S"
+                android:textColor="@color/green" /><![CDATA[/>
 
 
 
@@ -164,87 +185,118 @@
 
 
         ]]>
-    </LinearLayout>
+        </LinearLayout>
 
-    <Spinner
-        android:id="@+id/createTaskDifficulty"
-        android:layout_width="170dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="40dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/creationDifficultyText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/creationDifficultyText"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/repeatConstrLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/creationLinLayout">
 
-    <Spinner
-        android:id="@+id/createTaskType"
-        android:layout_width="170dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="40dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/creationTypeText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/creationTypeText"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SpeakableTextPresentCheck" />
+            <CheckBox
+                android:id="@+id/repeatCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Repeat Forever"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.154"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repeatUntileText"
+                app:layout_constraintVertical_bias="0.333" />
 
-    <Spinner
-        android:id="@+id/repeatSpinner"
-        android:layout_width="170dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="40dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/repeatText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/repeatText"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="SpeakableTextPresentCheck" />
+            <EditText
+                android:id="@+id/repeatUntileText"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:hint="Repeat Until"
+                android:inputType="date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.192"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/repeatText"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:gravity="start|center_vertical"
-        android:text="Repeat"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/repeatSpinner"
-        app:layout_constraintHorizontal_bias="0.025"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+            <Button
+                android:id="@+id/repeatUntilButton"
+                android:layout_width="108dp"
+                android:layout_height="58dp"
+                android:layout_marginEnd="40dp"
+                android:text="Select Date"
+                app:layout_constraintBottom_toBottomOf="@+id/repeatUntileText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/repeatUntileText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/creationTypeText"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:gravity="start|center_vertical"
-        android:text="Type"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/createTaskType"
-        app:layout_constraintHorizontal_bias="0.023"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creationLinLayout" />
+        <TextView
+            android:id="@+id/creationTypeText"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:gravity="start|center_vertical"
+            android:text="Type"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/createTaskType"
+            app:layout_constraintHorizontal_bias="0.023"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeatConstrLayout" />
 
-    <TextView
-        android:id="@+id/creationDifficultyText"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:gravity="start|center_vertical"
-        android:text="Difficulty"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/createTaskDifficulty"
-        app:layout_constraintHorizontal_bias="0.023"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creationTypeText" />
+        <Spinner
+            android:id="@+id/createTaskType"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="40dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="@+id/creationTypeText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/creationTypeText"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/creationDifficultyText"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:gravity="start|center_vertical"
+            android:text="Difficulty"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/createTaskDifficulty"
+            app:layout_constraintHorizontal_bias="0.023"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/creationTypeText" />
+
+        <Spinner
+            android:id="@+id/createTaskDifficulty"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="40dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="@+id/creationDifficultyText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/creationDifficultyText"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/createTaskSubmit"
+            android:layout_width="232dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="40dp"
+            android:text="Create"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/creationDifficultyText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+

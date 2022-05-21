@@ -1,11 +1,15 @@
 package com.vladv.questsched.utilities
 
+import java.util.*
+
 class MyDate{
 
     var weekDay: Int? = null
     var day: Int? = null
     var month: Int? = null
     var year: Int? = null
+
+    constructor()
 
     constructor(weekDay: Int?, day: Int?, month: Int?, year: Int?) {
         this.weekDay = weekDay
@@ -19,7 +23,7 @@ class MyDate{
     {
         this.weekDay = weekDayToInt(weekDay)
         this.day = day!!.toInt()
-        this.month = mounthToInt(month)
+        this.month = monthToInt(month)
         this.year = year!!.toInt()
     }
 
@@ -29,20 +33,36 @@ class MyDate{
         val delimiter2 = " "
         val delimiter3 = ","
         val words = str!!.split(delimiter1, delimiter3, delimiter2, ignoreCase = true)
-        if(words.size == 3) {
-            this.weekDay = 0
-            this.day = words[0].toInt()
-            this.month = words[1].toInt()
-            this.year = words[2].toInt()
-        }
-        else {
-            this.weekDay = words[0].toInt()
-            this.day = words[1].toInt()
-            this.month = words[2].toInt()
-            this.year = words[3].toInt()
+        when (words.size) {
+            3 -> {
+                this.weekDay = 0
+                this.day = words[0].toInt()
+                this.month = words[1].toInt()
+                this.year = words[2].toInt()
+            }
+            6 -> {
+                this.weekDay = words[0].toInt()
+                this.day = words[2].toInt()
+                this.month = words[1].toInt()
+                this.year = words[5].toInt()
+            }
+            else -> {
+                this.weekDay = words[0].toInt()
+                this.day = words[1].toInt()
+                this.month = words[2].toInt()
+                this.year = words[3].toInt()
+            }
         }
     }
 
+    constructor(c:Calendar)
+    {
+        weekDay = myDayOfWeek(c[Calendar.DAY_OF_WEEK])
+        year = c[Calendar.YEAR]
+        month = c[Calendar.MONTH] + 1
+        day = c[Calendar.DAY_OF_MONTH]
+
+    }
 
     override fun toString(): String {
         return "$weekDay $day $month $year"
@@ -63,7 +83,6 @@ class MyDate{
 
         other as MyDate
 
-        if (weekDay != other.weekDay) return false
         if (day != other.day) return false
         if (month != other.month) return false
         if (year != other.year) return false
@@ -79,7 +98,7 @@ class MyDate{
         return result
     }
 
-    fun weekDayToInt(weekDay: String?): Int {
+    private fun weekDayToInt(weekDay: String?): Int {
         return when (weekDay) {
             "Mon" -> 1
             "Tue" -> 2
@@ -92,7 +111,7 @@ class MyDate{
         }
     }
 
-    fun mounthToInt(weekDay: String?): Int {
+    private fun monthToInt(weekDay: String?): Int {
         return when (weekDay) {
             "Jan" -> 1
             "Feb" -> 2
@@ -110,8 +129,38 @@ class MyDate{
         }
     }
 
+    //true if this>= other
+    fun compareDates( other:MyDate):Boolean
+    {
+        if(this == other) return true
+        return when {
+            this.year!! > other.year!! -> true
+            this.year!! < other.year!! -> false
+            else -> {
+                when {
+                    this.month!! > other.month!! -> true
+                    this.month!! < other.month!! -> false
+                    else -> {
+                        this.day!! >= other.day!!
+                    }
+                }
+
+            }
+        }
+    }
+
+
+    fun increaseDayByOne() {
+        day = day?.plus(1)
+        if(weekDay==7) weekDay = 1
+        else weekDay = weekDay?.plus(1)
+    }
 
 
 
-
+    private fun myDayOfWeek(dayOfWeek:Int) :Int
+    {
+        return if(dayOfWeek == 1) 7
+        else (dayOfWeek - 1)
+    }
 }
