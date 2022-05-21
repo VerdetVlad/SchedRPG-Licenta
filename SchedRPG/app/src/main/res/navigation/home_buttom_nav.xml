@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_buttom_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.vladv.questsched.tabs.fragments.home.HomeQuestsFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home_quests" />
+    <fragment
+        android:id="@+id/homeStatsFragment"
+        android:name="com.vladv.questsched.tabs.fragments.home.HomeStatsFragment"
+        android:label="fragment_home_stats"
+        tools:layout="@layout/fragment_home_stats" />
+</navigation>

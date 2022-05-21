@@ -20,10 +20,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vladv.questsched.authentification.LogIn
-import com.vladv.questsched.tabs.fragments.CalendarFragment
-import com.vladv.questsched.tabs.fragments.HomeFragment
+import com.vladv.questsched.tabs.fragments.calendar.CalendarFragment
 import com.vladv.questsched.tabs.fragments.TaskCreationFragment
-import com.vladv.questsched.tabs.fragments.TaskListFragment
+import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
+import com.vladv.questsched.tabs.fragments.questlistview.TaskListFragment
 import com.vladv.questsched.user.User
 
 
@@ -65,7 +65,7 @@ class MyFragmentManager : AppCompatActivity() {
                 mailAddress.text = userProfile!!.email
 
                 supportFragmentManager.beginTransaction().apply {
-                    replace(binding.flFragment.id, HomeFragment())
+                    replace(binding.flFragment.id, HomeNavFragment())
                     commit()
                 }
             }
@@ -109,7 +109,7 @@ class MyFragmentManager : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.nav_home -> supportFragmentManager.beginTransaction().apply {
-                    replace(binding.flFragment.id, HomeFragment())
+                    replace(binding.flFragment.id, HomeNavFragment())
                     addToBackStack("")
                     commit()
                     drawerLayout.closeDrawers()
@@ -148,7 +148,7 @@ class MyFragmentManager : AppCompatActivity() {
         val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         val actionbar: ActionBar = supportActionBar!!
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_display_drawer)
+        actionbar.setHomeAsUpIndicator(R.drawable.sidenav_display_drawer)
         actionbar.setDisplayHomeAsUpEnabled(true)
     }
 

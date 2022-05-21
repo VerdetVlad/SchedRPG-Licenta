@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments
+package com.vladv.questsched.tabs.fragments.questlistview
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ class TaskListAdapter(context: Context?, userArrayList: ArrayList<Quest>?) :
     ) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convtView = convertView
-        val userTask = getItem(position)
+        val quest = getItem(position)
         if (convtView == null) {
             convtView =
                 LayoutInflater.from(context).inflate(R.layout.fragment_task_view_item, parent, false)
@@ -26,12 +26,12 @@ class TaskListAdapter(context: Context?, userArrayList: ArrayList<Quest>?) :
         val type = convtView.findViewById<TextView>(R.id.taskItemType)
         val description = convtView.findViewById<TextView>(R.id.taskItemDescription)
         val deleteButton = convtView.findViewById<Button>(R.id.abandonQuestButton)
-        name.text = userTask!!.name
-        difficulty.text = userTask.dificultyStringValue()
-        type.text = userTask.typeStringValue()
-        description.text = userTask.description
+        name.text = quest!!.name
+        difficulty.text = quest.dificultyStringValue()
+        type.text = quest.typeStringValue()
+        description.text = quest.description
         deleteButton.setOnClickListener {
-            TaskListFragment.removeItem(userTask)
+            TaskListFragment.removeItem(quest)
         }
         return convtView
     }

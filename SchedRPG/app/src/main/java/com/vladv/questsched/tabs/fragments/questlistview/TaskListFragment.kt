@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments
+package com.vladv.questsched.tabs.fragments.questlistview
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp">
 
         <LinearLayout
+            android:id="@+id/questItemDayLinLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#40088AEE"
+            android:background="#65F68508"
             android:orientation="vertical">
 
             <LinearLayout
@@ -23,7 +21,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="295dp"
+                    android:layout_width="270dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:orientation="vertical">
@@ -47,18 +45,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Stat"
-                            tools:textSize="18sp"
-                            tools:textStyle="bold" />
+                            android:text="Stat"/>
 
                         <TextView
                             android:id="@+id/taskItemDifficulty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Difficulty"
-                            tools:textSize="18sp"
-                            tools:textStyle="bold" />
+                            android:text="Difficulty"/>
 
                     </LinearLayout>
 
@@ -71,12 +65,29 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/abandonQuestButton"
-                    android:layout_width="71dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="#BC1C1C"
-                    android:text="X" />
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/finishQuestButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5"
+                        android:backgroundTint="#3FBC1C"
+                        android:text="✓"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:id="@+id/abandonQuestButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5"
+                        android:backgroundTint="#BC1C1C"
+                        android:text="X" />
+
+                </LinearLayout>
 
 
             </LinearLayout>

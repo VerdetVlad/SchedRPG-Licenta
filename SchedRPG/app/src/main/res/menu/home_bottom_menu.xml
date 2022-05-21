@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_nav_quest_menu"
+        android:title="Quests"
+        android:icon="@drawable/home_today_quests"/>
+
+    <item
+        android:id="@+id/home_nav_stats_menu"
+        android:title="Character"
+        android:icon="@drawable/home_char_stats"/>
+</menu>

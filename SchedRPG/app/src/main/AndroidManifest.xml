@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SchedRPG">
         <activity
-            android:name="com.vladv.questsched.tabs.fragments.CaldendarDayFragment"
+            android:name="com.vladv.questsched.tabs.fragments.calendar.CaldendarDayFragment"
             android:exported="false" />
         <!-- <activity -->
         <!-- android:name="com.vladv.questsched.tabs.MyFragmentManager" -->

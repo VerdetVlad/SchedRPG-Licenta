@@ -5,27 +5,27 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/sidenav_home"
         android:title="Home"/>
 
     <item
         android:id="@+id/nav_new_quest"
-        android:icon="@drawable/ic_new_quest"
+        android:icon="@drawable/sidenav_new_quest"
         android:title="New Quest"/>
 
     <item
         android:id="@+id/nav_quest_list"
-        android:icon="@drawable/ic_quest_list"
+        android:icon="@drawable/sidenav_quest_list"
         android:title="Quest List"/>
 
     <item
         android:id="@+id/nav_calendar"
-        android:icon="@drawable/ic_calendar"
+        android:icon="@drawable/sidenav_calendar"
         android:title="Calendar"/>
 
     <item
         android:id="@+id/nav_setting"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/sidenav_settings"
         android:title="Settings"/>
 
 
@@ -37,7 +37,7 @@
 
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_close"
+                android:icon="@drawable/sidenav_logout"
                 android:title="Logout"/>
 
         </menu>

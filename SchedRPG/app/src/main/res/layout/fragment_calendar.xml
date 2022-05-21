@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vladv.questsched.tabs.fragments.CalendarFragment">
+    tools:context="com.vladv.questsched.tabs.fragments.calendar.CalendarFragment">
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"

@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments
+package com.vladv.questsched.tabs.fragments.calendar
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -32,10 +32,7 @@ class CaldendarDayFragment : Fragment() {
         val dateString = bundle!!.getString("date")
         val date = MyDate(dateString)
         activity?.title = "Quest from ${date.toStringDate()}"
-
-        binding.goBackButton.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
+        
 
 
         val user = User()

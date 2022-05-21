@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="20dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="1dp">
 
         <LinearLayout
+            android:id="@+id/questItemDayLinLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#65F68508"
             android:orientation="vertical">
 
             <LinearLayout
@@ -47,18 +48,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Stat"
-                            tools:textSize="18sp"
-                            tools:textStyle="bold" />
+                            android:text="Stat" />
 
                         <TextView
                             android:id="@+id/taskItemDifficulty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Difficulty"
-                            tools:textSize="18sp"
-                            tools:textStyle="bold" />
+                            android:text="Difficulty" />
 
                     </LinearLayout>
 
@@ -74,8 +71,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    tools:layout_marginEnd="20dp">
+                    android:orientation="vertical">
 
                     <Button
                         android:id="@+id/finishQuestButton"

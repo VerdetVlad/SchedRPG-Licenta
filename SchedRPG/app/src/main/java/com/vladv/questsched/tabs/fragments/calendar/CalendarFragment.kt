@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments
+package com.vladv.questsched.tabs.fragments.calendar
 
 
 import android.graphics.Color
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.applandeo.materialcalendarview.EventDay
-import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentCalendarBinding
 import com.vladv.questsched.user.User
@@ -87,7 +86,7 @@ class CalendarFragment : Fragment() {
             for(quest in User().quests!!) {
                 if(quest.validDate(auxDate)) {
                     val newTime = calendar.clone() as Calendar
-                    events.add(EventDay(newTime, R.drawable.ic_event_notification,Color.parseColor("#0EAB08")))
+                    events.add(EventDay(newTime, R.drawable.calendar_event_notification,Color.parseColor("#0EAB08")))
                     break
                 }
             }
