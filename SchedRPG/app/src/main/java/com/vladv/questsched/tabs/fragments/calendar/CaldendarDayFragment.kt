@@ -35,8 +35,8 @@ class CaldendarDayFragment : Fragment() {
         
 
 
-        val user = User()
-        val questList = user.quests?.filter{ quest ->
+        if(User().quests.isNullOrEmpty()) return binding.root
+        val questList = User().quests?.filter{ quest ->
             quest.validDate(date)
         }
         val questArray = questList?.let { ArrayList<Quest>(it) }

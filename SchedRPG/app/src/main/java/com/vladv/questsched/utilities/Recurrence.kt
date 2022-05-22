@@ -36,6 +36,7 @@ class Recurrence{
 
         if (recurringFrequency != other.recurringFrequency) return false
         if (recurringDays != other.recurringDays) return false
+        if (untilDate != other.untilDate) return false
 
         return true
     }

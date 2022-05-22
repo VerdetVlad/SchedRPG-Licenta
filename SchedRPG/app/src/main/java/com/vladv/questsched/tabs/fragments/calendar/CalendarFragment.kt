@@ -73,6 +73,8 @@ class CalendarFragment : Fragment() {
 
     private fun setCalendarEvents(){
 
+        if(User().quests.isNullOrEmpty()) return
+
         val lastMonthDay = calendar.getActualMaximum(Calendar.DATE)
         val startMonthDay = calendar.get(Calendar.DAY_OF_MONTH)
         val auxDate = MyDate(

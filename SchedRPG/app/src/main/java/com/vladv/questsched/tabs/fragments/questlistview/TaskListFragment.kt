@@ -26,8 +26,8 @@ class TaskListFragment : Fragment() {
         _binding = FragmentTaskViewBinding.inflate(inflater, container, false)
         activity?.title = "Quest List"
 
-        val user = User()
-        listAdapter = TaskListAdapter(requireContext(), user.quests)
+        if(User().quests.isNullOrEmpty()) return binding.root
+        listAdapter = TaskListAdapter(requireContext(), User().quests)
         listView = binding.listview
         listView!!.adapter = listAdapter
 

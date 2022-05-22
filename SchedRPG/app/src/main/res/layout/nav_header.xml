@@ -4,26 +4,26 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_marginTop="16dp"
-    android:layout_marginStart="16dp"
+    android:layout_marginTop="16sp"
+    android:layout_marginStart="16sp"
     android:background="@color/white"
     tools:context="com.vladv.questsched.tabs.MyFragmentManager">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/avatar"/>
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        android:src="@drawable/avatar_face1" />
 
     <TextView
+        android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nav_user_name"
-        android:paddingTop="8dp"
-        android:textSize="20dp"
+        android:paddingTop="8sp"
         android:text="Test User"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/nav_mail_adress"
@@ -34,8 +34,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="1sp"
+        android:layout_marginTop="30sp"
         android:background="@color/teal_200"/>
 
 

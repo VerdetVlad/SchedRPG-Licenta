@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.R
-import com.example.schedrpg.databinding.FragmentCaldendayDayBinding
 import com.example.schedrpg.databinding.FragmentHomeQuestsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.vladv.questsched.tabs.fragments.TaskCreationFragment
@@ -48,10 +48,16 @@ class HomeQuestsFragment : Fragment() {
             quest.validDate(date)
         }
         val questArray = questList?.let { ArrayList<Quest>(it) }
-        listAdapter = HomeQuestsAdapter(requireContext(), questArray)
-        listView = binding.questListView
-        listView!!.adapter = listAdapter
-
+        if(!questArray.isNullOrEmpty()) {
+            binding.noQuestTextView.isVisible = false
+            listAdapter = HomeQuestsAdapter(requireContext(), questArray)
+            listView = binding.questListView
+            listView!!.adapter = listAdapter
+        }
+        else
+        {
+            binding.noQuestTextView.isVisible = true
+        }
 
 
         return binding.root

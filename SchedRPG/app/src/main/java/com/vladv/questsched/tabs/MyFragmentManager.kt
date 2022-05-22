@@ -58,7 +58,7 @@ class MyFragmentManager : AppCompatActivity() {
                 )
                 stopLoading()
 
-                val userName = findViewById<View>(R.id.nav_user_name) as TextView
+                val userName = findViewById<View>(R.id.user_name) as TextView
                 val mailAddress = findViewById<View>(R.id.nav_mail_adress) as TextView
 
                 userName.text = userProfile!!.fullName

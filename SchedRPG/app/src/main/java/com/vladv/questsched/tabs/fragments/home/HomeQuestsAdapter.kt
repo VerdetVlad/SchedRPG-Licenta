@@ -12,6 +12,8 @@ import android.widget.TextView
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentCaldendayDayBinding
 import com.example.schedrpg.databinding.FragmentCalendarDayItemBinding
+import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.utilities.Quest
 import com.vladv.questsched.utilities.Recurrence
@@ -44,9 +46,13 @@ class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
 
         buttonFinish.setOnClickListener{
             layout.background.setTint(Color.GREEN)
+            User().completeQuest(quest)
+            FirebaseData().updateUserData(User())
         }
         buttonAbandon.setOnClickListener{
             layout.background.setTint(Color.RED)
+            User().abandonQuest(quest)
+            FirebaseData().updateUserData(User())
         }
 
         return convtView

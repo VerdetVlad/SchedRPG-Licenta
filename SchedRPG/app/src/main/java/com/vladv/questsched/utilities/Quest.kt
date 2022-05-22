@@ -102,6 +102,14 @@ class Quest{
                 (this.repeat?.recurringFrequency == 3 && this.getQuestDay() == date.day)
     }
 
+    fun questXpReward():Int
+    {
+        return 10*(difficulty!!+1)
+    }
 
+    fun questXpLoss():Int
+    {
+        return -5*(difficulty!!+1)
+    }
 
 }

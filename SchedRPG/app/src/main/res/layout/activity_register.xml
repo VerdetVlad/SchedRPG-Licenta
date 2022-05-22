@@ -19,9 +19,9 @@
 
     <Button
         android:id="@+id/buttonRegister"
-        android:layout_width="380dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="380sp"
+        android:layout_height="70sp"
+        android:layout_marginTop="20sp"
         android:text="@string/register"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,9 +31,9 @@
 
     <EditText
         android:id="@+id/passwordReg"
-        android:layout_width="340dp"
+        android:layout_width="340sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="30sp"
         android:autofillHints=""
         android:ems="10"
         android:hint="Password"
@@ -45,9 +45,9 @@
 
     <EditText
         android:id="@+id/emailReg"
-        android:layout_width="340dp"
+        android:layout_width="340sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="30sp"
         android:autofillHints=""
         android:ems="10"
         android:hint="Email Address"
@@ -59,9 +59,9 @@
 
     <EditText
         android:id="@+id/fullName"
-        android:layout_width="340dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="340sp"
+        android:layout_height="73sp"
+        android:layout_marginTop="50sp"
         android:autofillHints=""
         android:ems="10"
         android:hint="Full Name"
@@ -74,7 +74,7 @@
         android:id="@+id/appNameReg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="60sp"
         android:fontFamily="sans-serif-black"
         android:text="@string/schedulerrpg"
         android:textAlignment="center"
