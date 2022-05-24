@@ -22,6 +22,8 @@ class HomeStatsFragment : Fragment() {
     ): View {
         _binding = FragmentHomeStatsBinding.inflate(inflater, container, false)
 
+        activity?.title = "Character screen"
+
         val progressXP = User().stats?.currXP?.times(100)?.div(User().stats!!.maxXP!!)
         val stats:ArrayList<Int> = User().stats?.stats!!
         binding.userName.text = User().fullName + " LvL." + User().stats?.level

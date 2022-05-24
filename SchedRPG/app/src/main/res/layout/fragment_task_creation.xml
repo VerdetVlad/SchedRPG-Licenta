@@ -17,12 +17,13 @@
             android:id="@+id/createTaskName"
             android:layout_width="310sp"
             android:layout_height="61sp"
-            android:layout_marginTop="30sp"
+            android:layout_marginTop="28dp"
             android:ems="10"
             android:hint="task name"
             android:inputType="textPersonName"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText,LabelFor" />
@@ -35,6 +36,7 @@
             android:ems="10"
             android:hint="task descrption (optional)"
             android:inputType="textPersonName"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +50,7 @@
             android:layout_marginTop="15sp"
             android:ems="10"
             android:inputType="date"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.192"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,6 +87,8 @@
             android:layout_height="48sp"
             android:layout_marginEnd="40sp"
             android:background="@android:drawable/btn_dropdown"
+            android:backgroundTint="?attr/colorPrimary"
+            android:dropDownWidth="170sp"
             android:spinnerMode="dropdown"
             app:layout_constraintBottom_toBottomOf="@+id/repeatText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:orientation="horizontal"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +136,8 @@
                 android:button="@null"
                 android:drawableBottom="@android:drawable/btn_radio"
                 android:gravity="center"
-                android:text="W" />
+                android:text="W"
+                android:textColor="?attr/colorOnPrimary" />
 
             <CheckBox
                 android:id="@+id/thrRB"
@@ -159,6 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@null"
+                android:checked="true"
                 android:drawableBottom="@android:drawable/btn_radio"
                 android:gravity="center"
                 android:text="S" />
@@ -172,19 +179,8 @@
                 android:drawableBottom="@android:drawable/btn_radio"
                 android:gravity="center"
                 android:text="S"
-                android:textColor="@color/green" /><![CDATA[/>
-
-
-
-
-
-
-
-
-
-
-
-        ]]>
+                android:textColor="?attr/colorSecondary"
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -201,6 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Repeat Forever"
+                android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.154"
@@ -215,6 +212,7 @@
                 android:ems="10"
                 android:hint="Repeat Until"
                 android:inputType="date"
+                android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.192"
                 app:layout_constraintStart_toStartOf="parent"
@@ -251,6 +249,7 @@
             android:layout_height="48sp"
             android:layout_marginEnd="40sp"
             android:background="@android:drawable/btn_dropdown"
+            android:backgroundTint="?attr/colorPrimary"
             android:spinnerMode="dropdown"
             app:layout_constraintBottom_toBottomOf="@+id/creationTypeText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -278,6 +277,7 @@
             android:layout_height="48sp"
             android:layout_marginEnd="40sp"
             android:background="@android:drawable/btn_dropdown"
+            android:backgroundTint="?attr/colorPrimary"
             android:spinnerMode="dropdown"
             app:layout_constraintBottom_toBottomOf="@+id/creationDifficultyText"
             app:layout_constraintEnd_toEndOf="parent"

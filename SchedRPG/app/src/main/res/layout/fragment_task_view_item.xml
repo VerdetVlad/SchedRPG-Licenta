@@ -11,9 +11,10 @@
         android:layout_marginTop="1sp">
 
         <LinearLayout
+            android:id="@+id/questItemDayLinLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#40088AEE"
+            android:background="?attr/colorPrimary"
             android:orientation="vertical">
 
             <LinearLayout
@@ -23,7 +24,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="295sp"
+                    android:layout_width="270sp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20sp"
                     android:orientation="vertical">
@@ -33,7 +34,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TaskName"
-                        android:textColor="@color/black"
                         android:textSize="26sp"
                         android:textStyle="bold" />
 
@@ -47,18 +47,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Stat"
-                            tools:textSize="18sp"
-                            tools:textStyle="bold" />
+                            android:text="Stat" />
 
                         <TextView
                             android:id="@+id/taskItemDifficulty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Difficulty"
-                            tools:textSize="18sp"
-                            tools:textStyle="bold" />
+                            android:text="Difficulty" />
 
                     </LinearLayout>
 
@@ -83,8 +79,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1sp"
-                android:background="@color/teal_200" />
+                android:layout_height="2sp"
+                android:background="?attr/colorSecondary" />
         </LinearLayout>
 
 

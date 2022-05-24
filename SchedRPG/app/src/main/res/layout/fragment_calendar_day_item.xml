@@ -14,7 +14,7 @@
             android:id="@+id/questItemDayLinLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#65F68508"
+            android:background="?attr/colorPrimary"
             android:orientation="vertical">
 
             <LinearLayout
@@ -34,7 +34,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TaskName"
-                        android:textColor="@color/black"
                         android:textSize="26sp"
                         android:textStyle="bold" />
 
@@ -97,8 +96,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1sp"
-                android:background="@color/teal_200" />
+                android:layout_height="2sp"
+                android:background="?attr/colorSecondary" />
         </LinearLayout>
 
 

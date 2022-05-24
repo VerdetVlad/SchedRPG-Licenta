@@ -1,7 +1,6 @@
 package com.vladv.questsched.tabs.fragments.calendar
 
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,12 +82,16 @@ class CalendarFragment : Fragment() {
             (calendar.get(Calendar.MONTH)+1),
             calendar.get(Calendar.YEAR))
 
+        val highlightDays: MutableList<Calendar> = ArrayList()
+
+
         for(i in startMonthDay..lastMonthDay)
         {
             for(quest in User().quests!!) {
                 if(quest.validDate(auxDate)) {
                     val newTime = calendar.clone() as Calendar
-                    events.add(EventDay(newTime, R.drawable.calendar_event_notification,Color.parseColor("#0EAB08")))
+                    events.add(EventDay(newTime, R.drawable.calendar_event_notification))
+                    highlightDays.add(newTime)
                     break
                 }
             }
@@ -98,6 +101,7 @@ class CalendarFragment : Fragment() {
 
         }
         binding.calendarView.setEvents(events)
+        binding.calendarView.setHighlightedDays(highlightDays)
 
     }
 

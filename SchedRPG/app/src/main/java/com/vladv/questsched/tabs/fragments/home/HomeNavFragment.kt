@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.commit
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentHomeNavBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.vladv.questsched.tabs.settings.SettingsFragment
 
 
 class HomeNavFragment : Fragment() {
@@ -34,7 +36,16 @@ class HomeNavFragment : Fragment() {
                     currentFragment = HomeStatsFragment()
                 }
             }
-            activity?.supportFragmentManager?.beginTransaction()?.replace(binding.homeNavFragmentLayout.id,currentFragment)?.commit()
+
+            activity?.supportFragmentManager?.commit {
+                setCustomAnimations(
+                    R.anim.fragment_fadein,
+                    R.anim.fragment_fadeout,
+                    R.anim.fragment_fadein,
+                    R.anim.fragment_fadeout
+                )
+                replace(binding.homeNavFragmentLayout.id, currentFragment)
+            }
             true
         }
 

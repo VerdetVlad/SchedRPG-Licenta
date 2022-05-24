@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_marginTop="16sp"
-    android:layout_marginStart="16sp"
-    android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.vladv.questsched.tabs.MyFragmentManager">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="90sp"
-        android:layout_height="90sp"
-        android:src="@drawable/avatar_face1" />
-
-    <TextView
-        android:id="@+id/user_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="8sp"
-        android:text="Test User"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="15sp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/nav_mail_adress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/mail_address"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="90sp"
+            android:layout_height="90sp"
+            android:src="@drawable/avatar_face1" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8sp"
+            android:text="Test User"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nav_mail_adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mail_address"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"
         android:layout_marginTop="30sp"
-        android:background="@color/teal_200"/>
+        android:background="?attr/colorSecondary" />
 
 
 </LinearLayout>

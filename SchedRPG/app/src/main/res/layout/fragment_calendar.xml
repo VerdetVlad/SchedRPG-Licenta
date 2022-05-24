@@ -9,7 +9,14 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:abbreviationsBarColor="?attr/colorOnSecondary"
+        app:abbreviationsLabelsColor="?attr/colorSecondary"
+        app:daysLabelsColor="?attr/colorPrimaryVariant"
+        app:headerColor="?attr/colorPrimaryVariant"
+        app:headerLabelColor="?attr/colorOnSecondary"
+        app:highlightedDaysLabelsColor="?attr/colorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:pagesColor="?attr/colorOnSecondary"
+        app:todayLabelColor="?attr/colorOnPrimary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

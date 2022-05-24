@@ -2,16 +2,38 @@
     <!-- Base application theme. -->
     <style name="Theme.SchedRPG" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryVariant">@color/green_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/c_light</item>
+        <item name="colorPrimaryVariant">@color/c_dark</item>
+        <item name="colorOnPrimary">@color/c_darkest</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/purple_500</item>
-        <item name="colorSecondaryVariant">@color/purple_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/c_accent</item>
+        <item name="colorSecondaryVariant">@color/c_accent</item>
+        <item name="colorOnSecondary">@color/c_lightest</item>
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/c_status_bar_light</item>
         <!-- Customize your theme here. -->
+        <item name="android:colorBackground">@color/c_light</item>
+        <item name="android:windowBackground">@color/c_lightest</item>
+        <item name="android:textColorTertiary">@color/c_darkest</item>
+        <item name="android:textColor">@color/c_darkest</item>
+        <item name="android:textColorHint">@color/c_light</item>
+        <item name="checkboxStyle">@style/myCheckBox</item>
+        <item name="dialogTheme">@style/DialogTheme</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Put the two options, colorAccent and android:colorAccent. -->
+        <item name="colorAccent">@color/c_light</item>
+        <item name="android:colorPrimary">@color/c_light</item>
+        <item name="android:colorPrimaryDark">@color/c_light</item>
+        <item name="android:colorAccent">@color/c_light</item>
+    </style>
+
+
+    <style name="myCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/c_darkest</item>
+        <item name="android:textColor">@color/c_darkest</item>
     </style>
 
     <style name="Theme.SchedRPG.NoActionBar">
@@ -19,7 +41,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.SchedRPG.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.SchedRPG.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
