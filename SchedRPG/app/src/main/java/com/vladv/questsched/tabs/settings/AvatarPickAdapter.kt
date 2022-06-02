@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.schedrpg.R
+import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.Avatar
-import com.vladv.questsched.utilities.MyDate
-import com.vladv.questsched.utilities.Quest
-import com.vladv.questsched.utilities.Recurrence
+import com.vladv.questsched.utilities.*
 
 
 class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
@@ -34,9 +32,11 @@ class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
         name.text = avatar!!.name
         avatar.drawableFace?.let { image.setImageResource(it) }
 
-//        buttonSelect.setOnClickListener{
-//            User().avatar = avatar
-//        }
+        buttonSelect.setOnClickListener{
+
+            User.setAvatar(avatar)
+            FirebaseData().updateUserData()
+        }
 
         return convtView
     }

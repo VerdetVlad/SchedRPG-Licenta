@@ -32,15 +32,15 @@ class LogIn : AppCompatActivity() {
         val view: View = binding!!.root
         setContentView(view)
 
-//        firebaseAuth = FirebaseAuth.getInstance()
-//        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-//            val firebaseUser = firebaseAuth.currentUser
-//            if (firebaseUser != null) {
-//                val intent = Intent(this, MyFragmentManager::class.java)
-//                startActivity(intent)
-//                finish()
-//            }
-//        }
+        firebaseAuth = FirebaseAuth.getInstance()
+        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val firebaseUser = firebaseAuth.currentUser
+            if (firebaseUser != null) {
+                val intent = Intent(this, MyFragmentManager::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
 
 
         binding!!.createAccount.setOnClickListener {
@@ -64,15 +64,15 @@ class LogIn : AppCompatActivity() {
 
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        firebaseAuth.addAuthStateListener(this.authStateListener)
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        firebaseAuth.removeAuthStateListener(this.authStateListener)
-//    }
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth.addAuthStateListener(this.authStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firebaseAuth.removeAuthStateListener(this.authStateListener)
+    }
 
     private fun userLogin() {
         mAuth = FirebaseAuth.getInstance()

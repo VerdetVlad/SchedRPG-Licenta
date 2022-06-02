@@ -13,6 +13,10 @@ class User {
         private var stats: CharacterStats? = null
         private var quests: ArrayList<Quest>? = null
         private var avatar: Avatar? = null
+
+        fun setAvatar(a:Avatar){
+            avatar = a
+        }
     }
 
     val fullName: String?
@@ -45,6 +49,8 @@ class User {
         Companion.avatar = avatar
     }
 
+
+
     fun addQuest(quest: Quest) {
         if(quests==null) Companion.quests = ArrayList()
         Companion.quests!!.add(quest)
@@ -75,5 +81,6 @@ class User {
         val find = Companion.quests?.firstOrNull { it == q }
         val changeXP = Companion.stats?.changeXP(find!!.questXpLoss())
     }
+
 
 }

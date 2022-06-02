@@ -46,16 +46,9 @@ class MyFragmentManager : AppCompatActivity() {
         val view: View = binding.root
         setContentView(view)
 
-        if(FirebaseAuth.getInstance().currentUser?.displayName == "")
-        {
-            val intent = Intent(this, LogIn::class.java)
-            startActivity(intent)
-        }
+
 
         firebaseAuth = FirebaseAuth.getInstance()
-
-
-
         authStateListener = FirebaseAuth.AuthStateListener  { firebaseAuth ->
             val firebaseUser = firebaseAuth.currentUser
             if (firebaseUser == null) {
@@ -93,6 +86,41 @@ class MyFragmentManager : AppCompatActivity() {
                 stopLoading()
             }
         })
+
+
+        reference.child(userID).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                startLoading()
+
+
+                userProfile = snapshot.getValue(User::class.java)
+
+                stopLoading()
+
+                val userName = findViewById<View>(R.id.user_name) as TextView
+                val mailAddress = findViewById<View>(R.id.nav_mail_adress) as TextView
+                val avatarProfile = findViewById<View>(R.id.avatarProfilePic) as ImageView
+
+                userName.text = userProfile!!.fullName
+                mailAddress.text = userProfile!!.email
+                userProfile!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext, "Something went wrong when retrieving data: $error", Toast.LENGTH_LONG).show()
+                stopLoading()
+            }
+        })
+
+
+
+
+
+
+
+
 
         //drawer setup
         configureDrawer()
@@ -255,14 +283,19 @@ class MyFragmentManager : AppCompatActivity() {
         binding.progressBarContainer.visibility = View.GONE
     }
 
+
+    fun isNightMode(): Boolean {
+        return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+    }
+
     companion object {
         var userProfile: User? = null
     }
 
-
-
-    fun isNightMode(): Boolean {
-        return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+    fun refreshActivity(){
+        val mIntent = intent
+        finish()
+        startActivity(mIntent)
     }
 
 }

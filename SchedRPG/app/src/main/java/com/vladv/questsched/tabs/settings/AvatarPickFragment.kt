@@ -2,17 +2,18 @@ package com.vladv.questsched.tabs.settings
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ListView
+import androidx.fragment.app.Fragment
+import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentAvatarPickBinding
-import com.vladv.questsched.tabs.fragments.questlistview.QuestListFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.AvatarList
-import com.vladv.questsched.utilities.Quest
 
 
 class AvatarPickFragment : Fragment() {
@@ -42,10 +43,11 @@ class AvatarPickFragment : Fragment() {
         @SuppressLint("StaticFieldLeak")
         var listView: ListView? = null
 
-
         @SuppressLint("StaticFieldLeak")
         var context: Context? = null
+
         var listAdapter: AvatarPickAdapter? = null
+
 
     }
 
