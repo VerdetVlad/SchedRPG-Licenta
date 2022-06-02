@@ -8,8 +8,8 @@ import com.vladv.questsched.user.User
 class FirebaseData {
     private val databaseReference: DatabaseReference
     private val userID: String = FirebaseAuth.getInstance().currentUser!!.uid
-    fun updateUserData(userData: User?) {
-        databaseReference.child(userID).setValue(userData)
+    fun updateUserData() {
+        databaseReference.child(userID).setValue(User())
     }
 
     fun updateTask(quest: Quest?, i: String?) {

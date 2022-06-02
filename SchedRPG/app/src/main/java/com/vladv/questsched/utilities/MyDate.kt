@@ -152,8 +152,8 @@ class MyDate{
 
     fun increaseDayByOne() {
         day = day?.plus(1)
-        if(weekDay==7) weekDay = 1
-        else weekDay = weekDay?.plus(1)
+        weekDay = if(weekDay==7) 1
+                  else weekDay?.plus(1)
     }
 
 

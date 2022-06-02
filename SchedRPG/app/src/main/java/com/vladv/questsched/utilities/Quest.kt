@@ -34,14 +34,14 @@ class Quest{
         return "Quest{" +
                 "type=" + type +
                 "initialDate=" + initialDate +
-                "repate=" + repeat.toString() +
+                "repeat=" + repeat.toString() +
                 ", difficulty=" + difficulty +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}'
     }
 
-    fun dificultyStringValue(): String {
+    fun difficultyStringValue(): String {
         val difficultyStrings = arrayOf("very easy", "easy", "medium", "hard", "very hard")
         return difficultyStrings[difficulty!!]
     }

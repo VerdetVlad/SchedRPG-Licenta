@@ -10,8 +10,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.schedrpg.R
-import com.example.schedrpg.databinding.FragmentCaldendayDayBinding
-import com.example.schedrpg.databinding.FragmentCalendarDayItemBinding
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.MyDate
@@ -37,22 +35,22 @@ class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
         val description = convtView.findViewById<TextView>(R.id.taskItemDescription)
         val buttonFinish = convtView.findViewById<Button>(R.id.finishQuestButton)
         val buttonAbandon = convtView.findViewById<Button>(R.id.abandonQuestButton)
-        val layout = convtView.findViewById<LinearLayout>(R.id.questItemDayLinLayout)
+        val layout = convtView.findViewById<LinearLayout>(R.id.questItemHomeLinLayout)
 
         name.text = quest!!.name
-        difficulty.text = quest.dificultyStringValue()
+        difficulty.text = quest.difficultyStringValue()
         type.text = quest.typeStringValue()
         description.text = quest.description
 
         buttonFinish.setOnClickListener{
             layout.background.setTint(Color.GREEN)
             User().completeQuest(quest)
-            FirebaseData().updateUserData(User())
+            FirebaseData().updateUserData()
         }
         buttonAbandon.setOnClickListener{
             layout.background.setTint(Color.RED)
             User().abandonQuest(quest)
-            FirebaseData().updateUserData(User())
+            FirebaseData().updateUserData()
         }
 
         return convtView

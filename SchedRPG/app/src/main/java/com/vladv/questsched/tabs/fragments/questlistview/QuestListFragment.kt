@@ -13,7 +13,7 @@ import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.Quest
 
-class TaskListFragment : Fragment() {
+class QuestListFragment : Fragment() {
 
     private var _binding: FragmentTaskViewBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +27,7 @@ class TaskListFragment : Fragment() {
         activity?.title = "Quest List"
 
         if(User().quests.isNullOrEmpty()) return binding.root
-        listAdapter = TaskListAdapter(requireContext(), User().quests)
+        listAdapter = QuestListAdapter(requireContext(), User().quests)
         listView = binding.listview
         listView!!.adapter = listAdapter
 
@@ -47,11 +47,11 @@ class TaskListFragment : Fragment() {
 
         @SuppressLint("StaticFieldLeak")
         var context: Context? = null
-        var listAdapter: TaskListAdapter? = null
+        var listAdapter: QuestListAdapter? = null
         fun removeItem(task: Quest) {
             user.removeQuest(task)
             val changeFirebaseData = FirebaseData()
-            changeFirebaseData.updateUserData(user)
+            changeFirebaseData.updateUserData()
             listView!!.adapter = listAdapter
         }
 

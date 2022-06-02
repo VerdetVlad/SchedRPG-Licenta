@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentCalendarBinding
@@ -58,10 +60,20 @@ class CalendarFragment : Fragment() {
             calendarDayFrag.arguments = bundle
 
             if (transaction != null) {
-                transaction.replace(R.id.flFragment, calendarDayFrag)
-                transaction.addToBackStack("")
-                transaction.commit()
+                activity?.supportFragmentManager?.commit {
+                    setCustomAnimations(
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout,
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout
+                    )
+                    transaction.replace(R.id.flFragment, calendarDayFrag)
+                    transaction.addToBackStack("")
+                    transaction.commit()
+                }
             }
+
+
         }
 
 

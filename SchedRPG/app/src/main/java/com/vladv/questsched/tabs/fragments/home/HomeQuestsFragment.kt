@@ -9,12 +9,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentHomeQuestsBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.vladv.questsched.tabs.fragments.TaskCreationFragment
-import com.vladv.questsched.tabs.fragments.calendar.CalendarDayAdapter
-import com.vladv.questsched.tabs.fragments.questlistview.TaskListFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.utilities.Quest
@@ -36,8 +31,8 @@ class HomeQuestsFragment : Fragment() {
     ): View {
         _binding = FragmentHomeQuestsBinding.inflate(inflater, container, false)
 
-        val calen:Calendar = Calendar.getInstance()
-        val date:MyDate = MyDate(calen)
+        val calend:Calendar = Calendar.getInstance()
+        val date:MyDate = MyDate(calend)
 
         activity?.title = "Quest's today ${date.toStringDate()}"
 

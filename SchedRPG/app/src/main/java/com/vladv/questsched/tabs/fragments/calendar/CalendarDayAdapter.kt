@@ -10,8 +10,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.schedrpg.R
-import com.example.schedrpg.databinding.FragmentCaldendayDayBinding
-import com.example.schedrpg.databinding.FragmentCalendarDayItemBinding
 import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.utilities.Quest
 import com.vladv.questsched.utilities.Recurrence
@@ -38,7 +36,7 @@ class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?) :
         val layout = convtView.findViewById<LinearLayout>(R.id.questItemDayLinLayout)
 
         name.text = quest!!.name
-        difficulty.text = quest.dificultyStringValue()
+        difficulty.text = quest.difficultyStringValue()
         type.text = quest.typeStringValue()
         description.text = quest.description
 

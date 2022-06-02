@@ -20,7 +20,7 @@ import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATION")
-class TaskCreationFragment : Fragment() {
+class QuestCreationFragment : Fragment() {
 
     private var _binding: FragmentTaskCreationBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +30,7 @@ class TaskCreationFragment : Fragment() {
     private var lastSelectedYear = 0
     private var lastSelectedMonth = 0
     private var lastSelectedDayOfMonth = 0
-    private  var weekDays: ArrayList<CheckBox> = ArrayList<CheckBox>()
+    private  var weekDays: ArrayList<CheckBox> = ArrayList()
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -162,7 +162,7 @@ class TaskCreationFragment : Fragment() {
         val quest = Quest(name, description,date,repeat,type, difficulty)
         user.addQuest(quest)
         val changeFirebaseData = FirebaseData()
-        changeFirebaseData.updateUserData(user)
+        changeFirebaseData.updateUserData()
         makeToast("Quest: " + quest.name + " created succesfully")
         resetFields()
     }
@@ -234,8 +234,8 @@ class TaskCreationFragment : Fragment() {
         var m = (month+1).toString()
         val y = year.toString()
 
-        if((month+1)<10) m = "0" + m;
-        if(day<10) d = "0" + d;
+        if((month+1)<10) m = "0$m"
+        if(day<10) d = "0$d"
 
         return "$d/$m/$y"
     }

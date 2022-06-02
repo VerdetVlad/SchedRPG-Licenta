@@ -18,19 +18,19 @@ class CharacterStats {
     fun changeXP(auxXP:Int):Int
     {
         currXP = currXP?.plus(auxXP)
-        if(currXP!! >= maxXP!!)
-        {
-            currXP = currXP!! - maxXP!!
-            lvlUP()
-            return 1
+        return when {
+            currXP!! >= maxXP!! -> {
+                currXP = currXP!! - maxXP!!
+                lvlUP()
+                1
+            }
+            currXP!! <=0 -> {
+                lvlDown()
+                currXP = maxXP!! - currXP!!
+                -1
+            }
+            else -> 0
         }
-        else if (currXP!! <=0)
-        {
-            lvlDown()
-            currXP = maxXP!! - currXP!!
-            return -1
-        }
-        else return 0
 
     }
 

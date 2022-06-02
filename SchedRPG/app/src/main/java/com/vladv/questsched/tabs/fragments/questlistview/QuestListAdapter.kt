@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.example.schedrpg.R
 import com.vladv.questsched.utilities.Quest
 
-class TaskListAdapter(context: Context?, userArrayList: ArrayList<Quest>?) :
+class QuestListAdapter(context: Context?, userArrayList: ArrayList<Quest>?) :
     ArrayAdapter<Quest?>(
         context!!, R.layout.fragment_task_view_item, userArrayList!! as List<Quest?>
     ) {
@@ -27,11 +27,11 @@ class TaskListAdapter(context: Context?, userArrayList: ArrayList<Quest>?) :
         val description = convtView.findViewById<TextView>(R.id.taskItemDescription)
         val deleteButton = convtView.findViewById<Button>(R.id.abandonQuestButton)
         name.text = quest!!.name
-        difficulty.text = quest.dificultyStringValue()
+        difficulty.text = quest.difficultyStringValue()
         type.text = quest.typeStringValue()
         description.text = quest.description
         deleteButton.setOnClickListener {
-            TaskListFragment.removeItem(quest)
+            QuestListFragment.removeItem(quest)
         }
         return convtView
     }

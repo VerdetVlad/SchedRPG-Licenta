@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
@@ -22,10 +23,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vladv.questsched.authentification.LogIn
-import com.vladv.questsched.tabs.fragments.TaskCreationFragment
+import com.vladv.questsched.tabs.fragments.QuestCreationFragment
 import com.vladv.questsched.tabs.fragments.calendar.CalendarFragment
 import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
-import com.vladv.questsched.tabs.fragments.questlistview.TaskListFragment
+import com.vladv.questsched.tabs.fragments.questlistview.QuestListFragment
 import com.vladv.questsched.tabs.settings.SettingsFragment
 import com.vladv.questsched.user.User
 
@@ -45,9 +46,17 @@ class MyFragmentManager : AppCompatActivity() {
         val view: View = binding.root
         setContentView(view)
 
+        if(FirebaseAuth.getInstance().currentUser?.displayName == "")
+        {
+            val intent = Intent(this, LogIn::class.java)
+            startActivity(intent)
+        }
 
         firebaseAuth = FirebaseAuth.getInstance()
-        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+
+
+
+        authStateListener = FirebaseAuth.AuthStateListener  { firebaseAuth ->
             val firebaseUser = firebaseAuth.currentUser
             if (firebaseUser == null) {
                 val intent = Intent(this, LogIn::class.java)
@@ -67,9 +76,11 @@ class MyFragmentManager : AppCompatActivity() {
 
                 val userName = findViewById<View>(R.id.user_name) as TextView
                 val mailAddress = findViewById<View>(R.id.nav_mail_adress) as TextView
+                val avatarProfile = findViewById<View>(R.id.avatarProfilePic) as ImageView
 
                 userName.text = userProfile!!.fullName
                 mailAddress.text = userProfile!!.email
+                userProfile!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
 
                 supportFragmentManager.beginTransaction().apply {
                     replace(binding.flFragment.id, HomeNavFragment())
@@ -99,6 +110,13 @@ class MyFragmentManager : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         firebaseAuth.removeAuthStateListener(this.authStateListener)
+    }
+
+    override fun recreate() {
+        finish()
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
 
 
@@ -133,7 +151,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
-                    replace(binding.flFragment.id, TaskCreationFragment())
+                    replace(binding.flFragment.id, QuestCreationFragment())
                     addToBackStack(null)
                     drawerLayout.closeDrawers()
                 }
@@ -146,7 +164,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
-                    replace(binding.flFragment.id, TaskListFragment())
+                    replace(binding.flFragment.id, QuestListFragment())
                     addToBackStack(null)
                     drawerLayout.closeDrawers()
                 }
@@ -241,12 +259,7 @@ class MyFragmentManager : AppCompatActivity() {
         var userProfile: User? = null
     }
 
-    override fun recreate() {
-        finish()
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-        startActivity(intent)
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-    }
+
 
     fun isNightMode(): Boolean {
         return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES

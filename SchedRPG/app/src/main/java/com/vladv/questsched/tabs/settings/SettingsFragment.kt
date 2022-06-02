@@ -1,21 +1,16 @@
 package com.vladv.questsched.tabs.settings
 
 import android.annotation.SuppressLint
-import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.applandeo.materialcalendarview.EventDay
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.example.schedrpg.R
-import com.example.schedrpg.databinding.ActivityPickAvatarBinding
-import com.example.schedrpg.databinding.FragmentCalendarBinding
 import com.example.schedrpg.databinding.FragmentSettingsBinding
 import com.vladv.questsched.tabs.MyFragmentManager
-import java.util.*
 
 class SettingsFragment : Fragment() {
 
@@ -52,6 +47,24 @@ class SettingsFragment : Fragment() {
             binding.darkLightSwitch.text = "Light Mode"
             binding.darkLightSwitch.isChecked = false
         }
+
+
+        binding.settingsChangeAvatarButton.setOnClickListener{
+            activity?.supportFragmentManager?.commit {
+                setCustomAnimations(
+                    R.anim.fragment_fadein,
+                    R.anim.fragment_fadeout,
+                    R.anim.fragment_fadein,
+                    R.anim.fragment_fadeout
+                )
+                replace(R.id.flFragment, AvatarPickFragment())
+                addToBackStack(null)
+            }
+        }
+
+
+
+
         return binding.root
     }
 

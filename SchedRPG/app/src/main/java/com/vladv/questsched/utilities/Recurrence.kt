@@ -7,6 +7,7 @@ class Recurrence{
     var recurringDays:ArrayList<Boolean>? = null
     var untilDate:MyDate? = null
 
+
     constructor()
 
     constructor(recurringFrequency: Int?, recurringDays: ArrayList<Boolean>?, untilDate: MyDate?) {

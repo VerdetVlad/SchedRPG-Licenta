@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentHomeStatsBinding
 import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.AvatarList
 
 
 class HomeStatsFragment : Fragment() {
@@ -27,6 +29,8 @@ class HomeStatsFragment : Fragment() {
         val progressXP = User().stats?.currXP?.times(100)?.div(User().stats!!.maxXP!!)
         val stats:ArrayList<Int> = User().stats?.stats!!
         binding.userName.text = User().fullName + " LvL." + User().stats?.level
+
+        User().avatar?.drawableBody?.let { binding.fullAvatarImageView.setImageResource(it) }
 
         binding.xpProgressBar2.progress = progressXP!!
         binding.strTextView.text = "STR:" + "\n" + stats[0]

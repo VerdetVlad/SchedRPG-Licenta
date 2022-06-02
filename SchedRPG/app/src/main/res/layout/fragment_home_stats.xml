@@ -92,7 +92,7 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/fullAvatarImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/avatar_full1" />

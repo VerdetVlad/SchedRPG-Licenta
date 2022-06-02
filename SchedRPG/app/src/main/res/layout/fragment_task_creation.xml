@@ -6,7 +6,7 @@
     android:id="@+id/creationSclrLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vladv.questsched.tabs.fragments.TaskCreationFragment">
+    tools:context="com.vladv.questsched.tabs.fragments.QuestCreationFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
