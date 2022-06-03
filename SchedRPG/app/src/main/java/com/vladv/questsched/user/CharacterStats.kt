@@ -1,4 +1,4 @@
-package com.vladv.questsched.utilities
+package com.vladv.questsched.user
 
 class CharacterStats {
     var level:Int? = null

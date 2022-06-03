@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentHomeQuestsBinding
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
-import com.vladv.questsched.utilities.Quest
+import com.vladv.questsched.user.Quest
 import java.util.*
 import kotlin.collections.ArrayList
 

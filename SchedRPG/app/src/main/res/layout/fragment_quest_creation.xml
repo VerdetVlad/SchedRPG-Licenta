@@ -6,7 +6,7 @@
     android:id="@+id/creationSclrLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vladv.questsched.tabs.fragments.QuestCreationFragment">
+    tools:context="com.vladv.questsched.tabs.fragments.questcreation.QuestCreationFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +23,6 @@
             android:inputType="textPersonName"
             android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText,LabelFor" />
@@ -31,20 +30,19 @@
         <EditText
             android:id="@+id/createTaskDescription"
             android:layout_width="310sp"
-            android:layout_height="64sp"
+            android:layout_height="150sp"
             android:layout_marginTop="15sp"
             android:ems="10"
             android:hint="task descrption (optional)"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createTaskName"
             tools:ignore="HardcodedText,LabelFor" />
 
         <EditText
-            android:id="@+id/editTextDate"
+            android:id="@+id/createTextDate"
             android:layout_width="180sp"
             android:layout_height="48sp"
             android:layout_marginTop="15sp"
@@ -63,9 +61,9 @@
             android:layout_height="58sp"
             android:layout_marginEnd="40sp"
             android:text="Select Date"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextDate"
+            app:layout_constraintBottom_toBottomOf="@+id/createTextDate"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editTextDate" />
+            app:layout_constraintTop_toTopOf="@+id/createTextDate" />
 
         <TextView
             android:id="@+id/repeatText"
@@ -79,7 +77,7 @@
             app:layout_constraintEnd_toStartOf="@+id/repeatSpinner"
             app:layout_constraintHorizontal_bias="0.025"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+            app:layout_constraintTop_toBottomOf="@+id/createTextDate" />
 
         <Spinner
             android:id="@+id/repeatSpinner"
@@ -165,7 +163,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@null"
-                android:checked="true"
                 android:drawableBottom="@android:drawable/btn_radio"
                 android:gravity="center"
                 android:text="S" />
@@ -289,12 +286,21 @@
             android:id="@+id/createTaskSubmit"
             android:layout_width="232sp"
             android:layout_height="59sp"
-            android:layout_marginTop="40sp"
+            android:layout_marginTop="40dp"
             android:text="Create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/creationDifficultyText" />
+
+        <TextView
+            android:id="@+id/buttomSpace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createTaskSubmit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

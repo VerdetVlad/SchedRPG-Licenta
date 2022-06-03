@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.ActivityFragmentManagerBinding
@@ -23,7 +24,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vladv.questsched.authentification.LogIn
-import com.vladv.questsched.tabs.fragments.QuestCreationFragment
+import com.vladv.questsched.tabs.fragments.questcreation.QuestCreationFragment
 import com.vladv.questsched.tabs.fragments.calendar.CalendarFragment
 import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
 import com.vladv.questsched.tabs.fragments.questlistview.QuestListFragment
@@ -32,7 +33,26 @@ import com.vladv.questsched.user.User
 
 
 class MyFragmentManager : AppCompatActivity() {
-    private lateinit var binding: ActivityFragmentManagerBinding
+
+
+    companion object {
+        var userProfile: User? = null
+        var currentFragment : Fragment = HomeNavFragment()
+
+        lateinit var binding: ActivityFragmentManagerBinding
+
+        fun startLoading()
+        {
+            binding.progressBarContainer.visibility = View.VISIBLE
+        }
+
+        fun stopLoading()
+        {
+            binding.progressBarContainer.visibility = View.GONE
+        }
+    }
+
+
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var authStateListener : FirebaseAuth.AuthStateListener
     private lateinit var firebaseAuth : FirebaseAuth
@@ -63,6 +83,18 @@ class MyFragmentManager : AppCompatActivity() {
         reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
+//                startLoading()
+
+                supportFragmentManager.commit {
+                    setCustomAnimations(
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout,
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout
+                    )
+                    replace(binding.flFragment.id, currentFragment)
+                }
+
                 userProfile = snapshot.getValue(User::class.java)
 
                 stopLoading()
@@ -75,10 +107,6 @@ class MyFragmentManager : AppCompatActivity() {
                 mailAddress.text = userProfile!!.email
                 userProfile!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
 
-                supportFragmentManager.beginTransaction().apply {
-                    replace(binding.flFragment.id, HomeNavFragment())
-                    commit()
-                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -105,6 +133,16 @@ class MyFragmentManager : AppCompatActivity() {
                 userName.text = userProfile!!.fullName
                 mailAddress.text = userProfile!!.email
                 userProfile!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
+
+                supportFragmentManager.commit {
+                    setCustomAnimations(
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout,
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout
+                    )
+                    replace(binding.flFragment.id, currentFragment)
+                }
 
             }
 
@@ -273,29 +311,11 @@ class MyFragmentManager : AppCompatActivity() {
     }
 
 
-    fun startLoading()
-    {
-        binding.progressBarContainer.visibility = View.VISIBLE
-    }
-
-    fun stopLoading()
-    {
-        binding.progressBarContainer.visibility = View.GONE
-    }
-
 
     fun isNightMode(): Boolean {
         return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
     }
 
-    companion object {
-        var userProfile: User? = null
-    }
 
-    fun refreshActivity(){
-        val mIntent = intent
-        finish()
-        startActivity(mIntent)
-    }
 
 }

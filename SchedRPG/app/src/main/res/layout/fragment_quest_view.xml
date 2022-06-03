@@ -10,5 +10,5 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
-        tools:listitem="@layout/fragment_task_view_item" />
+        tools:listitem="@layout/fragment_quest_view_item" />
 </FrameLayout>

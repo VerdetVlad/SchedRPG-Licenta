@@ -11,8 +11,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.schedrpg.R
 import com.vladv.questsched.utilities.MyDate
-import com.vladv.questsched.utilities.Quest
-import com.vladv.questsched.utilities.Recurrence
+import com.vladv.questsched.user.Quest
+import com.vladv.questsched.user.Recurrence
 
 
 class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?) :

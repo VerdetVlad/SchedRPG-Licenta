@@ -1,5 +1,6 @@
-package com.vladv.questsched.utilities
+package com.vladv.questsched.user
 
+import com.vladv.questsched.utilities.MyDate
 import java.util.*
 
 
@@ -88,7 +89,7 @@ class Quest{
         return initialDate?.day!!
     }
 
-    fun validDate(date:MyDate):Boolean
+    fun validDate(date: MyDate):Boolean
     {
 
         val currentDate:Calendar = Calendar.getInstance()

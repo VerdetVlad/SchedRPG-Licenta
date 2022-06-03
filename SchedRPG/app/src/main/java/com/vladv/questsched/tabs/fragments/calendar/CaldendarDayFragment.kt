@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentCaldendayDayBinding
-import com.vladv.questsched.utilities.Quest
+import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 

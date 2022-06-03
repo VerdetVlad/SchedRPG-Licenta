@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments
+package com.vladv.questsched.tabs.fragments.questcreation
 
 import android.R
 import android.annotation.SuppressLint
@@ -9,10 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import com.example.schedrpg.databinding.FragmentTaskCreationBinding
+import com.example.schedrpg.databinding.FragmentQuestCreationBinding
+import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.utilities.FirebaseData
-import com.vladv.questsched.utilities.Quest
-import com.vladv.questsched.utilities.Recurrence
+import com.vladv.questsched.user.Quest
+import com.vladv.questsched.user.Recurrence
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
@@ -22,7 +23,7 @@ import kotlin.collections.ArrayList
 @Suppress("DEPRECATION")
 class QuestCreationFragment : Fragment() {
 
-    private var _binding: FragmentTaskCreationBinding? = null
+    private var _binding: FragmentQuestCreationBinding? = null
     private val binding get() = _binding!!
     private var user = User()
 
@@ -38,7 +39,7 @@ class QuestCreationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTaskCreationBinding.inflate(inflater, container, false)
+        _binding = FragmentQuestCreationBinding.inflate(inflater, container, false)
         activity?.title = "Quest Creation"
 
         val stats = arrayOf("Strength","Dexterity", "Constitution", "Wisdom", "Intelligence","Charisma")
@@ -57,7 +58,7 @@ class QuestCreationFragment : Fragment() {
 
 
 
-        binding.buttonDate.setOnClickListener { buttonSelectDate(binding.editTextDate) }
+        binding.buttonDate.setOnClickListener { buttonSelectDate(binding.createTextDate) }
         binding.repeatUntilButton.setOnClickListener { buttonSelectDate(binding.repeatUntileText) }
         resetCalendarField()
 
@@ -136,7 +137,7 @@ class QuestCreationFragment : Fragment() {
         val description = binding.createTaskDescription.text.toString().trim { it <= ' ' }
         val difficulty = binding.createTaskDifficulty.selectedItemPosition
         val type = binding.createTaskType.selectedItemPosition
-        val date = binding.editTextDate.text.toString()
+        val date = binding.createTextDate.text.toString()
         val repeatType = binding.repeatSpinner.selectedItemPosition
         val repeatUntil = binding.repeatUntileText.text.toString()
         val repeatForeverCheck = binding.repeatCheckBox.isChecked
@@ -162,27 +163,17 @@ class QuestCreationFragment : Fragment() {
         val quest = Quest(name, description,date,repeat,type, difficulty)
         user.addQuest(quest)
         val changeFirebaseData = FirebaseData()
-        changeFirebaseData.updateUserData()
-        makeToast("Quest: " + quest.name + " created succesfully")
-        resetFields()
+        MyFragmentManager.currentFragment = QuestCreationFragment()
+        changeFirebaseData.updateUserData(requireActivity(),
+            "Quest: " + quest.name + " created succesfully",
+            "Quest: " + quest.name + " creation failed: database connection error")
     }
 
     private fun makeToast(s: String) {
         Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
     }
 
-    private fun resetFields()
-    {
-        binding.createTaskName.setText("")
-        binding.createTaskDescription.setText("")
-        binding.repeatSpinner.setSelection(0)
-        resetCalendarField()
-        resetWeekFields()
-        binding.repeatUntileText.setText("")
-        binding.repeatCheckBox.isChecked = false
-        binding.createTaskDifficulty.setSelection(0)
-        binding.createTaskType.setSelection(0)
-    }
+
 
     private fun resetWeekFields()
     {
@@ -199,7 +190,7 @@ class QuestCreationFragment : Fragment() {
         lastSelectedMonth = c[Calendar.MONTH]
         lastSelectedDayOfMonth = c[Calendar.DAY_OF_MONTH]
 
-        binding.editTextDate.setText(myDateFormat(lastSelectedDayOfMonth,lastSelectedMonth,lastSelectedYear))
+        binding.createTextDate.setText(myDateFormat(lastSelectedDayOfMonth,lastSelectedMonth,lastSelectedYear))
     }
 
 

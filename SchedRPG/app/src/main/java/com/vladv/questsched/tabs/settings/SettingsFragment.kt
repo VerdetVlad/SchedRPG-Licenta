@@ -49,8 +49,9 @@ class SettingsFragment : Fragment() {
         }
 
 
+
         binding.settingsChangeAvatarButton.setOnClickListener{
-            activity?.supportFragmentManager?.commit {
+            parentFragmentManager.commit {
                 setCustomAnimations(
                     R.anim.fragment_fadein,
                     R.anim.fragment_fadeout,

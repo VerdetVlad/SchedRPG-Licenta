@@ -8,14 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import com.example.schedrpg.databinding.FragmentTaskViewBinding
+import androidx.fragment.app.FragmentActivity
+import com.example.schedrpg.databinding.FragmentQuestViewBinding
+import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.Quest
+import com.vladv.questsched.user.Quest
 
 class QuestListFragment : Fragment() {
 
-    private var _binding: FragmentTaskViewBinding? = null
+    private var _binding: FragmentQuestViewBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -23,8 +25,9 @@ class QuestListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTaskViewBinding.inflate(inflater, container, false)
+        _binding = FragmentQuestViewBinding.inflate(inflater, container, false)
         activity?.title = "Quest List"
+        auxActivity = activity
 
         if(User().quests.isNullOrEmpty()) return binding.root
         listAdapter = QuestListAdapter(requireContext(), User().quests)
@@ -44,16 +47,21 @@ class QuestListFragment : Fragment() {
         @SuppressLint("StaticFieldLeak")
         var listView: ListView? = null
 
+        var auxActivity: FragmentActivity? = null
+
 
         @SuppressLint("StaticFieldLeak")
         var context: Context? = null
         var listAdapter: QuestListAdapter? = null
         fun removeItem(task: Quest) {
             user.removeQuest(task)
-            val changeFirebaseData = FirebaseData()
-            changeFirebaseData.updateUserData()
-            listView!!.adapter = listAdapter
+            MyFragmentManager.currentFragment = QuestListFragment()
+            FirebaseData().updateUserData()
         }
+
+
+
+
 
     }
 }

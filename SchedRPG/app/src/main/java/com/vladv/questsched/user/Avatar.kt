@@ -1,4 +1,4 @@
-package com.vladv.questsched.utilities
+package com.vladv.questsched.user
 
 class Avatar {
     var drawableFace:Int? = null

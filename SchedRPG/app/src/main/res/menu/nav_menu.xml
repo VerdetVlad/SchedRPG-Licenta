@@ -26,7 +26,8 @@
 
 
 
-    <item android:title="Account">
+    <item android:title="Account"
+        android:color = "?attr/colorOnPrimary">
 
         <menu>
 

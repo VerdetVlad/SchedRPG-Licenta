@@ -1,9 +1,6 @@
 package com.vladv.questsched.user
 
-import com.vladv.questsched.utilities.Avatar
 import com.vladv.questsched.utilities.AvatarList
-import com.vladv.questsched.utilities.CharacterStats
-import com.vladv.questsched.utilities.Quest
 
 class User {
 
@@ -14,7 +11,11 @@ class User {
         private var quests: ArrayList<Quest>? = null
         private var avatar: Avatar? = null
 
-        fun setAvatar(a:Avatar){
+        fun setQuestsAtIndex(q: Quest, i: Int)
+        {
+            quests?.set(i, q)
+        }
+        fun setAvatar(a: Avatar){
             avatar = a
         }
     }
@@ -70,13 +71,13 @@ class User {
     }
 
 
-    fun completeQuest(q:Quest)
+    fun completeQuest(q: Quest)
     {
         val find = Companion.quests?.firstOrNull { it == q }
         val changeXP = Companion.stats?.changeXP(find!!.questXpReward())
     }
 
-    fun abandonQuest(q:Quest)
+    fun abandonQuest(q: Quest)
     {
         val find = Companion.quests?.firstOrNull { it == q }
         val changeXP = Companion.stats?.changeXP(find!!.questXpLoss())

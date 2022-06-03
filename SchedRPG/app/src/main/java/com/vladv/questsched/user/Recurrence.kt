@@ -1,11 +1,13 @@
-package com.vladv.questsched.utilities
+package com.vladv.questsched.user
+
+import com.vladv.questsched.utilities.MyDate
 
 class Recurrence{
 
     //0 - dont repeat; 1 - every day; 2 - every week; 3 - every month
     var recurringFrequency:Int? = null
     var recurringDays:ArrayList<Boolean>? = null
-    var untilDate:MyDate? = null
+    var untilDate: MyDate? = null
 
 
     constructor()

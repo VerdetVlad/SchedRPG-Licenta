@@ -1,8 +1,8 @@
 package com.vladv.questsched.utilities
 import com.example.schedrpg.R
-import java.util.Vector
+import com.vladv.questsched.user.Avatar
 
-class AvatarList() {
+class AvatarList {
 
     companion object {
         @JvmStatic var avatarList: ArrayList<Avatar> = arrayListOf(
@@ -13,7 +13,8 @@ class AvatarList() {
             Avatar(R.drawable.avatar_face5,R.drawable.avatar_full5,"Beast Master(m)"),
             Avatar(R.drawable.avatar_face6,R.drawable.avatar_full6,"Beast Master(f)"),
             Avatar(R.drawable.avatar_face7,R.drawable.avatar_full7,"Mage(m)"),
-            Avatar(R.drawable.avatar_face8,R.drawable.avatar_full8,"Mage(f)"))
+            Avatar(R.drawable.avatar_face8,R.drawable.avatar_full8,"Mage(f)")
+        )
 
     }
 

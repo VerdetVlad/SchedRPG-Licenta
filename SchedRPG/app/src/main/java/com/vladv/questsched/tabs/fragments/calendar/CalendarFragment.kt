@@ -11,6 +11,7 @@ import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentCalendarBinding
+import com.vladv.questsched.tabs.settings.AvatarPickFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
@@ -46,7 +47,7 @@ class CalendarFragment : Fragment() {
             setCalendarEvents()
         }
 
-        val transaction = activity?.supportFragmentManager?.beginTransaction()
+
         binding.calendarView.setOnDayClickListener { eventDay ->
             val clickedDay = eventDay.calendar.time
             val words = clickedDay.toString().split("\\s".toRegex()).toTypedArray()
@@ -59,19 +60,18 @@ class CalendarFragment : Fragment() {
             val calendarDayFrag = CaldendarDayFragment()
             calendarDayFrag.arguments = bundle
 
-            if (transaction != null) {
-                activity?.supportFragmentManager?.commit {
-                    setCustomAnimations(
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout,
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout
-                    )
-                    transaction.replace(R.id.flFragment, calendarDayFrag)
-                    transaction.addToBackStack("")
-                    transaction.commit()
-                }
+
+            parentFragmentManager.commit {
+                setCustomAnimations(
+                    R.anim.fragment_fadein,
+                    R.anim.fragment_fadeout,
+                    R.anim.fragment_fadein,
+                    R.anim.fragment_fadeout
+                )
+                replace(R.id.flFragment, calendarDayFrag)
+                addToBackStack("")
             }
+
 
 
         }

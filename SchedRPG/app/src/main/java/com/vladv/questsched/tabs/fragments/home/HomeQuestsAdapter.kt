@@ -13,8 +13,8 @@ import com.example.schedrpg.R
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.MyDate
-import com.vladv.questsched.utilities.Quest
-import com.vladv.questsched.utilities.Recurrence
+import com.vladv.questsched.user.Quest
+import com.vladv.questsched.user.Recurrence
 
 
 class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :

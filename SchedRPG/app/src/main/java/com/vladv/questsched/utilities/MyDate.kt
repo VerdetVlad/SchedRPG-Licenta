@@ -69,7 +69,12 @@ class MyDate{
     }
 
     fun toStringDate(): String {
-        return "$day/$month/$year"
+        val auxDay:String = if(day!! <10) "0$day"
+                            else day.toString()
+        val auxMonth:String = if(month!! <10) "0$month"
+                              else month.toString()
+
+        return "$auxDay/$auxMonth/$year"
     }
 
     fun toStringWeekDay(): String {

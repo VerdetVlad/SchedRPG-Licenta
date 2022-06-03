@@ -1,13 +1,13 @@
 package com.vladv.questsched.tabs.settings
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.schedrpg.R
 import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.user.Avatar
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.*
 
@@ -35,6 +35,7 @@ class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
         buttonSelect.setOnClickListener{
 
             User.setAvatar(avatar)
+            MyFragmentManager.currentFragment = SettingsFragment()
             FirebaseData().updateUserData()
         }
 
