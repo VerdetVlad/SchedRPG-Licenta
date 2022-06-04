@@ -23,7 +23,10 @@
         android:icon="@drawable/sidenav_calendar"
         android:title="Calendar"/>
 
-
+    <item
+        android:id="@+id/nav_friends"
+        android:icon="@drawable/sidenav_friends"
+        android:title="Friends"/>
 
 
     <item android:title="Account"

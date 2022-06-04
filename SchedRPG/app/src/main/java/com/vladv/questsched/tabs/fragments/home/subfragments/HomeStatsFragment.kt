@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments.home
+package com.vladv.questsched.tabs.fragments.home.subfragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentHomeStatsBinding
+import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.AvatarList
 
 
 class HomeStatsFragment : Fragment() {
@@ -25,10 +24,11 @@ class HomeStatsFragment : Fragment() {
         _binding = FragmentHomeStatsBinding.inflate(inflater, container, false)
 
         activity?.title = "Character screen"
+        HomeNavFragment.currentFragment = HomeStatsFragment()
 
         val progressXP = User().stats?.currXP?.times(100)?.div(User().stats!!.maxXP!!)
         val stats:ArrayList<Int> = User().stats?.stats!!
-        binding.userName.text = User().fullName + " LvL." + User().stats?.level
+        binding.userName.text = User().username + " LvL." + User().stats?.level
 
         User().avatar?.drawableBody?.let { binding.fullAvatarImageView.setImageResource(it) }
 

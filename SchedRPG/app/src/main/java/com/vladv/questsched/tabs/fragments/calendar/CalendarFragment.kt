@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentCalendarBinding
-import com.vladv.questsched.tabs.settings.AvatarPickFragment
+import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
@@ -34,6 +34,7 @@ class CalendarFragment : Fragment() {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
         activity?.title = "Quest Calendar"
+        MyFragmentManager.currentFragment = CalendarFragment()
 
         setCalendarEvents()
 
@@ -52,14 +53,6 @@ class CalendarFragment : Fragment() {
             val clickedDay = eventDay.calendar.time
             val words = clickedDay.toString().split("\\s".toRegex()).toTypedArray()
             val date = MyDate(words[0], words[2], words[1], words[5])
-            val msg = date.toString()
-
-            val bundle = Bundle()
-            bundle.putString("date", msg)
-
-            val calendarDayFrag = CaldendarDayFragment()
-            calendarDayFrag.arguments = bundle
-
 
             parentFragmentManager.commit {
                 setCustomAnimations(
@@ -68,7 +61,7 @@ class CalendarFragment : Fragment() {
                     R.anim.fragment_fadein,
                     R.anim.fragment_fadeout
                 )
-                replace(R.id.flFragment, calendarDayFrag)
+                replace(R.id.flFragment, CaldendarDayFragment(date))
                 addToBackStack("")
             }
 

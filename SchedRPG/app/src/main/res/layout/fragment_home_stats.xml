@@ -4,7 +4,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vladv.questsched.tabs.fragments.home.HomeStatsFragment">
+    tools:context="com.vladv.questsched.tabs.fragments.home.subfragments.HomeStatsFragment">
 
     <LinearLayout
         android:id="@+id/statsConstrLayout"

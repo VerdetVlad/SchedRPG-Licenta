@@ -1,17 +1,16 @@
-package com.vladv.questsched.tabs.settings
+package com.vladv.questsched.tabs.fragments.settings
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentAvatarPickBinding
+import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.AvatarList
 
@@ -25,7 +24,7 @@ class AvatarPickFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View{
         _binding = FragmentAvatarPickBinding.inflate(inflater, container, false)
-
+        MyFragmentManager.currentFragment = AvatarPickFragment()
 
         listAdapter = AvatarPickAdapter(requireContext(), AvatarList.avatarList)
         listView = binding.avatarList

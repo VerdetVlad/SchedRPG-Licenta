@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.vladv.questsched.tabs.fragments.home.HomeQuestsFragment"
+        android:name="com.vladv.questsched.tabs.fragments.home.subfragments.HomeQuestsFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home_quests" />
     <fragment
         android:id="@+id/homeStatsFragment"
-        android:name="com.vladv.questsched.tabs.fragments.home.HomeStatsFragment"
+        android:name="com.vladv.questsched.tabs.fragments.home.subfragments.HomeStatsFragment"
         android:label="fragment_home_stats"
         tools:layout="@layout/fragment_home_stats" />
 </navigation>

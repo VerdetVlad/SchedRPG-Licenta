@@ -9,14 +9,20 @@ import androidx.fragment.app.commit
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentHomeNavBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.vladv.questsched.tabs.settings.SettingsFragment
+import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.home.subfragments.HomeQuestsFragment
+import com.vladv.questsched.tabs.fragments.home.subfragments.HomeStatsFragment
+import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 
 
 class HomeNavFragment : Fragment() {
 
     private var _binding: FragmentHomeNavBinding? = null
     private val binding get() = _binding!!
-    private lateinit var currentFragment : Fragment
+    companion object{
+        var currentFragment : Fragment = HomeQuestsFragment()
+        var pressedButtonId : Int = R.id.home_nav_quest_menu
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,20 +30,28 @@ class HomeNavFragment : Fragment() {
     ): View {
         _binding = FragmentHomeNavBinding.inflate(inflater, container, false)
 
-        activity?.supportFragmentManager?.beginTransaction()?.replace(binding.homeNavFragmentLayout.id,HomeQuestsFragment())?.commit()
+
+
+
+        binding.homeBottomNav.selectedItemId = pressedButtonId
+        parentFragmentManager.beginTransaction().replace(binding.homeNavFragmentLayout.id,
+            currentFragment
+        ).commit()
 
         val bottomNav : BottomNavigationView = binding.homeBottomNav
         bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home_nav_quest_menu -> {
                     currentFragment = HomeQuestsFragment()
+                    pressedButtonId = R.id.home_nav_quest_menu
                 }
                 R.id.home_nav_stats_menu -> {
                     currentFragment = HomeStatsFragment()
+                    pressedButtonId = R.id.home_nav_stats_menu
                 }
             }
 
-            activity?.supportFragmentManager?.commit {
+            parentFragmentManager.commit {
                 setCustomAnimations(
                     R.anim.fragment_fadein,
                     R.anim.fragment_fadeout,

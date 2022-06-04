@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments.home
+package com.vladv.questsched.tabs.fragments.home.subfragments
 
 import android.content.Context
 import android.graphics.Color
@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.schedrpg.R
+import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.MyDate
@@ -45,11 +47,13 @@ class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
         buttonFinish.setOnClickListener{
             layout.background.setTint(Color.GREEN)
             User().completeQuest(quest)
+            MyFragmentManager.currentFragment = HomeNavFragment()
             FirebaseData().updateUserData()
         }
         buttonAbandon.setOnClickListener{
             layout.background.setTint(Color.RED)
             User().abandonQuest(quest)
+            MyFragmentManager.currentFragment = HomeNavFragment()
             FirebaseData().updateUserData()
         }
 

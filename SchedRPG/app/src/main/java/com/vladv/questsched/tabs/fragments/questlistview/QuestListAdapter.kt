@@ -50,7 +50,7 @@ class QuestListAdapter( context: Context?, userArrayList: ArrayList<Quest>?) :
     }
 
 
-    fun changeFragmentFromAdapter(activity: FragmentActivity, quest:Quest, position: Int) {
+    private fun changeFragmentFromAdapter(activity: FragmentActivity, quest:Quest, position: Int) {
 
         val fragmentManager = activity.supportFragmentManager
         fragmentManager.commit {

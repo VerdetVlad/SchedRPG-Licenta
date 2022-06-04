@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.settings
+package com.vladv.questsched.tabs.fragments.settings
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.fragment.app.commit
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentSettingsBinding
 import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 
 class SettingsFragment : Fragment() {
 
@@ -24,7 +25,7 @@ class SettingsFragment : Fragment() {
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         activity?.title = "Settings"
-
+        MyFragmentManager.currentFragment = SettingsFragment()
 
         binding.darkLightSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

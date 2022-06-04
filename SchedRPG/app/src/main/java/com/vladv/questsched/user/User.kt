@@ -5,7 +5,7 @@ import com.vladv.questsched.utilities.AvatarList
 class User {
 
     companion object {
-        private var fullName: String? = null
+        private var username: String? = null
         private var email: String? = null
         private var stats: CharacterStats? = null
         private var quests: ArrayList<Quest>? = null
@@ -20,8 +20,8 @@ class User {
         }
     }
 
-    val fullName: String?
-        get() = Companion.fullName
+    val username: String?
+        get() = Companion.username
     val email: String?
         get() = Companion.email
     val stats: CharacterStats?
@@ -32,8 +32,8 @@ class User {
         get() = Companion.avatar
 
     constructor()
-    constructor(fullName: String, email: String) {
-        Companion.fullName = fullName
+    constructor(username: String, email: String) {
+        Companion.username = username
         Companion.email = email
         Companion.quests = ArrayList()
         val a:ArrayList<Int> = arrayListOf(1,2,3,4,5,6)
@@ -42,8 +42,8 @@ class User {
     }
 
 
-    constructor(fullName: String, email: String, stats: CharacterStats, quests: ArrayList<Quest>, avatar: Avatar) {
-        Companion.fullName = fullName
+    constructor(username: String, email: String, stats: CharacterStats, quests: ArrayList<Quest>, avatar: Avatar) {
+        Companion.username = username
         Companion.email = email
         Companion.quests = quests
         Companion.stats = stats
@@ -63,7 +63,7 @@ class User {
 
     override fun toString(): String {
         return "User{" +
-                "fullName='" + Companion.fullName + '\'' +
+                "username='" + Companion.username + '\'' +
                 ", email='" + Companion.email + '\'' +
                 ", stats=" +Companion.stats + '\'' +
                 ", quests=" + Companion.quests +

@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentQuestCreationBinding
 import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.Recurrence
@@ -41,6 +42,8 @@ class QuestCreationFragment : Fragment() {
     ): View {
         _binding = FragmentQuestCreationBinding.inflate(inflater, container, false)
         activity?.title = "Quest Creation"
+        MyFragmentManager.currentFragment = QuestCreationFragment()
+
 
         val stats = arrayOf("Strength","Dexterity", "Constitution", "Wisdom", "Intelligence","Charisma")
         val adapter = ArrayAdapter(
@@ -163,7 +166,7 @@ class QuestCreationFragment : Fragment() {
         val quest = Quest(name, description,date,repeat,type, difficulty)
         user.addQuest(quest)
         val changeFirebaseData = FirebaseData()
-        MyFragmentManager.currentFragment = QuestCreationFragment()
+
         changeFirebaseData.updateUserData(requireActivity(),
             "Quest: " + quest.name + " created succesfully",
             "Quest: " + quest.name + " creation failed: database connection error")

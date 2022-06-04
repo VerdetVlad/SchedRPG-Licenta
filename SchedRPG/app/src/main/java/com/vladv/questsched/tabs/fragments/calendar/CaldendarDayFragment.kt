@@ -13,7 +13,7 @@ import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 
-class CaldendarDayFragment : Fragment() {
+class CaldendarDayFragment(private val date:MyDate) : Fragment() {
 
     private var _binding: FragmentCaldendayDayBinding? = null
     private val binding get() = _binding!!
@@ -27,10 +27,7 @@ class CaldendarDayFragment : Fragment() {
     ): View {
         _binding = FragmentCaldendayDayBinding.inflate(inflater, container, false)
 
-        activity?.title = ""
-        val bundle = this.arguments
-        val dateString = bundle!!.getString("date")
-        val date = MyDate(dateString)
+
         activity?.title = "Quest from ${date.toStringDate()}"
         
 

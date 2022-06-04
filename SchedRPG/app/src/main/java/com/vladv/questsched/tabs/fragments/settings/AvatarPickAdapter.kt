@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.settings
+package com.vladv.questsched.tabs.fragments.settings
 
 import android.content.Context
 import android.view.LayoutInflater

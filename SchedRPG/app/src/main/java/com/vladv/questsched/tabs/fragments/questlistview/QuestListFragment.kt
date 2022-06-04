@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.schedrpg.databinding.FragmentQuestViewBinding
 import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.user.User
 import com.vladv.questsched.user.Quest
@@ -27,6 +28,9 @@ class QuestListFragment : Fragment() {
     ): View {
         _binding = FragmentQuestViewBinding.inflate(inflater, container, false)
         activity?.title = "Quest List"
+        MyFragmentManager.currentFragment = QuestListFragment()
+
+
         auxActivity = activity
 
         if(User().quests.isNullOrEmpty()) return binding.root

@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments.home
+package com.vladv.questsched.tabs.fragments.home.subfragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,6 +10,7 @@ import android.widget.ListView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentHomeQuestsBinding
+import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.user.Quest
@@ -32,9 +33,10 @@ class HomeQuestsFragment : Fragment() {
         _binding = FragmentHomeQuestsBinding.inflate(inflater, container, false)
 
         val calend:Calendar = Calendar.getInstance()
-        val date:MyDate = MyDate(calend)
+        val date = MyDate(calend)
 
         activity?.title = "Quest's today ${date.toStringDate()}"
+        HomeNavFragment.currentFragment = HomeQuestsFragment()
 
 
 
