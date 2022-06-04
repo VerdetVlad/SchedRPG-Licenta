@@ -20,7 +20,7 @@ import com.vladv.questsched.user.Recurrence
 
 
 class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
-    ArrayAdapter<Quest?>(context!!, R.layout.fragment_homequests_item, questList!! as List<Quest?>)
+    ArrayAdapter<Quest?>(context!!, R.layout.fragment_home_quests_item, questList!! as List<Quest?>)
 {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -29,7 +29,7 @@ class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
         val quest = getItem(position)
         if (convtView == null) {
             convtView =
-                LayoutInflater.from(context).inflate(R.layout.fragment_homequests_item, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.fragment_home_quests_item, parent, false)
         }
         val name = convtView!!.findViewById<TextView>(R.id.taskItemName)
         val difficulty = convtView.findViewById<TextView>(R.id.taskItemDifficulty)

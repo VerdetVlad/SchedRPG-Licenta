@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import com.example.schedrpg.databinding.FragmentCaldendayDayBinding
+import com.example.schedrpg.databinding.FragmentCalendarDayBinding
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 
 class CaldendarDayFragment(private val date:MyDate) : Fragment() {
 
-    private var _binding: FragmentCaldendayDayBinding? = null
+    private var _binding: FragmentCalendarDayBinding? = null
     private val binding get() = _binding!!
 
 
@@ -25,7 +25,7 @@ class CaldendarDayFragment(private val date:MyDate) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCaldendayDayBinding.inflate(inflater, container, false)
+        _binding = FragmentCalendarDayBinding.inflate(inflater, container, false)
 
 
         activity?.title = "Quest from ${date.toStringDate()}"

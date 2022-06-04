@@ -34,6 +34,7 @@
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/drawable/sidenav_quest_list.xml" value="0.225" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/drawable/sidenav_settings.xml" value="0.225" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/drawable/social_search.xml" value="0.2375" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/drawable/social_view_profile.xml" value="0.2315" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout-v26/activity_task_creation_tab.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_caldenday_day.xml" value="0.27350427350427353" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/activity_fragment_manager.xml" value="0.1893162393162393" />
@@ -76,10 +77,15 @@
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_quest_view_item.xml" value="0.1659111514052584" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_settings2.xml" value="0.33" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_friends.xml" value="0.1659111514052584" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_friends_item.xml" value="0.25" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_nav.xml" value="0.1658828559213339" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_request.xml" value="0.12536443148688048" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_request_item.xml" value="0.33" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_search.xml" value="0.1658828559213339" />
-        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_search_item.xml" value="0.12536443148688048" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_search_item.xml" value="0.25" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_user_profile.xml" value="0.2" />
+        <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_social_user_profile_item.xml" value="0.13327780091628488" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_task_creation.xml" value="0.33" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_task_view.xml" value="0.27350427350427353" />
         <entry key="..\:/Users/Vlad/Desktop/SchedRPG-Licenta/SchedRPG/app/src/main/res/layout/fragment_task_view_item.xml" value="0.5" />

@@ -1,13 +1,123 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.vladv.questsched.tabs.fragments.social.subfragments.SocialUserProfile">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="110sp"
+        android:background="?attr/colorOnPrimary">
+
+    </FrameLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/visitProfileImage"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30sp"
+        android:src="@drawable/avatar_big"
+        app:civ_circle_background_color="?attr/colorPrimary" />
+
     <TextView
+        android:id="@+id/visitUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/visitProfileImage"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="user name"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/visit_profile_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/visitUserName"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15sp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="description"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/requestConstrLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/visit_profile_status"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/sendFriendRequestButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Friend Request"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/cancelFriendRequesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel Request"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sendFriendRequestButton" />
+
+        <Button
+            android:id="@+id/removeFriendButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove Friend"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cancelFriendRequesButton" />
+
+        <Button
+            android:id="@+id/requestReceivedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Accept Friend Request"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/removeFriendButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/socialUserProfileQuestList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@id/requestConstrLayout" />
 
-</FrameLayout>
+
+</RelativeLayout>

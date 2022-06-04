@@ -25,6 +25,11 @@
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:titleTextColor="?attr/colorOnPrimary" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2sp"
+                android:background="?attr/colorSecondary" />
+
             <FrameLayout
                 android:id="@+id/flFragment"
                 android:layout_width="match_parent"
@@ -57,7 +62,7 @@
         android:layout_gravity="start"
         android:background="?attr/colorOnSecondary"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header"
+        app:headerLayout="@layout/acativity_manager_nav_header"
         app:itemIconTint="?attr/colorOnPrimary"
         app:itemTextColor="?attr/colorOnPrimary"
         app:menu="@menu/nav_menu">

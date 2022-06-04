@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="2sp">
@@ -32,7 +31,7 @@
                 android:layout_width="0sp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5sp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:orientation="vertical">
 
                 <TextView
@@ -52,19 +51,24 @@
 
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/searchViewProfileButton"
+            <Button
+                android:id="@+id/friendReqAcceptButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5sp"
                 android:layout_weight="0.2"
-                android:backgroundTint="?attr/colorSecondary"
-                android:drawableTint="?attr/colorOnPrimary"
-                android:textSize="13sp"
-                app:icon="@drawable/social_view_profile"
-                app:iconGravity="top"
-                app:iconSize="50sp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:backgroundTint="@color/green"
+                android:text="✓"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/friendReqDeclineButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5sp"
+                android:layout_weight="0.2"
+                android:backgroundTint="#F40303"
+                android:text="X" />
 
 
         </LinearLayout>

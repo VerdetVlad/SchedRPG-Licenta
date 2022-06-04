@@ -15,11 +15,9 @@ import com.example.schedrpg.databinding.FragmentSocialSearchBinding
 import com.example.schedrpg.databinding.FragmentSocialSearchItemBinding
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.home.subfragments.HomeQuestsFragment
-import com.vladv.questsched.tabs.fragments.questlistview.EditQuestFragment
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
 import com.vladv.questsched.tabs.fragments.social.UserSocial
 import de.hdodenhof.circleimageview.CircleImageView
@@ -29,15 +27,15 @@ class SocialSearchFragment : Fragment() {
 
     private var _binding: FragmentSocialSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var userRef:DatabaseReference
-    private lateinit var FindFriendsRecyclerList:RecyclerView
+    private lateinit var userQuery:Query
+    private lateinit var findUsersRecyclerList:RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSocialSearchBinding.inflate(inflater, container, false)
-        activity?.title = "Find friends"
+        activity?.title = "Find Friends"
         SocialNavFragment.currentFragment = SocialSearchFragment()
 
         return binding.root
@@ -46,35 +44,35 @@ class SocialSearchFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        userRef = FirebaseDatabase.getInstance().reference.child("User")
+        userQuery = FirebaseDatabase.getInstance().reference.child("User").limitToLast(30)
 
-        FindFriendsRecyclerList = binding.allUsersList
-        FindFriendsRecyclerList.layoutManager =  LinearLayoutManager(context)
+        findUsersRecyclerList = binding.allUsersList
+        findUsersRecyclerList.layoutManager =  LinearLayoutManager(context)
 
         val options = FirebaseRecyclerOptions.Builder<UserSocial>()
-            .setQuery(userRef, UserSocial::class.java)
+            .setQuery(userQuery, UserSocial::class.java)
             .build()
 
-        val adapter : FirebaseRecyclerAdapter<UserSocial, FindFriendViewHolder> =
-            object : FirebaseRecyclerAdapter<UserSocial, FindFriendViewHolder>(options){
+        val adapter : FirebaseRecyclerAdapter<UserSocial, FindUsersViewHolder> =
+            object : FirebaseRecyclerAdapter<UserSocial, FindUsersViewHolder>(options){
                 override fun onCreateViewHolder(
                     parent: ViewGroup,
                     viewType: Int
-                ): FindFriendViewHolder {
+                ): FindUsersViewHolder {
 
                     val binding = FragmentSocialSearchItemBinding.inflate(layoutInflater)
                     val view: View = binding.root
-                    return FindFriendViewHolder(view)
+                    return FindUsersViewHolder(view)
                 }
 
                 override fun onBindViewHolder(
-                    holder: FindFriendViewHolder,
+                    holder: FindUsersViewHolder,
                     position: Int,
                     model: UserSocial
                 ) {
                     holder.username?.text = model.username
                     model.avatar?.drawableFace?.let { holder.image?.setImageResource(it) }
-                    holder.addButton?.setOnClickListener {
+                    holder.viewButton?.setOnClickListener {
                         val visitUserId = getRef(position).key
                         activity?.supportFragmentManager?.commit {
                             setCustomAnimations(
@@ -93,25 +91,22 @@ class SocialSearchFragment : Fragment() {
                 }
 
             }
-        FindFriendsRecyclerList.adapter = adapter
+        findUsersRecyclerList.adapter = adapter
 
         adapter.startListening()
     }
 
     companion object{
-
-
-
-        class FindFriendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+        class FindUsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         {
             var username:TextView? =null
             var image:CircleImageView?=null
-            var addButton: Button?=null
+            var viewButton: Button?=null
 
             init{
                 username = itemView.findViewById(R.id.userSocialName)
                 image = itemView.findViewById(R.id.userSocialImage)
-                addButton = itemView.findViewById(R.id.friendReqButton)
+                viewButton = itemView.findViewById(R.id.searchViewProfileButton)
             }
         }
 

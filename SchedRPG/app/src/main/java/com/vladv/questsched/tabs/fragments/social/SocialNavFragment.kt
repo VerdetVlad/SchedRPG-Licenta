@@ -36,6 +36,8 @@ class SocialNavFragment : Fragment() {
         _binding = FragmentSocialNavBinding.inflate(inflater, container, false)
 
 
+
+
         binding.socialBottomNav.selectedItemId = pressedButtonId
         parentFragmentManager.beginTransaction().replace(binding.socialNavFragmentLayout.id,
             currentFragment

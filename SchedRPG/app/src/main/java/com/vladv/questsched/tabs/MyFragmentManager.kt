@@ -43,6 +43,8 @@ class MyFragmentManager : AppCompatActivity() {
 
         lateinit var binding: ActivityFragmentManagerBinding
 
+        lateinit var firebaseAuth : FirebaseAuth
+
         fun startLoading()
         {
             binding.progressBarContainer.visibility = View.VISIBLE
@@ -57,7 +59,6 @@ class MyFragmentManager : AppCompatActivity() {
 
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var authStateListener : FirebaseAuth.AuthStateListener
-    private lateinit var firebaseAuth : FirebaseAuth
 
     private val TIME_INTERVAL = 2000
     private var backPressed:Long = 0

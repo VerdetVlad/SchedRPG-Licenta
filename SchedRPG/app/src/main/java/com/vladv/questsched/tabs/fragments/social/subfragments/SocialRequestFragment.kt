@@ -1,21 +1,38 @@
 package com.vladv.questsched.tabs.fragments.social.subfragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.schedrpg.R
-import com.example.schedrpg.databinding.FragmentSocialFriendsBinding
-import com.example.schedrpg.databinding.FragmentSocialRequestBinding
-import com.example.schedrpg.databinding.FragmentSocialSearchBinding
+import com.example.schedrpg.databinding.*
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
+import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.social.SentMessage
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class SocialRequestFragment : Fragment() {
 
     private var _binding: FragmentSocialRequestBinding? = null
     private val binding get() = _binding!!
+    private lateinit var userQuery: Query
+    private lateinit var friendRequestRecyclerList: RecyclerView
+    private lateinit var friendReqRef: DatabaseReference
+    private lateinit var friendListRef: DatabaseReference
+    private val currentUserId = MyFragmentManager.firebaseAuth.uid!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +47,127 @@ class SocialRequestFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+
+        friendListRef = FirebaseDatabase.getInstance().reference.child("FriendList")
+        friendReqRef = FirebaseDatabase.getInstance().reference.child("FriendRequest")
+        userQuery = friendReqRef.child(currentUserId)
+            .orderByChild("type")
+            .equalTo("received")
+            .limitToLast(30)
+
+
+        friendRequestRecyclerList = binding.friendRequestList
+        friendRequestRecyclerList.layoutManager =  LinearLayoutManager(context)
+
+        val options = FirebaseRecyclerOptions.Builder<SentMessage>()
+            .setQuery(userQuery, SentMessage::class.java)
+            .build()
+
+        val adapter : FirebaseRecyclerAdapter<SentMessage, FindRequestViewHolder> =
+            object : FirebaseRecyclerAdapter<SentMessage, FindRequestViewHolder>(options){
+                override fun onCreateViewHolder(
+                    parent: ViewGroup,
+                    viewType: Int
+                ): FindRequestViewHolder {
+
+                    val binding = FragmentSocialRequestItemBinding.inflate(layoutInflater)
+                    val view: View = binding.root
+                    return FindRequestViewHolder(view)
+                }
+
+                override fun onBindViewHolder(
+                    holder: FindRequestViewHolder,
+                    position: Int,
+                    model: SentMessage
+                ) {
+                    holder.username?.text = model.username
+                    model.avatarFace?.let { holder.image?.setImageResource(it) }
+
+                    val senderUserId = getRef(position).key
+                    holder.acceptButton?.setOnClickListener {
+                        acceptRequest(senderUserId!!)
+                    }
+                    holder.declineButton?.setOnClickListener{
+                        declineRequest(senderUserId!!)
+                    }
+                }
+
+            }
+        friendRequestRecyclerList.adapter = adapter
+
+        adapter.startListening()
+    }
+
+
+
+    private fun acceptRequest(senderUserID : String) {
+        friendListRef.child(senderUserID).child(currentUserId)
+            .child("Friends").setValue("Saved")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    friendListRef.child(currentUserId).child(senderUserID)
+                        .child("Friends").setValue("Saved")
+                        .addOnCompleteListener { task1 ->
+                            if (task1.isSuccessful) {
+                                friendReqRef.child(senderUserID).child(currentUserId)
+                                    .removeValue()
+                                    .addOnCompleteListener { task2 ->
+                                        if (task2.isSuccessful) {
+                                            friendReqRef.child(currentUserId).child(senderUserID)
+                                                .removeValue()
+                                                .addOnCompleteListener {
+                                                    Toast.makeText(
+                                                        context,
+                                                        "Request accepted",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                }
+                                        }
+                                    }
+                            }
+                        }
+                }
+            }
+    }
+
+    private fun declineRequest(senderUserID : String) {
+        friendReqRef.child(currentUserId).child(senderUserID)
+            .removeValue()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    friendReqRef.child(senderUserID).child(currentUserId)
+                        .removeValue()
+                        .addOnCompleteListener{
+                            if (it.isSuccessful) {
+                                Toast.makeText(context,"Request declined",Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+            }
+    }
+
+    companion object{
+
+        class FindRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+        {
+            var username: TextView? =null
+            var image: CircleImageView?=null
+            var acceptButton: Button?=null
+            var declineButton: Button?=null
+
+            init{
+                username = itemView.findViewById(R.id.userSocialName)
+                image = itemView.findViewById(R.id.userSocialImage)
+                acceptButton = itemView.findViewById(R.id.friendReqAcceptButton)
+                declineButton = itemView.findViewById(R.id.friendReqDeclineButton)
+            }
+        }
+
+    }
+
 
 
 }
