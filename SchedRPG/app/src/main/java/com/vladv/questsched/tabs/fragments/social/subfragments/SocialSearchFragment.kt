@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
-import com.vladv.questsched.tabs.fragments.social.UserSocial
+import com.vladv.questsched.utilities.UserSocialProfile
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -49,12 +49,12 @@ class SocialSearchFragment : Fragment() {
         findUsersRecyclerList = binding.allUsersList
         findUsersRecyclerList.layoutManager =  LinearLayoutManager(context)
 
-        val options = FirebaseRecyclerOptions.Builder<UserSocial>()
-            .setQuery(userQuery, UserSocial::class.java)
+        val options = FirebaseRecyclerOptions.Builder<UserSocialProfile>()
+            .setQuery(userQuery, UserSocialProfile::class.java)
             .build()
 
-        val adapter : FirebaseRecyclerAdapter<UserSocial, FindUsersViewHolder> =
-            object : FirebaseRecyclerAdapter<UserSocial, FindUsersViewHolder>(options){
+        val adapter : FirebaseRecyclerAdapter<UserSocialProfile, FindUsersViewHolder> =
+            object : FirebaseRecyclerAdapter<UserSocialProfile, FindUsersViewHolder>(options){
                 override fun onCreateViewHolder(
                     parent: ViewGroup,
                     viewType: Int
@@ -68,7 +68,7 @@ class SocialSearchFragment : Fragment() {
                 override fun onBindViewHolder(
                     holder: FindUsersViewHolder,
                     position: Int,
-                    model: UserSocial
+                    model: UserSocialProfile
                 ) {
                     holder.username?.text = model.username
                     model.avatar?.drawableFace?.let { holder.image?.setImageResource(it) }
@@ -101,7 +101,7 @@ class SocialSearchFragment : Fragment() {
         {
             var username:TextView? =null
             var image:CircleImageView?=null
-            var viewButton: Button?=null
+            var viewButton: ImageButton?=null
 
             init{
                 username = itemView.findViewById(R.id.userSocialName)

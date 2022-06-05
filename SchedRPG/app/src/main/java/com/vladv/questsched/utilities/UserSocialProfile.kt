@@ -1,9 +1,9 @@
-package com.vladv.questsched.tabs.fragments.social
+package com.vladv.questsched.utilities
 
 import com.vladv.questsched.user.Avatar
 import com.vladv.questsched.user.Quest
 
-class UserSocial {
+class UserSocialProfile {
 
     var username:String? =null
     var avatar:Avatar? =null

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.example.schedrpg.databinding.FragmentCalendarDayBinding
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
@@ -29,8 +30,8 @@ class CaldendarDayFragment(private val date:MyDate) : Fragment() {
 
 
         activity?.title = "Quest from ${date.toStringDate()}"
-        
 
+        auxActivity=activity
 
         if(User().quests.isNullOrEmpty()) return binding.root
         val questList = User().quests?.filter{ quest ->
@@ -49,6 +50,8 @@ class CaldendarDayFragment(private val date:MyDate) : Fragment() {
 
     companion object {
         private var user = User()
+
+        var auxActivity: FragmentActivity? = null
 
         @SuppressLint("StaticFieldLeak")
         var listView: ListView? = null

@@ -5,10 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.example.schedrpg.R
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
@@ -34,15 +31,18 @@ class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
         val name = convtView!!.findViewById<TextView>(R.id.taskItemName)
         val difficulty = convtView.findViewById<TextView>(R.id.taskItemDifficulty)
         val type = convtView.findViewById<TextView>(R.id.taskItemType)
+        val typeImage = convtView.findViewById<ImageView>(R.id.homeQuestTypeImage)
         val description = convtView.findViewById<TextView>(R.id.taskItemDescription)
-        val buttonFinish = convtView.findViewById<Button>(R.id.finishQuestButton)
-        val buttonAbandon = convtView.findViewById<Button>(R.id.abandonQuestButton)
-        val layout = convtView.findViewById<LinearLayout>(R.id.questItemHomeLinLayout)
+        val buttonFinish = convtView.findViewById<ImageButton>(R.id.finishQuestButton)
+        val buttonAbandon = convtView.findViewById<ImageButton>(R.id.abandonQuestButton)
+        val layout = convtView.findViewById<LinearLayout>(R.id.questItemListLinLayout)
 
         name.text = quest!!.name
         difficulty.text = quest.difficultyStringValue()
         type.text = quest.typeStringValue()
         description.text = quest.description
+        quest.typeImageValue().let { typeImage.setImageResource(it) }
+        if(quest.description == "")quest.description = "No description"
 
         buttonFinish.setOnClickListener{
             layout.background.setTint(Color.GREEN)

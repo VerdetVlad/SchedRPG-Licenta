@@ -179,7 +179,7 @@ class EditQuestFragment(private val quest: Quest,private val position: Int) : Fr
 
         User.setQuestsAtIndex(auxQuest,position)
         val changeFirebaseData = FirebaseData()
-        MyFragmentManager.currentFragment = QuestListFragment()
+        
         changeFirebaseData.updateUserData(requireActivity(),
             "Quest: " + quest.name + " edited succesfully",
             "Quest: " + quest.name + " editeding failed: database connection error")

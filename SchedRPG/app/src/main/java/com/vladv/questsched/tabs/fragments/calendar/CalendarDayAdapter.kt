@@ -5,14 +5,16 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.commit
 import com.example.schedrpg.R
+import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.questlistview.EditQuestFragment
 import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.Recurrence
+import com.vladv.questsched.user.User
 
 
 class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?) :
@@ -30,24 +32,26 @@ class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?) :
         val name = convtView!!.findViewById<TextView>(R.id.taskItemName)
         val difficulty = convtView.findViewById<TextView>(R.id.taskItemDifficulty)
         val type = convtView.findViewById<TextView>(R.id.taskItemType)
+        val typeImage = convtView.findViewById<ImageView>(R.id.dayQuestTypeImage)
         val description = convtView.findViewById<TextView>(R.id.taskItemDescription)
-        val buttonFinish = convtView.findViewById<Button>(R.id.finishQuestButton)
-        val buttonAbandon = convtView.findViewById<Button>(R.id.abandonQuestButton)
-        val layout = convtView.findViewById<LinearLayout>(R.id.questItemDayLinLayout)
+        val buttonEdit = convtView.findViewById<ImageButton>(R.id.dayEditQuestButton)
+
+
 
         name.text = quest!!.name
         difficulty.text = quest.difficultyStringValue()
         type.text = quest.typeStringValue()
         description.text = quest.description
+        quest.typeImageValue().let { typeImage.setImageResource(it) }
 
-        buttonFinish.setOnClickListener{
-            layout.background.setTint(Color.GREEN)
+        buttonEdit.setOnClickListener{
+            val questPosition = User().quests?.indexOf(quest)
+            if (questPosition != null) {
+                changeFragmentFromAdapter(CaldendarDayFragment.auxActivity!!,quest,questPosition)
+            }
             test()
         }
-        buttonAbandon.setOnClickListener{
-            layout.background.setTint(Color.RED)
-            test()
-        }
+
 
         return convtView
     }
@@ -56,5 +60,22 @@ class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?) :
         val rec = Recurrence(1,null, MyDate(1,1,1,1))
         val q = Quest("test","","10/10/2022", rec,1,1)
         add(q)
+    }
+
+
+    private fun changeFragmentFromAdapter(activity: FragmentActivity, quest:Quest, position: Int) {
+
+        val fragmentManager = activity.supportFragmentManager
+        fragmentManager.commit {
+            setCustomAnimations(
+                R.anim.fragment_fadein,
+                R.anim.fragment_fadeout,
+                R.anim.fragment_fadein,
+                R.anim.fragment_fadeout
+            )
+            replace(MyFragmentManager.binding.flFragment.id, EditQuestFragment(quest, position))
+            addToBackStack(null)
+        }
+
     }
 }

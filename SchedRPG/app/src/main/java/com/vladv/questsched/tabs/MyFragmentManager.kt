@@ -24,10 +24,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vladv.questsched.authentification.LogIn
-import com.vladv.questsched.tabs.fragments.questcreation.QuestCreationFragment
 import com.vladv.questsched.tabs.fragments.calendar.CalendarFragment
-import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
+import com.vladv.questsched.tabs.fragments.questcreation.QuestCreationFragment
 import com.vladv.questsched.tabs.fragments.questlistview.QuestListFragment
 import com.vladv.questsched.tabs.fragments.settings.SettingsFragment
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
@@ -69,8 +68,6 @@ class MyFragmentManager : AppCompatActivity() {
         val view: View = binding.root
         setContentView(view)
 
-
-
         firebaseAuth = FirebaseAuth.getInstance()
         authStateListener = FirebaseAuth.AuthStateListener  { firebaseAuth ->
             val firebaseUser = firebaseAuth.currentUser
@@ -80,100 +77,6 @@ class MyFragmentManager : AppCompatActivity() {
             }
         }
 
-        startLoading()
-
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val reference = FirebaseDatabase.getInstance().getReference(User::class.java.simpleName)
-        val userID = firebaseUser!!.uid
-        reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-//                startLoading()
-
-                supportFragmentManager.commit {
-                    setCustomAnimations(
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout,
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout
-                    )
-                    replace(binding.flFragment.id, currentFragment)
-                }
-
-                userProfile = snapshot.getValue(User::class.java)
-
-
-
-                val userName = findViewById<View>(R.id.user_name) as TextView
-                val mailAddress = findViewById<View>(R.id.nav_mail_adress) as TextView
-                val avatarProfile = findViewById<View>(R.id.avatarProfilePic) as ImageView
-
-                userName.text = userProfile!!.username
-                mailAddress.text = userProfile!!.email
-                userProfile!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
-
-                supportFragmentManager.commit {
-                    setCustomAnimations(
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout,
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout
-                    )
-                    replace(binding.flFragment.id, currentFragment)
-                }
-
-                stopLoading()
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Something went wrong when retrieving data: $error", Toast.LENGTH_LONG).show()
-                stopLoading()
-            }
-        })
-
-
-        reference.child(userID).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-
-                userProfile = snapshot.getValue(User::class.java)
-
-
-
-                val userName = findViewById<View>(R.id.user_name) as TextView
-                val mailAddress = findViewById<View>(R.id.nav_mail_adress) as TextView
-                val avatarProfile = findViewById<View>(R.id.avatarProfilePic) as ImageView
-
-                userName.text = userProfile!!.username
-                mailAddress.text = userProfile!!.email
-                userProfile!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
-
-                supportFragmentManager.commit {
-                    setCustomAnimations(
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout,
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout
-                    )
-                    replace(binding.flFragment.id, currentFragment)
-                }
-
-                stopLoading()
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Something went wrong when retrieving data: $error", Toast.LENGTH_LONG).show()
-                stopLoading()
-            }
-        })
-
-
-
-        //drawer setup
-        configureDrawer()
-        configureToolbar()
 
 
 
@@ -181,8 +84,45 @@ class MyFragmentManager : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
+
+        startLoading()
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        val reference = FirebaseDatabase.getInstance().getReference(User::class.java.simpleName)
+        val userID = firebaseUser!!.uid
+        reference.child(userID).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                userProfile = snapshot.getValue(User::class.java)
+
+                configureDrawer()
+                configureToolbar()
+
+                supportFragmentManager.commit {
+                    setCustomAnimations(
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout,
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout
+                    )
+                    replace(binding.flFragment.id, currentFragment)
+                }
+
+                stopLoading()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext, "Something went wrong when retrieving data: $error", Toast.LENGTH_LONG).show()
+                stopLoading()
+            }
+        })
+
+
+
         firebaseAuth.addAuthStateListener(this.authStateListener)
     }
+
 
     override fun onStop() {
         super.onStop()
@@ -201,6 +141,20 @@ class MyFragmentManager : AppCompatActivity() {
     {
         val drawerLayout : DrawerLayout  = binding.drawerLayout
         val navView : NavigationView = binding.navView
+        val navHeader = navView.getHeaderView(0)
+
+
+        val userName = navHeader.findViewById(R.id.user_name) as TextView
+        val mailAddress = navHeader.findViewById(R.id.nav_mail_adress) as TextView
+        val avatarProfile = navHeader.findViewById(R.id.avatarProfilePic) as ImageView
+
+        userName.text = userProfile!!.username
+        mailAddress.text = userProfile!!.email
+        userProfile!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
+
+
+
+
         toggle = ActionBarDrawerToggle(this,drawerLayout, R.string.open,R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -287,6 +241,10 @@ class MyFragmentManager : AppCompatActivity() {
 
                 R.id.nav_logout ->{
                     currentFragment = HomeNavFragment()
+                    val fm = supportFragmentManager
+                    for (i in 0 until fm.backStackEntryCount) {
+                        fm.popBackStack()
+                    }
                     FirebaseAuth.getInstance().signOut()
                 }
 

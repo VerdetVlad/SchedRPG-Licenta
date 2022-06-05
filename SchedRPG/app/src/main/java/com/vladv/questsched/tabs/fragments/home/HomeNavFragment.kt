@@ -30,13 +30,8 @@ class HomeNavFragment : Fragment() {
     ): View {
         _binding = FragmentHomeNavBinding.inflate(inflater, container, false)
 
-
-
-
-        binding.homeBottomNav.selectedItemId = pressedButtonId
-        parentFragmentManager.beginTransaction().replace(binding.homeNavFragmentLayout.id,
-            currentFragment
-        ).commit()
+        MyFragmentManager.currentFragment = HomeNavFragment()
+        activity?.title = "Home"
 
         val bottomNav : BottomNavigationView = binding.homeBottomNav
         bottomNav.setOnItemSelectedListener {
@@ -64,6 +59,16 @@ class HomeNavFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.homeBottomNav.selectedItemId = pressedButtonId
+        parentFragmentManager.beginTransaction().replace(binding.homeNavFragmentLayout.id,
+            currentFragment
+        ).commit()
     }
 
 

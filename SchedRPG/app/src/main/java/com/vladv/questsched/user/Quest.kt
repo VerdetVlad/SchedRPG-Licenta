@@ -1,5 +1,6 @@
 package com.vladv.questsched.user
 
+import com.example.schedrpg.R
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
 
@@ -58,6 +59,19 @@ class Quest{
         )
         return stats[type!!]
     }
+
+    fun typeImageValue(): Int {
+        val stats = arrayOf(
+            R.drawable.quest_type_strenght,
+            R.drawable.quest_type_dexterity,
+            R.drawable.quest_type_constitution,
+            R.drawable.quest_type_wisdom,
+            R.drawable.quest_type_intelligence,
+            R.drawable.quest_type_charisma
+        )
+        return stats[type!!]
+    }
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

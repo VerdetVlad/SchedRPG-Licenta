@@ -4,9 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import com.example.schedrpg.R
@@ -28,15 +26,17 @@ class QuestListAdapter( context: Context?, userArrayList: ArrayList<Quest>?) :
         val name = convtView!!.findViewById<TextView>(R.id.taskItemName)
         val difficulty = convtView.findViewById<TextView>(R.id.taskItemDifficulty)
         val type = convtView.findViewById<TextView>(R.id.taskItemType)
+        val typeImage = convtView.findViewById<ImageView>(R.id.viewQuestTypeImage)
         val description = convtView.findViewById<TextView>(R.id.taskItemDescription)
-        val deleteButton = convtView.findViewById<Button>(R.id.abandonQuestButton)
-        val editButton = convtView.findViewById<Button>(R.id.editQuestViewButton)
+        val deleteButton = convtView.findViewById<ImageButton>(R.id.abandonQuestButton)
+        val editButton = convtView.findViewById<ImageButton>(R.id.editQuestViewButton)
 
         name.text = quest!!.name
         difficulty.text = quest.difficultyStringValue()
         type.text = quest.typeStringValue()
+        if(quest.description == "")quest.description = "No description"
         description.text = quest.description
-
+        quest.typeImageValue().let { typeImage.setImageResource(it) }
 
         editButton.setOnClickListener {
             changeFragmentFromAdapter(QuestListFragment.auxActivity!!,quest,position)

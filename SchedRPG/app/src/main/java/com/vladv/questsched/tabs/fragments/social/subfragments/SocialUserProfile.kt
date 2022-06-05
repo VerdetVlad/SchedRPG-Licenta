@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,11 +13,10 @@ import com.example.schedrpg.databinding.FragmentSocialUserProfileBinding
 import com.example.schedrpg.databinding.FragmentSocialUserProfileItemBinding
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.*
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.social.SentMessage
-import com.vladv.questsched.tabs.fragments.social.UserSocial
+import com.vladv.questsched.tabs.fragments.social.SentFriendRequest
+import com.vladv.questsched.utilities.UserSocialProfile
 import com.vladv.questsched.user.Quest
 
 
@@ -150,6 +147,7 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
                     holder.questDifficulty?.text = model.difficultyStringValue()
                     holder.questType?.text = model.typeStringValue()
                     holder.questDescription?.text = model.description
+                    model.typeImageValue().let { holder.questTypeImage?.setImageResource(it) }
                     holder.copyButton?.setOnClickListener {
                         Toast.makeText(context,"Copy Button Test",Toast.LENGTH_SHORT).show()
                     }
@@ -166,13 +164,15 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
         {
             var questName: TextView? =null
             var questType: TextView? =null
+            var questTypeImage: ImageView? =null
             var questDifficulty: TextView? =null
             var questDescription: TextView? =null
-            var copyButton: Button?=null
+            var copyButton: ImageButton?=null
 
             init{
                 questName = itemView.findViewById(R.id.socialQuestName)
                 questType = itemView.findViewById(R.id.socialQuestType)
+                questTypeImage = itemView.findViewById(R.id.socialQuestTypeImage)
                 questDifficulty = itemView.findViewById(R.id.socialQuestDificulty)
                 questDescription = itemView.findViewById(R.id.socialQuestDescription)
                 copyButton = itemView.findViewById(R.id.copyFriendQuest)
@@ -186,7 +186,7 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
         userRef.child(viewedUserID).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                val profile = dataSnapshot.getValue(UserSocial::class.java)
+                val profile = dataSnapshot.getValue(UserSocialProfile::class.java)
 
                 if (profile != null) {
                     profile.avatar?.drawableFace?.let { binding.visitProfileImage.setImageResource(it) }
@@ -210,6 +210,7 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
         if(currentUserId == viewedUserID)
         {
             binding.requestConstrLayout.visibility = View.GONE
+            showQuests()
             return
         }
         when (friendshipState) {
@@ -251,7 +252,7 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
                 if(it.isSuccessful)
                 {
                     friendReqRef.child(viewedUserID).child(currentUserId)
-                        .setValue(SentMessage())
+                        .setValue(SentFriendRequest())
                         .addOnCompleteListener{
                             friendshipState = "request sent"
                             manageRequests()

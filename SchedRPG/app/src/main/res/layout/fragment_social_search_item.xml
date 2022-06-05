@@ -21,7 +21,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userSocialImage"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="5sp"
                 android:layout_marginTop="5sp"
                 android:layout_marginBottom="5sp"
@@ -52,18 +52,16 @@
 
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
+
+            <ImageButton
                 android:id="@+id/searchViewProfileButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5sp"
                 android:layout_weight="0.2"
-                android:backgroundTint="?attr/colorSecondary"
-                android:drawableTint="?attr/colorOnPrimary"
-                android:textSize="13sp"
-                app:icon="@drawable/social_view_profile"
-                app:iconGravity="top"
-                app:iconSize="50sp"
+                android:backgroundTint="?attr/colorOnPrimary"
+                app:srcCompat="@drawable/social_view_profile"
+                app:tint="?attr/colorSecondary"
                 tools:ignore="SpeakableTextPresentCheck" />
 
 

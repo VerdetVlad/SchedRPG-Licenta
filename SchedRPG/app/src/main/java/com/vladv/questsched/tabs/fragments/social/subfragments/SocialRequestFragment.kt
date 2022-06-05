@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,12 +14,11 @@ import com.example.schedrpg.R
 import com.example.schedrpg.databinding.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.social.SentMessage
+import com.vladv.questsched.tabs.fragments.social.SentFriendRequest
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -62,12 +61,12 @@ class SocialRequestFragment : Fragment() {
         friendRequestRecyclerList = binding.friendRequestList
         friendRequestRecyclerList.layoutManager =  LinearLayoutManager(context)
 
-        val options = FirebaseRecyclerOptions.Builder<SentMessage>()
-            .setQuery(userQuery, SentMessage::class.java)
+        val options = FirebaseRecyclerOptions.Builder<SentFriendRequest>()
+            .setQuery(userQuery, SentFriendRequest::class.java)
             .build()
 
-        val adapter : FirebaseRecyclerAdapter<SentMessage, FindRequestViewHolder> =
-            object : FirebaseRecyclerAdapter<SentMessage, FindRequestViewHolder>(options){
+        val adapter : FirebaseRecyclerAdapter<SentFriendRequest, FindRequestViewHolder> =
+            object : FirebaseRecyclerAdapter<SentFriendRequest, FindRequestViewHolder>(options){
                 override fun onCreateViewHolder(
                     parent: ViewGroup,
                     viewType: Int
@@ -81,7 +80,7 @@ class SocialRequestFragment : Fragment() {
                 override fun onBindViewHolder(
                     holder: FindRequestViewHolder,
                     position: Int,
-                    model: SentMessage
+                    model: SentFriendRequest
                 ) {
                     holder.username?.text = model.username
                     model.avatarFace?.let { holder.image?.setImageResource(it) }
@@ -155,8 +154,8 @@ class SocialRequestFragment : Fragment() {
         {
             var username: TextView? =null
             var image: CircleImageView?=null
-            var acceptButton: Button?=null
-            var declineButton: Button?=null
+            var acceptButton: ImageButton?=null
+            var declineButton: ImageButton?=null
 
             init{
                 username = itemView.findViewById(R.id.userSocialName)
