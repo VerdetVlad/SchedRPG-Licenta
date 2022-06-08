@@ -20,7 +20,23 @@
         <item name="android:textColorHint">@color/c_light</item>
         <item name="checkboxStyle">@style/myCheckBox</item>
         <item name="dialogTheme">@style/DialogTheme</item>
+        <item name="android:alertDialogStyle">@style/AlertDialogStyle</item>
+        <item name="android:datePickerDialogTheme">@style/DatePickerStyle</item>
+
     </style>
+
+    <style name="DatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/c_darkest</item>                   <!--header background-->
+        <item name="android:windowBackground">@color/c_lightest</item>     <!--calendar background-->
+        <item name="android:colorControlActivated">@color/c_accent</item> <!--selected day-->
+        <item name="android:textColorPrimary">@color/c_darkest</item> <!--days of the month-->
+        <item name="android:textColorSecondary">@color/c_accent</item>    <!--days of the week-->
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">@color/c_lightest</item>
+    </style>
+
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <!-- Put the two options, colorAccent and android:colorAccent. -->

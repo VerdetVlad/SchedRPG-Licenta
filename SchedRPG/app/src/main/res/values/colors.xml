@@ -16,9 +16,17 @@
     <color name="c_dark">#a2416b</color>
     <color name="c_light">#FF9581</color>
     <color name="c_lightest">#f5c6a5</color>
-    <color name="c_accent">#FF7722</color>
+    <color name="c_accent">#FF5722</color>
     <color name="c_status_bar_light">#FF816D</color>
     <color name="c_status_bar_dark">#A2557F</color>
+
+<!--    <color name="c_darkest">#142850</color>-->
+<!--    <color name="c_dark">#27496D</color>-->
+<!--    <color name="c_light">#00909E</color>-->
+<!--    <color name="c_lightest">#DAE1E7</color>-->
+<!--    <color name="c_accent">#FF7722</color>-->
+<!--    <color name="c_status_bar_light">#FF816D</color>-->
+<!--    <color name="c_status_bar_dark">#A2557F</color>-->
 
 
     <color name="light_background">#CCC9AB</color>

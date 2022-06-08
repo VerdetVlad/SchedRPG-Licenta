@@ -35,7 +35,7 @@ class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
         buttonSelect.setOnClickListener{
 
             User.setAvatar(avatar)
-            MyFragmentManager.currentFragment = SettingsFragment()
+
             FirebaseData().updateUserData()
         }
 

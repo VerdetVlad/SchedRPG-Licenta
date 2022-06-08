@@ -24,7 +24,6 @@ class AvatarPickFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View{
         _binding = FragmentAvatarPickBinding.inflate(inflater, container, false)
-        MyFragmentManager.currentFragment = AvatarPickFragment()
 
         listAdapter = AvatarPickAdapter(requireContext(), AvatarList.avatarList)
         listView = binding.avatarList

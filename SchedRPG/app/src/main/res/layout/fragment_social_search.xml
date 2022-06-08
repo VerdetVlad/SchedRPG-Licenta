@@ -1,11 +1,52 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnSecondary"
     tools:context="com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment">
+
+    <RelativeLayout
+        android:id="@+id/chat_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:radius="15dp"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/socialSearchUserText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5sp"
+            android:layout_toStartOf="@+id/socialFindUserButton"
+            android:hint="search user name..."
+            android:padding="15dp"
+            android:radius="15dp"
+            android:textColor="?attr/colorOnPrimary"
+            android:textColorHint="?attr/colorOnPrimary" />
+
+        <ImageButton
+            android:id="@+id/socialFindUserButton"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/socialSearchUserText"
+            android:layout_alignBottom="@id/socialSearchUserText"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="?attr/colorOnSecondary"
+            android:src="@drawable/social_search_user"
+            app:tint="?attr/colorOnPrimary" />
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/allUsersList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/chat_linear_layout" />
+</RelativeLayout>

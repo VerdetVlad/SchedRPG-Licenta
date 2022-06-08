@@ -1,7 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
+    android:background="?attr/colorOnSecondary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.vladv.questsched.tabs.fragments.home.subfragments.HomeStatsFragment">
@@ -9,9 +9,10 @@
     <LinearLayout
         android:id="@+id/statsConstrLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10sp"
-        android:layout_marginEnd="10sp">
+        android:layout_marginEnd="10sp"
+        android:minHeight="600sp">
 
 
         <LinearLayout
@@ -252,4 +253,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</RelativeLayout>
+</ScrollView>

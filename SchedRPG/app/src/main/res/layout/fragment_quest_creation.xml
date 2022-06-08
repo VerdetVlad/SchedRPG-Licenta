@@ -6,6 +6,7 @@
     android:id="@+id/creationSclrLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnSecondary"
     tools:context="com.vladv.questsched.tabs.fragments.questcreation.QuestCreationFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,10 +16,11 @@
 
         <EditText
             android:id="@+id/createTaskName"
-            android:layout_width="310sp"
+            android:layout_width="0sp"
             android:layout_height="61sp"
-            android:layout_marginTop="28dp"
-            android:ems="10"
+            android:layout_marginStart="40sp"
+            android:layout_marginTop="28sp"
+            android:layout_marginEnd="40sp"
             android:hint="task name"
             android:inputType="textPersonName"
             android:textColor="?attr/colorOnPrimary"
@@ -29,10 +31,11 @@
 
         <EditText
             android:id="@+id/createTaskDescription"
-            android:layout_width="310sp"
+            android:layout_width="0sp"
             android:layout_height="150sp"
+            android:layout_marginStart="40sp"
             android:layout_marginTop="15sp"
-            android:ems="10"
+            android:layout_marginEnd="40sp"
             android:hint="task descrption (optional)"
             android:inputType="textMultiLine"
             android:textColor="?attr/colorOnPrimary"
@@ -45,12 +48,13 @@
             android:id="@+id/createTextDate"
             android:layout_width="180sp"
             android:layout_height="48sp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="15sp"
             android:ems="10"
             android:inputType="date"
             android:textColor="?attr/colorOnPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.192"
+            app:layout_constraintEnd_toStartOf="@+id/buttonDate"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createTaskDescription"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
@@ -75,7 +79,7 @@
             android:text="Repeat"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/repeatSpinner"
-            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createTextDate" />
 
@@ -96,13 +100,14 @@
 
         <LinearLayout
             android:id="@+id/creationLinLayout"
-            android:layout_width="333sp"
+            android:layout_width="0sp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="10sp"
+            android:layout_marginEnd="40dp"
             android:orientation="horizontal"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/repeatText">
 
@@ -193,11 +198,12 @@
                 android:id="@+id/repeatCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
                 android:text="Repeat Forever"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.154"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/repeatUntileText"
                 app:layout_constraintVertical_bias="0.333" />
@@ -206,12 +212,13 @@
                 android:id="@+id/repeatUntileText"
                 android:layout_width="180sp"
                 android:layout_height="48sp"
+                android:layout_marginStart="40dp"
                 android:ems="10"
                 android:hint="Repeat Until"
                 android:inputType="date"
                 android:textColor="?attr/colorOnPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.192"
+                app:layout_constraintEnd_toStartOf="@+id/repeatUntilButton"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -236,7 +243,7 @@
             android:text="Type"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/createTaskType"
-            app:layout_constraintHorizontal_bias="0.023"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/repeatConstrLayout" />
 
@@ -264,7 +271,7 @@
             android:text="Difficulty"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/createTaskDifficulty"
-            app:layout_constraintHorizontal_bias="0.023"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/creationTypeText" />
 
@@ -284,12 +291,13 @@
 
         <Button
             android:id="@+id/createTaskSubmit"
-            android:layout_width="232sp"
+            android:layout_width="0sp"
             android:layout_height="59sp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="80dp"
             android:text="Create"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/creationDifficultyText" />
 

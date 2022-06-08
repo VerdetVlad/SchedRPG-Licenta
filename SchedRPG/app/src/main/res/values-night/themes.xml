@@ -19,7 +19,23 @@
         <item name="android:textColor">@color/c_lightest</item>
         <item name="android:textColorHint">@color/c_dark</item>
         <item name="checkboxStyle">@style/myCheckBox</item>
+        <item name="android:alertDialogStyle">@style/AlertDialogStyle</item>
+        <item name="android:datePickerDialogTheme">@style/DatePickerStyle</item>
+
     </style>
+
+    <style name="DatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/c_lightest</item>                   <!--header background-->
+        <item name="android:windowBackground">@color/c_darkest </item>     <!--calendar background-->
+        <item name="android:colorControlActivated">@color/c_accent</item> <!--selected day-->
+        <item name="android:textColorPrimary">@color/c_lightest</item> <!--days of the month-->
+        <item name="android:textColorSecondary">@color/c_accent</item>    <!--days of the week-->
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:background">@color/c_darkest</item>
+    </style>
+
 
 
     <style name="myCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">

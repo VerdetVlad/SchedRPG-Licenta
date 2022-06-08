@@ -87,7 +87,9 @@ class Register : AppCompatActivity() {
                                     Toast.LENGTH_LONG
                                 ).show()
                                 progressBar!!.visibility = View.GONE
-                                startActivity(Intent(this@Register, LogIn::class.java))
+                                val intent = Intent(this@Register, LogIn::class.java)
+                                intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
+                                startActivity(intent)
                             } else {
                                 Toast.makeText(
                                     this@Register,

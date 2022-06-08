@@ -20,7 +20,17 @@ import com.vladv.questsched.utilities.UserSocialProfile
 import com.vladv.questsched.user.Quest
 
 
-class SocialUserProfile(private val viewedUserID:String) : Fragment() {
+class SocialUserProfile : Fragment {
+
+    private lateinit var viewedUserID: String
+    private val currentUserId = MyFragmentManager.firebaseAuth.uid!!
+
+
+    constructor()
+    constructor(viewedUserID: String) : super() {
+        this.viewedUserID = viewedUserID
+
+    }
 
     private var _binding: FragmentSocialUserProfileBinding? = null
     private val binding get() = _binding!!
@@ -28,7 +38,6 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
     private lateinit var userRef: DatabaseReference
     private lateinit var friendReqRef: DatabaseReference
     private lateinit var friendListRef: DatabaseReference
-    private val currentUserId: String = MyFragmentManager.firebaseAuth.uid!!
     private var friendshipState:String = "not friends"
 
 
@@ -59,7 +68,19 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
             acceptRequest()
         }
 
-        MyFragmentManager.startLoading()
+
+
+
+
+        return binding.root
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        if(!this::viewedUserID.isInitialized) return
+
         friendReqRef.child(currentUserId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -81,7 +102,7 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
                     }
                     else
                     {
-                        MyFragmentManager.startLoading()
+
                         friendListRef.child(currentUserId)
                             .addListenerForSingleValueEvent(object : ValueEventListener{
                                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -90,7 +111,6 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
                                         friendshipState = "friends"
                                         manageRequests()
                                         showQuests()
-                                        MyFragmentManager.stopLoading()
                                     }
                                 }
 
@@ -101,7 +121,6 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
                     }
 
                     manageRequests()
-                    MyFragmentManager.stopLoading()
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {}
@@ -109,8 +128,6 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
 
 
         setData()
-
-        return binding.root
     }
 
 
@@ -146,8 +163,14 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
                     holder.questName?.text = model.name
                     holder.questDifficulty?.text = model.difficultyStringValue()
                     holder.questType?.text = model.typeStringValue()
-                    holder.questDescription?.text = model.description
                     model.typeImageValue().let { holder.questTypeImage?.setImageResource(it) }
+
+                    holder.questDescription?.text = if(model.description == "")  "No description" else model.description
+
+                    holder.questLayout?.setOnClickListener{
+
+                        context?.let { MyFragmentManager.createQuestPopUp(model, it) }
+                    }
                     holder.copyButton?.setOnClickListener {
                         Toast.makeText(context,"Copy Button Test",Toast.LENGTH_SHORT).show()
                     }
@@ -168,6 +191,7 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
             var questDifficulty: TextView? =null
             var questDescription: TextView? =null
             var copyButton: ImageButton?=null
+            var questLayout: LinearLayout?=null
 
             init{
                 questName = itemView.findViewById(R.id.socialQuestName)
@@ -176,6 +200,7 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
                 questDifficulty = itemView.findViewById(R.id.socialQuestDificulty)
                 questDescription = itemView.findViewById(R.id.socialQuestDescription)
                 copyButton = itemView.findViewById(R.id.copyFriendQuest)
+                questLayout = itemView.findViewById(R.id.friendProfileQuestLayout)
             }
         }
 
@@ -325,6 +350,23 @@ class SocialUserProfile(private val viewedUserID:String) : Fragment() {
                         }
                 }
             }
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if(!this::viewedUserID.isInitialized) return
+        outState.putString("friendID", viewedUserID)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            viewedUserID = savedInstanceState.getString("friendID")!!
+
+        }
     }
 
 

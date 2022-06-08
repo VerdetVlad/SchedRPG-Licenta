@@ -36,16 +36,20 @@ class SocialNavFragment : Fragment() {
         _binding = FragmentSocialNavBinding.inflate(inflater, container, false)
 
 
-
-
         binding.socialBottomNav.selectedItemId = pressedButtonId
-        parentFragmentManager.beginTransaction().replace(binding.socialNavFragmentLayout.id,
-            currentFragment
-        ).commit()
+
+        if(savedInstanceState==null) parentFragmentManager.commit {
+            setCustomAnimations(
+                R.anim.fragment_fadein,
+                R.anim.fragment_fadeout,
+                R.anim.fragment_fadein,
+                R.anim.fragment_fadeout
+            )
+            replace(binding.socialNavFragmentLayout.id, currentFragment)
+
+        }
 
 
-
-        MyFragmentManager.currentFragment = SocialNavFragment()
 
 
         val bottomNav : BottomNavigationView = binding.socialBottomNav

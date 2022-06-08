@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/questItemListLinLayout"
+        android:id="@+id/friendProfileQuestLayout"
         android:layout_width="match_parent"
         android:layout_height="130sp"
         android:layout_marginTop="3sp"

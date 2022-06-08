@@ -3,7 +3,7 @@ package com.vladv.questsched.utilities
 import com.vladv.questsched.user.Avatar
 import com.vladv.questsched.user.Quest
 
-class UserSocialProfile {
+class UserSocialProfile{
 
     var username:String? =null
     var avatar:Avatar? =null

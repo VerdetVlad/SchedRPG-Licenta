@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentQuestViewBinding
+import com.example.schedrpg.databinding.PopUpQuestBinding
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 import com.vladv.questsched.utilities.FirebaseData
@@ -21,6 +24,8 @@ class QuestListFragment : Fragment() {
     private var _binding: FragmentQuestViewBinding? = null
     private val binding get() = _binding!!
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,7 +33,7 @@ class QuestListFragment : Fragment() {
     ): View {
         _binding = FragmentQuestViewBinding.inflate(inflater, container, false)
         activity?.title = "Quest List"
-        MyFragmentManager.currentFragment = QuestListFragment()
+
 
 
         auxActivity = activity
@@ -59,13 +64,18 @@ class QuestListFragment : Fragment() {
         var listAdapter: QuestListAdapter? = null
         fun removeItem(task: Quest) {
             user.removeQuest(task)
-            MyFragmentManager.currentFragment = QuestListFragment()
+            listAdapter?.notifyDataSetChanged()
             FirebaseData().updateUserData()
         }
 
 
 
 
-
     }
+
+
+
+
+
+
 }

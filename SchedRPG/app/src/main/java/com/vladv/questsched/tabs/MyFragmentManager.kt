@@ -1,22 +1,23 @@
 package com.vladv.questsched.tabs
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.*
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.ActivityFragmentManagerBinding
+import com.example.schedrpg.databinding.PopUpQuestBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -30,6 +31,7 @@ import com.vladv.questsched.tabs.fragments.questcreation.QuestCreationFragment
 import com.vladv.questsched.tabs.fragments.questlistview.QuestListFragment
 import com.vladv.questsched.tabs.fragments.settings.SettingsFragment
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
+import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
 
 
@@ -37,27 +39,57 @@ class MyFragmentManager : AppCompatActivity() {
 
 
     companion object {
-        var userProfile: User? = null
+        var userProfile: User? = User()
         var currentFragment : Fragment = HomeNavFragment()
-
-        lateinit var binding: ActivityFragmentManagerBinding
 
         lateinit var firebaseAuth : FirebaseAuth
 
-        fun startLoading()
+        private var dialogBuilder: AlertDialog.Builder?=null
+        private var dialog: AlertDialog?=null
+
+        @SuppressLint("SetTextI18n")
+        fun createQuestPopUp(quest: Quest, context: Context)
         {
-            binding.progressBarContainer.visibility = View.VISIBLE
+            val dialog: AlertDialog?
+
+            val dialogBuilder: AlertDialog.Builder = context.let { AlertDialog.Builder(it, R.style.AlertDialogStyle) }
+            val inflater = LayoutInflater.from(context)
+            val auxBinding = PopUpQuestBinding.inflate(inflater)
+            auxBinding.popUpQuestName.text = quest.name
+            auxBinding.popUpQuestType.text = quest.typeStringValue()
+            auxBinding.popUpQuestDificulty.text = quest.difficultyStringValue()
+            auxBinding.popUpStartDate.text = "Begin: " + quest.initialDate?.toStringDate()
+
+            if(quest.repeat?.recurringFrequency!=0)
+            {
+                auxBinding.popUpRepeatLayout.visibility=View.VISIBLE
+                auxBinding.popUpRepeatType.text = "Repeat type: " + quest.repeat!!.frequencyToString()
+                if(quest.repeat?.recurringFrequency==2)
+                {
+                    auxBinding.popUpRepeatDays.visibility = View.VISIBLE
+                    auxBinding.popUpRepeatDays.text = "On: " + quest.repeat!!.recurringDaysToString()
+                }
+                auxBinding.popUpRepeatUntil.text = "End: " + quest.repeat!!.untilDate!!.toStringDate()
+            }
+
+
+            if(quest.description!="") {
+                auxBinding.popUpQuestDescription.visibility = View.VISIBLE
+                auxBinding.popUpQuestDescription.text = "Description: \n" + quest.description
+            }
+
+            dialogBuilder.setView(auxBinding.root)
+            dialog = dialogBuilder.create()
+            dialog.show()
+
         }
 
-        fun stopLoading()
-        {
-            binding.progressBarContainer.visibility = View.GONE
-        }
     }
 
 
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var authStateListener : FirebaseAuth.AuthStateListener
+    lateinit var binding: ActivityFragmentManagerBinding
 
     private val TIME_INTERVAL = 2000
     private var backPressed:Long = 0
@@ -68,25 +100,45 @@ class MyFragmentManager : AppCompatActivity() {
         val view: View = binding.root
         setContentView(view)
 
+
         firebaseAuth = FirebaseAuth.getInstance()
         authStateListener = FirebaseAuth.AuthStateListener  { firebaseAuth ->
             val firebaseUser = firebaseAuth.currentUser
             if (firebaseUser == null) {
                 val intent = Intent(this, LogIn::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
                 startActivity(intent)
             }
         }
 
+        if(null == savedInstanceState) {
+            supportFragmentManager.commit {
+                setCustomAnimations(
+                    R.anim.fragment_fadein,
+                    R.anim.fragment_fadeout,
+                    R.anim.fragment_fadein,
+                    R.anim.fragment_fadeout
+                )
+                replace(binding.flFragment.id, HomeNavFragment())
+            }
+
+        }
 
 
+
+        configureDrawer()
+        configureToolbar()
+
+
+        stopLoading()
 
     }
 
     override fun onStart() {
         super.onStart()
+        firebaseAuth.addAuthStateListener(this.authStateListener)
 
 
-        startLoading()
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val reference = FirebaseDatabase.getInstance().getReference(User::class.java.simpleName)
         val userID = firebaseUser!!.uid
@@ -95,21 +147,7 @@ class MyFragmentManager : AppCompatActivity() {
 
                 userProfile = snapshot.getValue(User::class.java)
 
-                configureDrawer()
-                configureToolbar()
-
-                supportFragmentManager.commit {
-                    setCustomAnimations(
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout,
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout
-                    )
-                    replace(binding.flFragment.id, currentFragment)
-                }
-
-                stopLoading()
-
+                //stopLoading()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -117,10 +155,6 @@ class MyFragmentManager : AppCompatActivity() {
                 stopLoading()
             }
         })
-
-
-
-        firebaseAuth.addAuthStateListener(this.authStateListener)
     }
 
 
@@ -171,7 +205,6 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadeout
                     )
                     replace(binding.flFragment.id, HomeNavFragment())
-                    addToBackStack(null)
                     drawerLayout.closeDrawers()
                 }
 
@@ -183,7 +216,6 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadeout
                     )
                     replace(binding.flFragment.id, QuestCreationFragment())
-                    addToBackStack(null)
                     drawerLayout.closeDrawers()
                 }
 
@@ -196,7 +228,6 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadeout
                     )
                     replace(binding.flFragment.id, QuestListFragment())
-                    addToBackStack(null)
                     drawerLayout.closeDrawers()
                 }
 
@@ -208,7 +239,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadeout
                     )
                     replace(binding.flFragment.id, CalendarFragment())
-                    addToBackStack(null)
+
                     drawerLayout.closeDrawers()
                 }
 
@@ -220,7 +251,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadeout
                     )
                     replace(binding.flFragment.id, SettingsFragment())
-                    addToBackStack(null)
+
                     drawerLayout.closeDrawers()
                 }
 
@@ -232,7 +263,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadeout
                     )
                     replace(binding.flFragment.id, SocialNavFragment())
-                    addToBackStack(null)
+
                     drawerLayout.closeDrawers()
                 }
 
@@ -240,7 +271,6 @@ class MyFragmentManager : AppCompatActivity() {
 
 
                 R.id.nav_logout ->{
-                    currentFragment = HomeNavFragment()
                     val fm = supportFragmentManager
                     for (i in 0 until fm.backStackEntryCount) {
                         fm.popBackStack()
@@ -261,6 +291,8 @@ class MyFragmentManager : AppCompatActivity() {
         val actionbar: ActionBar = supportActionBar!!
         actionbar.setHomeAsUpIndicator(R.drawable.sidenav_display_drawer)
         actionbar.setDisplayHomeAsUpEnabled(true)
+
+        actionbar.setDisplayShowHomeEnabled(true)
     }
 
 
@@ -296,11 +328,15 @@ class MyFragmentManager : AppCompatActivity() {
     }
 
 
-
-    fun isNightMode(): Boolean {
-        return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+    fun startLoading()
+    {
+        binding.progressBarContainer.visibility = View.VISIBLE
     }
 
+    fun stopLoading()
+    {
+        binding.progressBarContainer.visibility = View.GONE
+    }
 
 
 }

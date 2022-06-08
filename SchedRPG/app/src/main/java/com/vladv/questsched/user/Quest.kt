@@ -1,11 +1,17 @@
 package com.vladv.questsched.user
 
+import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
+import androidx.appcompat.app.AlertDialog
 import com.example.schedrpg.R
+import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.utilities.MyDate
+import com.vladv.questsched.utilities.Recurrence
 import java.util.*
 
 
-class Quest{
+class Quest : Parcelable{
 
     var name: String?=null
     var description: String?=null
@@ -13,6 +19,17 @@ class Quest{
     var repeat: Recurrence?=null
     var type: Int?=null// 0 - STR, 1 - DEX, 2 - CON, 3 - WIS, 4 - INT, 5 - CHA
     var difficulty: Int?=null// 0 - very easy, 1 - easy, 2 - medium, 3 - hard, 4 - very hard
+
+    constructor(parcel: Parcel){
+        name = parcel.readString()
+        description = parcel.readString()
+        val auxDate = parcel.readString()
+        initialDate = auxDate?.let { MyDate(it) }
+        val auxRepeat = parcel.readString()
+        repeat = auxRepeat?.let { Recurrence(it) }
+        type = parcel.readInt()
+        difficulty = parcel.readInt()
+    }
 
     constructor()
     constructor(
@@ -25,7 +42,7 @@ class Quest{
     ) {
         this.name = name
         this.description = description
-        this.initialDate = MyDate(initialDate)
+        this.initialDate = initialDate?.let { MyDate(it) }
         this.repeat = repeat
         this.type = type
         this.difficulty = difficulty
@@ -41,6 +58,19 @@ class Quest{
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}'
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        dest!!.writeString(name)
+        dest.writeString(description)
+        dest.writeString(initialDate.toString())
+        dest.writeString(repeat.toString())
+        type?.let { dest.writeInt(it) }
+        difficulty?.let { dest.writeInt(it) }
     }
 
     fun difficultyStringValue(): String {
@@ -126,5 +156,19 @@ class Quest{
     {
         return -5*(difficulty!!+1)
     }
+
+    companion object CREATOR : Parcelable.Creator<Quest> {
+        override fun createFromParcel(parcel: Parcel): Quest {
+            return Quest(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Quest?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+
+
+
 
 }

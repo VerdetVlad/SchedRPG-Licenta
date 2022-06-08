@@ -16,7 +16,7 @@ class FirebaseData {
 
     fun updateUserData() {
 
-        MyFragmentManager.startLoading()
+
         databaseReference.child(userID).setValue(User())
 //        MyFragmentManager.stopLoading()
 
@@ -25,7 +25,6 @@ class FirebaseData {
 
     fun updateUserData(activity: FragmentActivity, onSuccess:String, onFailure:String) {
 
-        MyFragmentManager.startLoading()
         databaseReference.child(userID).setValue(User())
             .addOnCompleteListener {
                 Toast.makeText(activity, onSuccess, Toast.LENGTH_SHORT).show()

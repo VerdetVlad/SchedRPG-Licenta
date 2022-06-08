@@ -73,4 +73,6 @@ class HomeQuestsFragment : Fragment() {
         var listAdapter: HomeQuestsAdapter? = null
 
     }
+
+
 }

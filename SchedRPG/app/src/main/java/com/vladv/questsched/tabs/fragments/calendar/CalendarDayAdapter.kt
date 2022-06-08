@@ -1,7 +1,7 @@
 package com.vladv.questsched.tabs.fragments.calendar
 
+import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +11,10 @@ import androidx.fragment.app.commit
 import com.example.schedrpg.R
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.questlistview.EditQuestFragment
-import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.user.Quest
-import com.vladv.questsched.user.Recurrence
 import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.MyDate
+import com.vladv.questsched.utilities.Recurrence
 
 
 class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?) :
@@ -44,26 +44,31 @@ class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?) :
         description.text = quest.description
         quest.typeImageValue().let { typeImage.setImageResource(it) }
 
+        description.text = if(quest.description == "")  "No description" else quest.description
+
+        val layout = convtView.findViewById<RelativeLayout>(R.id.calendarDayItemRelLayout)
+        layout.setOnClickListener{
+
+            MyFragmentManager.createQuestPopUp(quest,context)
+        }
+
+
         buttonEdit.setOnClickListener{
             val questPosition = User().quests?.indexOf(quest)
             if (questPosition != null) {
-                changeFragmentFromAdapter(CaldendarDayFragment.auxActivity!!,quest,questPosition)
+                changeFragmentFromAdapter(CalendarDayFragment.auxActivity!!,quest,questPosition)
             }
-            test()
         }
 
 
         return convtView
     }
 
-    private fun test() {
-        val rec = Recurrence(1,null, MyDate(1,1,1,1))
-        val q = Quest("test","","10/10/2022", rec,1,1)
-        add(q)
-    }
+
 
 
     private fun changeFragmentFromAdapter(activity: FragmentActivity, quest:Quest, position: Int) {
+
 
         val fragmentManager = activity.supportFragmentManager
         fragmentManager.commit {
@@ -73,7 +78,7 @@ class CalendarDayAdapter(context: Context?, questList: ArrayList<Quest>?) :
                 R.anim.fragment_fadein,
                 R.anim.fragment_fadeout
             )
-            replace(MyFragmentManager.binding.flFragment.id, EditQuestFragment(quest, position))
+            replace(R.id.flFragment, EditQuestFragment(quest, position))
             addToBackStack(null)
         }
 

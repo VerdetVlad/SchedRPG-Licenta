@@ -30,7 +30,7 @@ class HomeNavFragment : Fragment() {
     ): View {
         _binding = FragmentHomeNavBinding.inflate(inflater, container, false)
 
-        MyFragmentManager.currentFragment = HomeNavFragment()
+
         activity?.title = "Home"
 
         val bottomNav : BottomNavigationView = binding.homeBottomNav
@@ -70,6 +70,8 @@ class HomeNavFragment : Fragment() {
             currentFragment
         ).commit()
     }
+
+
 
 
 }

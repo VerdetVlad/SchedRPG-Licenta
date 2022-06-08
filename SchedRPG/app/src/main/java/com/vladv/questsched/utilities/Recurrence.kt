@@ -1,12 +1,10 @@
-package com.vladv.questsched.user
-
-import com.vladv.questsched.utilities.MyDate
+package com.vladv.questsched.utilities
 
 class Recurrence{
 
     //0 - dont repeat; 1 - every day; 2 - every week; 3 - every month
     var recurringFrequency:Int? = null
-    var recurringDays:ArrayList<Boolean>? = null
+    var recurringDays:ArrayList<Boolean>? = ArrayList(7)
     var untilDate: MyDate? = null
 
 
@@ -16,6 +14,20 @@ class Recurrence{
         this.recurringFrequency = recurringFrequency
         this.recurringDays = recurringDays
         this.untilDate = untilDate
+    }
+
+    constructor(str:String)
+    {
+        val words = str.split(" ", ignoreCase = true)
+        recurringFrequency = words[0].toInt()
+        for(i in 1..7)
+            recurringDays?.set(i,
+                words[i+1]=="1"
+            )
+        untilDate = MyDate(words[8].toInt(),
+            words[9].toInt(),
+            words[10].toInt(),
+            words[11].toInt())
     }
 
 
@@ -50,8 +62,42 @@ class Recurrence{
         return result
     }
 
+
+    fun frequencyToString():String
+    {
+        val frequency = arrayOf(
+            "Never",
+            "Daily",
+            "Weekly",
+            "Monthly"
+        )
+        return frequency[recurringFrequency!!]
+    }
+
+    fun recurringDaysToString():String
+    {
+        var str = ""
+        val days = arrayOf(
+            "Mon",
+            "Tue",
+            "Wen",
+            "Thur",
+            "Fri",
+            "Sat",
+            "Sun"
+        )
+        for(i in 0..6) str+=if(recurringDays?.get(i) == true) (days[i] + " ") else ""
+
+        return str
+    }
+
     override fun toString(): String {
-        return "RecurringQuest(recurringFrequency=$recurringFrequency, recurringDays=$recurringDays)"
+        var str:String = ""
+        str += recurringFrequency
+        for(i in 0..6) str+=if(recurringDays?.get(i) == true) " 1" else " 0"
+        str+= " " + untilDate.toString()
+
+        return str
     }
 
 

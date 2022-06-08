@@ -38,13 +38,29 @@ class SocialSearchFragment : Fragment() {
         activity?.title = "Find Friends"
         SocialNavFragment.currentFragment = SocialSearchFragment()
 
+        binding.socialFindUserButton.setOnClickListener {
+            val searchText = binding.socialSearchUserText.text.toString()
+            firebaseSearch(searchText)
+        }
+
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
 
+        firebaseSearch("")
+
+
+    }
+
+
+    private fun firebaseSearch(search:String)
+    {
         userQuery = FirebaseDatabase.getInstance().reference.child("User").limitToLast(30)
+            .orderByChild("username").startAt(search).endAt(search + "\uf8ff")
+
+        val parentLayout = requireView().parent as ViewGroup
 
         findUsersRecyclerList = binding.allUsersList
         findUsersRecyclerList.layoutManager =  LinearLayoutManager(context)
@@ -82,7 +98,7 @@ class SocialSearchFragment : Fragment() {
                                 R.anim.fragment_fadeout
                             )
                             replace(
-                                MyFragmentManager.binding.flFragment.id,
+                                parentLayout.id,
                                 SocialUserProfile(visitUserId!!)
                             )
                             addToBackStack(null)
@@ -95,6 +111,8 @@ class SocialSearchFragment : Fragment() {
 
         adapter.startListening()
     }
+
+
 
     companion object{
         class FindUsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

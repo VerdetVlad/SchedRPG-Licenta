@@ -11,7 +11,6 @@ import com.applandeo.materialcalendarview.EventDay
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentCalendarBinding
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
@@ -34,7 +33,6 @@ class CalendarFragment : Fragment() {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
         activity?.title = "Quest Calendar"
-        MyFragmentManager.currentFragment = CalendarFragment()
 
         setCalendarEvents()
 
@@ -61,7 +59,7 @@ class CalendarFragment : Fragment() {
                     R.anim.fragment_fadein,
                     R.anim.fragment_fadeout
                 )
-                replace(R.id.flFragment, CaldendarDayFragment(date))
+                replace(R.id.flFragment, CalendarDayFragment(date))
                 addToBackStack("")
             }
 

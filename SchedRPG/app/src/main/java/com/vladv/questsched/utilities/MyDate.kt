@@ -27,12 +27,12 @@ class MyDate{
         this.year = year!!.toInt()
     }
 
-    constructor(str:String?)
+    constructor(str:String)
     {
         val delimiter1 = "/"
         val delimiter2 = " "
         val delimiter3 = ","
-        val words = str!!.split(delimiter1, delimiter3, delimiter2, ignoreCase = true)
+        val words = str.split(delimiter1, delimiter3, delimiter2, ignoreCase = true)
         when (words.size) {
             3 -> {
                 this.weekDay = 0

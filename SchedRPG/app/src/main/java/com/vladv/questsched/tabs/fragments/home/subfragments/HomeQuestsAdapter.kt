@@ -13,7 +13,7 @@ import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.user.Quest
-import com.vladv.questsched.user.Recurrence
+import com.vladv.questsched.utilities.Recurrence
 
 
 class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
@@ -35,34 +35,34 @@ class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
         val description = convtView.findViewById<TextView>(R.id.taskItemDescription)
         val buttonFinish = convtView.findViewById<ImageButton>(R.id.finishQuestButton)
         val buttonAbandon = convtView.findViewById<ImageButton>(R.id.abandonQuestButton)
-        val layout = convtView.findViewById<LinearLayout>(R.id.questItemListLinLayout)
 
         name.text = quest!!.name
         difficulty.text = quest.difficultyStringValue()
         type.text = quest.typeStringValue()
         description.text = quest.description
         quest.typeImageValue().let { typeImage.setImageResource(it) }
-        if(quest.description == "")quest.description = "No description"
+        description.text = if(quest.description == "")  "No description" else quest.description
+
+        val layout = convtView.findViewById<RelativeLayout>(R.id.homeItemRelLayout)
+        layout.setOnClickListener{
+
+            MyFragmentManager.createQuestPopUp(quest,context)
+        }
 
         buttonFinish.setOnClickListener{
-            layout.background.setTint(Color.GREEN)
+
             User().completeQuest(quest)
-            MyFragmentManager.currentFragment = HomeNavFragment()
+
             FirebaseData().updateUserData()
         }
         buttonAbandon.setOnClickListener{
-            layout.background.setTint(Color.RED)
+
             User().abandonQuest(quest)
-            MyFragmentManager.currentFragment = HomeNavFragment()
+
             FirebaseData().updateUserData()
         }
 
         return convtView
     }
 
-    private fun test() {
-        val rec = Recurrence(1,null, MyDate(1,1,1,1))
-        val q = Quest("test","","10/10/2022", rec,1,1)
-        add(q)
-    }
 }

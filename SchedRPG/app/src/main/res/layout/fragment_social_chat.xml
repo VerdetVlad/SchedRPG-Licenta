@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnSecondary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.vladv.questsched.tabs.fragments.social.subfragments.SocialChatFragment">
 
@@ -16,9 +17,11 @@
             android:id="@+id/custom_profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="15sp"
+            android:layout_alignParentEnd="false"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5sp"
             android:cropToPadding="true"
             android:src="@drawable/avatar" />
 
@@ -26,10 +29,9 @@
             android:id="@+id/custom_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="false"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10sp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/custom_profile_image"
             android:text="Display UserName"
             android:textColor="?attr/colorOnSecondary"
             android:textSize="25sp"

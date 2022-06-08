@@ -36,8 +36,6 @@ class SocialChatAdapter(private val friendPicture:Int, private val messageList: 
         val chatMessage = messageList[position]
 
         val fromUserID = chatMessage.from!!
-        val toUserID = chatMessage.to!!
-        val messageContent = chatMessage.message!!
 
         userRef = FirebaseDatabase.getInstance().reference.child("User").child(fromUserID)
 

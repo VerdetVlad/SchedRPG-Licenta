@@ -4,6 +4,7 @@ import android.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,9 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentQuestCreationBinding
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.user.Quest
-import com.vladv.questsched.user.Recurrence
+import com.vladv.questsched.utilities.Recurrence
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
@@ -42,7 +42,6 @@ class QuestCreationFragment : Fragment() {
     ): View {
         _binding = FragmentQuestCreationBinding.inflate(inflater, container, false)
         activity?.title = "Quest Creation"
-        MyFragmentManager.currentFragment = QuestCreationFragment()
 
 
         val stats = arrayOf("Strength","Dexterity", "Constitution", "Wisdom", "Intelligence","Charisma")
@@ -87,10 +86,10 @@ class QuestCreationFragment : Fragment() {
 
 
         binding.repeatSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
-                val spinChoice = binding.repeatSpinner.selectedItemPosition
-                if(spinChoice!=0) {
-                    if(spinChoice==2) {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, l: Long) {
+                if(position!=0) {
+                    binding.repeatUntileText.text = binding.createTextDate.text
+                    if(position==2) {
                         binding.creationLinLayout.visibility = View.VISIBLE
                         binding.repeatConstrLayout.visibility = View.VISIBLE
                     }
@@ -124,13 +123,21 @@ class QuestCreationFragment : Fragment() {
         }
 
 
-        binding.createTaskSubmit.setOnClickListener { addTaskToFirebase() }
+        binding.createTaskSubmit.setOnClickListener {
+            addTaskToFirebase()
+
+            resetFields()
+        }
 
         return binding.root
     }
 
 
+
+
     private fun addTaskToFirebase() {
+
+
         val name = binding.createTaskName.text.toString().trim { it <= ' ' }
         if (name.isEmpty()) {
             binding.createTaskName.error = "Name is required."
@@ -165,11 +172,15 @@ class QuestCreationFragment : Fragment() {
 
         val quest = Quest(name, description,date,repeat,type, difficulty)
         user.addQuest(quest)
+
+
+
         val changeFirebaseData = FirebaseData()
 
         changeFirebaseData.updateUserData(requireActivity(),
             "Quest: " + quest.name + " created succesfully",
             "Quest: " + quest.name + " creation failed: database connection error")
+
     }
 
     private fun makeToast(s: String) {
@@ -233,4 +244,18 @@ class QuestCreationFragment : Fragment() {
 
         return "$d/$m/$y"
     }
+
+    private fun resetFields()
+    {
+        binding.createTaskName.setText("")
+        binding.createTaskDescription.setText("")
+        binding.createTaskDifficulty.setSelection(0)
+        binding.createTaskType.setSelection(0)
+        binding.repeatSpinner.setSelection(0)
+        resetWeekFields()
+        resetCalendarField()
+        binding.repeatCheckBox.isChecked = false
+
+    }
+
 }

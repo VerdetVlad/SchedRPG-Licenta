@@ -16,13 +16,31 @@ import com.vladv.questsched.utilities.ChatMessages
 import com.vladv.questsched.utilities.UserSocialProfile
 
 
-class  SocialChatFragment(private val friendUserID:String,private val userProfile: UserSocialProfile) : Fragment() {
+class  SocialChatFragment : Fragment {
+
+    private lateinit var friendUserID: String
+    private lateinit var username:String
+    private var profilePicture: Int = 0
+
+    constructor(){
+        this.currentUserId = MyFragmentManager.firebaseAuth.uid!!
+        this.messagesList = ArrayList()
+    }
+
+
+    constructor(friendUserID: String, username:String, profilePicture: Int,) : super() {
+        this.friendUserID = friendUserID
+        this.username = username
+        this.profilePicture = profilePicture
+        this.currentUserId = MyFragmentManager.firebaseAuth.uid!!
+        this.messagesList = ArrayList()
+    }
 
     private var _binding: FragmentSocialChatBinding? = null
     private val binding get() = _binding!!
-    private val currentUserId: String = MyFragmentManager.firebaseAuth.uid!!
+    private val currentUserId: String
     private lateinit var rootRef: DatabaseReference
-    private var messagesList : ArrayList<ChatMessages> = ArrayList()
+    private var messagesList : ArrayList<ChatMessages>
     private lateinit var chatAdapter:SocialChatAdapter
     private lateinit var linearLayout: LinearLayoutManager
 
@@ -35,11 +53,18 @@ class  SocialChatFragment(private val friendUserID:String,private val userProfil
 
         rootRef = FirebaseDatabase.getInstance().reference
 
+        return binding.root
+    }
 
-        binding.customProfileName.text = userProfile.username
-        userProfile.avatar?.drawableFace?.let { binding.customProfileImage.setImageResource(it) }
+    override fun onStart() {
+        super.onStart()
 
-        chatAdapter = SocialChatAdapter(userProfile.avatar!!.drawableFace!!,messagesList)
+        if(!this::friendUserID.isInitialized) return
+
+        binding.customProfileName.text = username
+        profilePicture.let { binding.customProfileImage.setImageResource(it) }
+
+        chatAdapter = SocialChatAdapter(profilePicture,messagesList)
         linearLayout = LinearLayoutManager(context)
         binding.socialChatMessageList.layoutManager = linearLayout
         binding.socialChatMessageList.adapter = chatAdapter
@@ -48,15 +73,9 @@ class  SocialChatFragment(private val friendUserID:String,private val userProfil
             sendMessage()
         }
 
-
-        return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         rootRef.child("Messages").child(currentUserId).child(friendUserID)
             .addChildEventListener(object : ChildEventListener {
+
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     val messages: ChatMessages? = dataSnapshot.getValue(ChatMessages::class.java)
@@ -107,17 +126,30 @@ class  SocialChatFragment(private val friendUserID:String,private val userProfil
             messageBodyDetails["$messageReceiverRef/$messagePushID"] = messageTextBody
             rootRef.updateChildren(messageBodyDetails)
                 .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            context,
-                            "Message Sent Successfully...",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    if (!task.isSuccessful) {
+                        Toast.makeText(context, "Message Failed to send", Toast.LENGTH_SHORT).show()
                     }
                     binding.socialInputMessage.setText("")
                 }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if(!this::friendUserID.isInitialized) return
+        outState.putString("friendUserID", friendUserID)
+        outState.putString("friendUserName", username)
+        outState.putInt("friendPictureID", profilePicture)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState != null) {
+
+            friendUserID = savedInstanceState.getString("friendUserID")!!
+            username = savedInstanceState.getString("friendUserName")!!
+            profilePicture = savedInstanceState.getInt("savedQuestEditPosition")
         }
     }
 

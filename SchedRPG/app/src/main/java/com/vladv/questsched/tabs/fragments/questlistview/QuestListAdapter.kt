@@ -34,9 +34,15 @@ class QuestListAdapter( context: Context?, userArrayList: ArrayList<Quest>?) :
         name.text = quest!!.name
         difficulty.text = quest.difficultyStringValue()
         type.text = quest.typeStringValue()
-        if(quest.description == "")quest.description = "No description"
-        description.text = quest.description
+        description.text = if(quest.description == "")  "No description" else quest.description
         quest.typeImageValue().let { typeImage.setImageResource(it) }
+
+
+        val layout = convtView.findViewById<RelativeLayout>(R.id.questViewItemLayout)
+        layout.setOnClickListener{
+
+            MyFragmentManager.createQuestPopUp(quest,context)
+        }
 
         editButton.setOnClickListener {
             changeFragmentFromAdapter(QuestListFragment.auxActivity!!,quest,position)
@@ -60,11 +66,12 @@ class QuestListAdapter( context: Context?, userArrayList: ArrayList<Quest>?) :
                 R.anim.fragment_fadein,
                 R.anim.fragment_fadeout
             )
-            replace(MyFragmentManager.binding.flFragment.id,EditQuestFragment(quest, position))
+            replace(R.id.flFragment,EditQuestFragment(quest, position))
             addToBackStack(null)
         }
 
     }
+
 
 
 

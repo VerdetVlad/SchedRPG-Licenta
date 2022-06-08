@@ -8,30 +8,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.text.set
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentQuestEditBinding
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.questcreation.QuestCreationFragment
 import com.vladv.questsched.user.Quest
-import com.vladv.questsched.user.Recurrence
+import com.vladv.questsched.utilities.Recurrence
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class EditQuestFragment(private val quest: Quest,private val position: Int) : Fragment() {
+class EditQuestFragment : Fragment {
+
+    private lateinit var quest: Quest
+    private var position: Int? = null
+
+    constructor()
+
+    constructor(quest: Quest, position: Int) : super() {
+        this.quest = quest
+        this.position = position
+        this.user = User()
+    }
 
     private var _binding: FragmentQuestEditBinding? = null
     private val binding get() = _binding!!
-    private var user = User()
+    private lateinit var user: User
 
 
     private var lastSelectedYear = 0
     private var lastSelectedMonth = 0
     private var lastSelectedDayOfMonth = 0
-    private  var weekDays: ArrayList<CheckBox> = ArrayList()
+    private var weekDays: ArrayList<CheckBox> = ArrayList(7)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +50,16 @@ class EditQuestFragment(private val quest: Quest,private val position: Int) : Fr
         _binding = FragmentQuestEditBinding.inflate(inflater, container, false)
 
         fieldsSetUp()
+
+        return binding.root
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        if(!this::quest.isInitialized) return
+
 
         binding.editTaskName.setText(quest.name)
         binding.editTaskDescription.setText(quest.description)
@@ -69,7 +89,8 @@ class EditQuestFragment(private val quest: Quest,private val position: Int) : Fr
             }
         }
 
-        return binding.root
+
+
     }
 
 
@@ -119,7 +140,7 @@ class EditQuestFragment(private val quest: Quest,private val position: Int) : Fr
 
 
         binding.repeatSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, i: Int, l: Long) {
                 repeatSpinnerSelect()
             }
             override fun onNothingSelected(adapterView: AdapterView<*>?) {
@@ -177,16 +198,15 @@ class EditQuestFragment(private val quest: Quest,private val position: Int) : Fr
         val auxQuest = Quest(name, description,date,repeat,type, difficulty)
         if(quest == auxQuest) return
 
-        User.setQuestsAtIndex(auxQuest,position)
+        quest = auxQuest
+
+        User.setQuestsAtIndex(quest,position!!)
         val changeFirebaseData = FirebaseData()
         
         changeFirebaseData.updateUserData(requireActivity(),
             "Quest: " + quest.name + " edited succesfully",
             "Quest: " + quest.name + " editeding failed: database connection error")
-    }
-
-    private fun makeToast(s: String) {
-        Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
+        refreshFragment()
     }
 
     private fun repeatSpinnerSelect() {
@@ -262,6 +282,30 @@ class EditQuestFragment(private val quest: Quest,private val position: Int) : Fr
         if(day<10) d = "0$d"
 
         return "$d/$m/$y"
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if(!this::quest.isInitialized) return
+        outState.putParcelable("savedQuestEdit", quest)
+        position?.let { outState.putInt("savedQuestEditPosition", it) }
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState != null) {
+
+            quest = savedInstanceState.getParcelable("savedQuestEdit")!!
+            position = savedInstanceState.getInt("savedQuestEditPosition")
+        }
+    }
+
+    private fun refreshFragment()
+    {
+        parentFragmentManager.beginTransaction().detach(this).commit ()
+        parentFragmentManager.beginTransaction().attach(this).commit ()
+
     }
 
 }
