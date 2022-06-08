@@ -28,6 +28,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="70sp"
                     android:src="@drawable/quest_type_strenght"
@@ -40,7 +41,7 @@
                     android:id="@+id/strTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:gravity="center"
                     android:text="STR:"
                     android:textSize="25sp"
@@ -49,12 +50,30 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarLvlSTR"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/strTextView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/progressBarLvlCON"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/conTextView" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -69,7 +88,7 @@
                     android:id="@+id/conTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="40dp"
                     android:gravity="center"
                     android:text="CON:"
                     android:textSize="25sp"
@@ -84,6 +103,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/progressBarLvlDEX"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dexTextView" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -127,7 +155,8 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <ProgressBar
                     android:id="@+id/xpProgressBar2"
@@ -168,6 +197,15 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <ProgressBar
+                    android:id="@+id/progressBarLvlINT"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/intTextView" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="70sp"
@@ -181,7 +219,7 @@
                     android:id="@+id/intTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:gravity="center"
                     android:text="INT:"
                     android:textSize="25sp"
@@ -197,6 +235,15 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
+                <ProgressBar
+                    android:id="@+id/progressBarLvlWIS"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wisTextView" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="70sp"
@@ -210,7 +257,7 @@
                     android:id="@+id/wisTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="40dp"
                     android:gravity="center"
                     android:text="WIS:"
                     android:textSize="25sp"
@@ -225,6 +272,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/progressBarLvlCHA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/chaTextView" />
 
                 <ImageView
                     android:id="@+id/imageView5"

@@ -1,6 +1,7 @@
 package com.vladv.questsched.tabs.fragments.settings
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ class SettingsFragment : Fragment() {
         activity?.title = "Settings"
         MyFragmentManager.currentFragment = SettingsFragment()
 
+        auxActivity = requireActivity()
 
         when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
             Configuration.UI_MODE_NIGHT_YES -> {
@@ -76,4 +78,7 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+    companion object{
+        lateinit var auxActivity:Activity
+    }
 }

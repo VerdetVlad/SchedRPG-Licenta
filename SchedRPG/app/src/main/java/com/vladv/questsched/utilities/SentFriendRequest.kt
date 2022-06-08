@@ -1,4 +1,4 @@
-package com.vladv.questsched.tabs.fragments.social
+package com.vladv.questsched.utilities
 
 import com.vladv.questsched.user.User
 

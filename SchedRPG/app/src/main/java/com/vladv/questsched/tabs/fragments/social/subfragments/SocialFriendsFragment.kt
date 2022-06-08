@@ -57,7 +57,6 @@ class SocialFriendsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        val parentLayout = requireView().parent as ViewGroup
 
         findFriendsRecyclerList = binding.socialFriendList
         findFriendsRecyclerList.layoutManager =  LinearLayoutManager(context)
@@ -131,7 +130,7 @@ class SocialFriendsFragment : Fragment() {
                                         R.anim.fragment_fadeout
                                     )
                                     replace(
-                                        parentLayout.id,
+                                        R.id.flFragment,
                                         SocialUserProfile(friendID)
                                     )
                                     addToBackStack(null)
@@ -147,7 +146,7 @@ class SocialFriendsFragment : Fragment() {
                                         R.anim.fragment_fadeout
                                     )
                                     replace(
-                                        parentLayout.id,
+                                        R.id.flFragment,
                                         SocialChatFragment(friendID,friendProfile.username!!,friendProfile.avatar!!.drawableFace!!)
                                     )
                                     addToBackStack(null)

@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.social.SentFriendRequest
+import com.vladv.questsched.utilities.SentFriendRequest
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
 import de.hdodenhof.circleimageview.CircleImageView
 

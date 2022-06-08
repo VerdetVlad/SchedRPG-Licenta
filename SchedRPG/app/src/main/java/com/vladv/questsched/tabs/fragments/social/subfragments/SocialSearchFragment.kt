@@ -60,7 +60,6 @@ class SocialSearchFragment : Fragment() {
         userQuery = FirebaseDatabase.getInstance().reference.child("User").limitToLast(30)
             .orderByChild("username").startAt(search).endAt(search + "\uf8ff")
 
-        val parentLayout = requireView().parent as ViewGroup
 
         findUsersRecyclerList = binding.allUsersList
         findUsersRecyclerList.layoutManager =  LinearLayoutManager(context)
@@ -98,7 +97,7 @@ class SocialSearchFragment : Fragment() {
                                 R.anim.fragment_fadeout
                             )
                             replace(
-                                parentLayout.id,
+                                R.id.flFragment,
                                 SocialUserProfile(visitUserId!!)
                             )
                             addToBackStack(null)

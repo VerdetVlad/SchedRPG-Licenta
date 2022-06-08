@@ -6,7 +6,7 @@ import com.vladv.questsched.user.Quest
 class UserSocialProfile{
 
     var username:String? =null
-    var avatar:Avatar? =null
+    var avatar: Avatar? =null
     var quests:ArrayList<Quest>? = null
 
     constructor()

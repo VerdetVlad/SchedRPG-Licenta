@@ -1,12 +1,13 @@
 package com.vladv.questsched.tabs.fragments.settings
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
 import com.example.schedrpg.R
-import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.Avatar
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.*
@@ -37,6 +38,9 @@ class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
             User.setAvatar(avatar)
 
             FirebaseData().updateUserData()
+
+
+            SettingsFragment.auxActivity.recreate();
         }
 
         return convtView

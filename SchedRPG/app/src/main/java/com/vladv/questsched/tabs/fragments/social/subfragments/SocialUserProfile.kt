@@ -15,7 +15,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.social.SentFriendRequest
+import com.vladv.questsched.utilities.SentFriendRequest
 import com.vladv.questsched.utilities.UserSocialProfile
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
