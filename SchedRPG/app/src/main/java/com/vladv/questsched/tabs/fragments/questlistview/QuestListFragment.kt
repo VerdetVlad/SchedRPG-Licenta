@@ -37,9 +37,10 @@ class QuestListFragment : Fragment() {
 
 
         auxActivity = activity
-
-        if(User().quests.isNullOrEmpty()) return binding.root
-        listAdapter = QuestListAdapter(requireContext(), User().quests)
+        val quests = User().quests
+        if(quests.isNullOrEmpty()) return binding.root
+        quests.reverse()
+        listAdapter = QuestListAdapter(requireContext(), quests)
         listView = binding.listview
         listView!!.adapter = listAdapter
 

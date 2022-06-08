@@ -1,5 +1,6 @@
 package com.vladv.questsched.tabs.fragments.social.subfragments
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
+import com.vladv.questsched.utilities.ChatMessages
 import com.vladv.questsched.utilities.UserSocialProfile
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -31,6 +34,7 @@ class SocialFriendsFragment : Fragment() {
     private val currentUser = MyFragmentManager.firebaseAuth.uid
     private lateinit var friendsRef:DatabaseReference
     private lateinit var userRef:DatabaseReference
+    private lateinit var lasMessageRef: DatabaseReference
     private lateinit var findFriendsRecyclerList:RecyclerView
 
 
@@ -45,6 +49,7 @@ class SocialFriendsFragment : Fragment() {
 
         friendsRef = FirebaseDatabase.getInstance().reference.child("FriendList").child(currentUser!!)
         userRef = FirebaseDatabase.getInstance().reference.child("User")
+        lasMessageRef = FirebaseDatabase.getInstance().reference.child("Messages").child(currentUser)
 
         return binding.root
     }
@@ -81,7 +86,37 @@ class SocialFriendsFragment : Fragment() {
                 ) {
                     val friendID = getRef(position).key
 
-                    userRef.child(friendID!!).addValueEventListener(object :ValueEventListener{
+                    lasMessageRef.child(friendID!!).orderByKey().limitToLast(1).addChildEventListener(object :ChildEventListener{
+                        override fun onChildAdded(
+                            snapshot: DataSnapshot,
+                            previousChildName: String?
+                        ) {
+                            handleMessageSnapshot(holder,snapshot)
+                        }
+
+                        override fun onChildChanged(
+                            snapshot: DataSnapshot,
+                            previousChildName: String?
+                        ) {
+                        }
+
+                        override fun onChildRemoved(snapshot: DataSnapshot) {
+                        }
+
+                        override fun onChildMoved(
+                            snapshot: DataSnapshot,
+                            previousChildName: String?
+                        ) {
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            Toast.makeText(context,"Error retrieving messages",Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
+
+
+                    userRef.child(friendID).addValueEventListener(object :ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
                             val friendProfile = snapshot.getValue(UserSocialProfile::class.java) ?: return
 
@@ -139,6 +174,27 @@ class SocialFriendsFragment : Fragment() {
 
     }
 
+    private fun handleMessageSnapshot(holder: FindFriendViewHolder, snapshot: DataSnapshot)
+    {
+        val from = snapshot.child("from").value.toString()
+        val seen = snapshot.child("seenStatus").value.toString()
+        val message:String
+        if(from == currentUser) {
+            message = "You: " + snapshot.child("message").value.toString()
+            holder.lastMessage?.typeface = Typeface.DEFAULT
+        }
+        else {
+            if(seen == "unseen") {
+                holder.lastMessage?.typeface = Typeface.DEFAULT_BOLD
+                holder.lastMessage?.setTextColor(ContextCompat.getColor(requireContext(),R.color.c_accent))
+            }
+
+            message ="Them: " + snapshot.child("message").value.toString()
+        }
+        holder.lastMessage?.text = message
+
+    }
+
 
     companion object{
         class FindFriendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -147,12 +203,14 @@ class SocialFriendsFragment : Fragment() {
             var image: CircleImageView?=null
             var viewButton: ImageButton?=null
             var messageButton: ImageButton? =null
+            var lastMessage: TextView? =null
 
             init{
                 username = itemView.findViewById(R.id.userSocialName)
                 image = itemView.findViewById(R.id.userSocialImage)
                 viewButton = itemView.findViewById(R.id.friendViewProfileButton)
                 messageButton = itemView.findViewById(R.id.friendMessageButton)
+                lastMessage = itemView.findViewById(R.id.userSocialLastMessage)
             }
         }
 

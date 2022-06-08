@@ -7,6 +7,15 @@
     tools:context="com.vladv.questsched.tabs.fragments.social.subfragments.SocialChatFragment">
 
 
+    <TextView
+        android:id="@+id/chatMessageSeenStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/chat_linear_layout"
+        android:layout_alignParentEnd="true"
+        android:text="unseen"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/friendChatBarLayout"
         android:layout_width="match_parent"
@@ -40,14 +49,14 @@
 
     </RelativeLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/socialChatMessageList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/chat_linear_layout"
+        android:layout_above="@id/chatMessageSeenStatusText"
         android:layout_below="@id/friendChatBarLayout"
         android:layout_marginBottom="6sp" />
-
 
     <RelativeLayout
         android:id="@+id/chat_linear_layout"

@@ -21,6 +21,9 @@ class  SocialChatFragment : Fragment {
     private lateinit var friendUserID: String
     private lateinit var username:String
     private var profilePicture: Int = 0
+    private lateinit var lastMessage:DatabaseReference
+    private lateinit var messageListener:ChildEventListener
+    private lateinit var seenMessageListener:ChildEventListener
 
     constructor(){
         this.currentUserId = MyFragmentManager.firebaseAuth.uid!!
@@ -69,17 +72,19 @@ class  SocialChatFragment : Fragment {
         binding.socialChatMessageList.layoutManager = linearLayout
         binding.socialChatMessageList.adapter = chatAdapter
 
+        lastMessage = FirebaseDatabase.getInstance().reference.child("Messages").child(currentUserId).child(friendUserID)
+
         binding.socialSendMessageButton.setOnClickListener{
             sendMessage()
         }
 
-        rootRef.child("Messages").child(currentUserId).child(friendUserID)
+        messageListener = rootRef.child("Messages").child(currentUserId).child(friendUserID)
             .addChildEventListener(object : ChildEventListener {
-
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     val messages: ChatMessages? = dataSnapshot.getValue(ChatMessages::class.java)
                     if (messages != null) {
+                        lastMessage.child(messages.messageID.toString()).child("seenStatus").setValue("seen")
                         messagesList.add(messages)
                     }
                     chatAdapter.notifyDataSetChanged()
@@ -88,7 +93,33 @@ class  SocialChatFragment : Fragment {
                     )
                 }
 
-                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                }
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+
+        seenMessageListener = rootRef.child("Messages").child(friendUserID).child(currentUserId).orderByKey().limitToLast(1)
+            .addChildEventListener(object : ChildEventListener {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                    val messages: ChatMessages? = dataSnapshot.getValue(ChatMessages::class.java)
+                    if (messages != null) {
+                        if(messages.seenStatus=="unseen") binding.chatMessageSeenStatusText.visibility = View.VISIBLE
+                        else binding.chatMessageSeenStatusText.visibility = View.GONE
+                    }
+                }
+
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                    val messages: ChatMessages? = dataSnapshot.getValue(ChatMessages::class.java)
+                    if (messages != null) {
+                        if(messages.seenStatus=="unseen") binding.chatMessageSeenStatusText.visibility = View.VISIBLE
+                        else binding.chatMessageSeenStatusText.visibility = View.GONE
+                    }
+                }
                 override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
                 override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
                 override fun onCancelled(databaseError: DatabaseError) {}
@@ -117,6 +148,7 @@ class  SocialChatFragment : Fragment {
             messageTextBody["from"] = currentUserId
             messageTextBody["to"] = friendUserID
             messageTextBody["messageID"] = messagePushID!!
+            messageTextBody["seenStatus"] = "unseen"
 //            messageTextBody["time"] = saveCurrentTime
 //            messageTextBody["date"] = saveCurrentDate
 
@@ -149,9 +181,17 @@ class  SocialChatFragment : Fragment {
 
             friendUserID = savedInstanceState.getString("friendUserID")!!
             username = savedInstanceState.getString("friendUserName")!!
-            profilePicture = savedInstanceState.getInt("savedQuestEditPosition")
+            profilePicture = savedInstanceState.getInt("friendPictureID")
         }
     }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        rootRef.child("Messages").child(currentUserId).child(friendUserID).removeEventListener(messageListener)
+    }
+
+
 
 
 }

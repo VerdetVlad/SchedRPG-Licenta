@@ -204,6 +204,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
+                    clearBackStack()
                     replace(binding.flFragment.id, HomeNavFragment())
                     drawerLayout.closeDrawers()
                 }
@@ -215,6 +216,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
+                    clearBackStack()
                     replace(binding.flFragment.id, QuestCreationFragment())
                     drawerLayout.closeDrawers()
                 }
@@ -227,6 +229,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
+                    clearBackStack()
                     replace(binding.flFragment.id, QuestListFragment())
                     drawerLayout.closeDrawers()
                 }
@@ -238,6 +241,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
+                    clearBackStack()
                     replace(binding.flFragment.id, CalendarFragment())
 
                     drawerLayout.closeDrawers()
@@ -250,6 +254,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
+                    clearBackStack()
                     replace(binding.flFragment.id, SettingsFragment())
 
                     drawerLayout.closeDrawers()
@@ -262,6 +267,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
+                    clearBackStack()
                     replace(binding.flFragment.id, SocialNavFragment())
 
                     drawerLayout.closeDrawers()
@@ -271,10 +277,7 @@ class MyFragmentManager : AppCompatActivity() {
 
 
                 R.id.nav_logout ->{
-                    val fm = supportFragmentManager
-                    for (i in 0 until fm.backStackEntryCount) {
-                        fm.popBackStack()
-                    }
+                    clearBackStack()
                     FirebaseAuth.getInstance().signOut()
                 }
 
@@ -295,7 +298,13 @@ class MyFragmentManager : AppCompatActivity() {
         actionbar.setDisplayShowHomeEnabled(true)
     }
 
-
+    private fun clearBackStack()
+    {
+        val fm = supportFragmentManager
+        for (i in 0 until fm.backStackEntryCount) {
+            fm.popBackStack()
+        }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 

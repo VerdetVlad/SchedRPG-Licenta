@@ -45,6 +45,7 @@ class SocialChatAdapter(private val friendPicture:Int, private val messageList: 
         holder.friendProfileImage.visibility = View.GONE
         holder.userText.visibility = View.GONE
 
+
         if(fromUserID == userID)
         {
             holder.userText.visibility = View.VISIBLE
@@ -57,10 +58,6 @@ class SocialChatAdapter(private val friendPicture:Int, private val messageList: 
             holder.friendText.text = chatMessage.message
 
         }
-
-
-
-
     }
 
     // return the number of the items in the list

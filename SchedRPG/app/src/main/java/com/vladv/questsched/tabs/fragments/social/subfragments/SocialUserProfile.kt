@@ -18,6 +18,8 @@ import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.social.SentFriendRequest
 import com.vladv.questsched.utilities.UserSocialProfile
 import com.vladv.questsched.user.Quest
+import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.FirebaseData
 
 
 class SocialUserProfile : Fragment {
@@ -172,7 +174,12 @@ class SocialUserProfile : Fragment {
                         context?.let { MyFragmentManager.createQuestPopUp(model, it) }
                     }
                     holder.copyButton?.setOnClickListener {
-                        Toast.makeText(context,"Copy Button Test",Toast.LENGTH_SHORT).show()
+                        if (User().quests?.contains(model) == true) Toast.makeText(context,"Quest already owned",Toast.LENGTH_SHORT).show()
+                        else
+                        {
+                            User().quests?.add(model)
+                            FirebaseData().updateUserData(activity!!,"Quest copied","Failed to add to database")
+                        }
                     }
                 }
 
