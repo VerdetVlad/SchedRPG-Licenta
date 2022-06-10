@@ -68,7 +68,6 @@ class QuestListAdapter( context: Context?, userArrayList: ArrayList<Quest>?) :
                 R.anim.fragment_fadeout
             )
             replace(R.id.flFragment,EditQuestFragment(quest, position))
-            addToBackStack(null)
         }
 
     }

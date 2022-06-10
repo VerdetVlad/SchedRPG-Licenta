@@ -1,19 +1,15 @@
 package com.vladv.questsched.tabs.fragments.social
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentSocialNavBinding
-import com.example.schedrpg.databinding.FragmentSocialSearchBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
-import com.vladv.questsched.tabs.fragments.home.subfragments.HomeQuestsFragment
-import com.vladv.questsched.tabs.fragments.home.subfragments.HomeStatsFragment
 import com.vladv.questsched.tabs.fragments.social.subfragments.SocialFriendsFragment
 import com.vladv.questsched.tabs.fragments.social.subfragments.SocialRequestFragment
 import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
@@ -35,10 +31,12 @@ class SocialNavFragment : Fragment() {
     ): View {
         _binding = FragmentSocialNavBinding.inflate(inflater, container, false)
 
+        MyFragmentManager.currentFragment = SocialNavFragment()
+
 
         binding.socialBottomNav.selectedItemId = pressedButtonId
 
-        if(savedInstanceState==null) parentFragmentManager.commit {
+        parentFragmentManager.commit {
             setCustomAnimations(
                 R.anim.fragment_fadein,
                 R.anim.fragment_fadeout,

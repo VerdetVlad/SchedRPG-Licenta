@@ -43,6 +43,8 @@ class SocialSearchFragment : Fragment() {
             firebaseSearch(searchText)
         }
 
+
+
         return binding.root
     }
 
@@ -101,7 +103,6 @@ class SocialSearchFragment : Fragment() {
                                 R.id.flFragment,
                                 SocialUserProfile(visitUserId!!)
                             )
-                            addToBackStack(null)
                         }
                     }
                 }

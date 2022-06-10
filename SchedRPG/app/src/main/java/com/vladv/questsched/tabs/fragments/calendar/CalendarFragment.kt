@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentCalendarBinding
 import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
@@ -35,6 +35,8 @@ class CalendarFragment : Fragment() {
 
         activity?.title = "Quest Calendar"
 
+        MyFragmentManager.currentFragment = this
+
         calendar.set(Calendar.DAY_OF_MONTH,1)
         setCalendarEvents()
 
@@ -54,16 +56,31 @@ class CalendarFragment : Fragment() {
             val words = clickedDay.toString().split("\\s".toRegex()).toTypedArray()
             val date = MyDate(words[0], words[2], words[1], words[5])
 
-            parentFragmentManager.commit {
-                setCustomAnimations(
-                    R.anim.fragment_fadein,
-                    R.anim.fragment_fadeout,
-                    R.anim.fragment_fadein,
-                    R.anim.fragment_fadeout
-                )
-                replace(R.id.flFragment, CalendarDayFragment(date))
-                addToBackStack("")
+            if(date == MyDate(Calendar.getInstance()))
+            {
+                parentFragmentManager.commit {
+                    setCustomAnimations(
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout,
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout
+                    )
+                    replace(R.id.flFragment, HomeNavFragment())
+                }
             }
+            else
+            {
+                parentFragmentManager.commit {
+                    setCustomAnimations(
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout,
+                        R.anim.fragment_fadein,
+                        R.anim.fragment_fadeout
+                    )
+                    replace(R.id.flFragment, CalendarDayFragment(date))
+                }
+            }
+
 
 
 
@@ -91,7 +108,15 @@ class CalendarFragment : Fragment() {
 
         for(i in 1..lastMonthDay) {
 
-            if(!auxDate.compareDates(MyDate(Calendar.getInstance()))){
+            if(auxDate == MyDate(Calendar.getInstance()))
+            {
+                if(!User().lastLogIn?.unfinishedQuests.isNullOrEmpty())
+                    {
+                        val newTime = calendar.clone() as Calendar
+                        events.add(EventDay(newTime, R.drawable.calendar_event_notification3))
+                    }
+            }
+            else if(!auxDate.compareDates(MyDate(Calendar.getInstance()))){
 
                 if(User().questHistory != null)
                     if(!User().questHistory!!

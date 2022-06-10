@@ -3,7 +3,6 @@ package com.vladv.questsched.user
 import com.vladv.questsched.utilities.AvatarList
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
-import kotlin.collections.ArrayList
 
 class User {
 
@@ -16,9 +15,14 @@ class User {
         private var avatar: Avatar? = null
         private var lastLogIn:LastLogIn?=null
         private var questHistory:QuestHistory?=null
+        private var themeNightMode:Boolean?=null
 
         fun setDescription(profileDescription: String){
             this.profileDescription = profileDescription
+        }
+
+        fun setNighMode(mode: Boolean){
+            this.themeNightMode = mode
         }
 
         fun setQuestsAtIndex(q: Quest, i: Int)
@@ -46,6 +50,8 @@ class User {
         get() = Companion.lastLogIn
     val questHistory: QuestHistory?
         get() = Companion.questHistory
+    val themeNightMode: Boolean?
+        get() = Companion.themeNightMode
 
     constructor()
     constructor(username: String, email: String) {
@@ -61,13 +67,14 @@ class User {
         val calendar = Calendar.getInstance()
         val date = MyDate(calendar)
         Companion.lastLogIn = LastLogIn(date)
+        Companion.themeNightMode = false
 
     }
 
 
     constructor(username: String, email: String, profileDescription:String,
                 stats: CharacterStats, quests: ArrayList<Quest>, avatar: Avatar,
-                lastLogIn: LastLogIn, questHistory: QuestHistory) {
+                lastLogIn: LastLogIn, questHistory: QuestHistory, themeNightMode:Boolean) {
         Companion.username = username
         Companion.email = email
         Companion.profileDescription = profileDescription
@@ -76,6 +83,7 @@ class User {
         Companion.avatar = avatar
         Companion.lastLogIn = lastLogIn
         Companion.questHistory = questHistory
+        Companion.themeNightMode = themeNightMode
     }
 
 
@@ -90,11 +98,6 @@ class User {
     }
 
     fun addToQuestHistory(date: MyDate, quest: Quest, completed:Boolean)
-    {
-        if(questHistory==null) Companion.questHistory = QuestHistory()
-        Companion.questHistory?.addToQuestHistory(date, quest,completed)
-    }
-    fun addToQuestHistory(date: String, quest: Quest, completed:Boolean)
     {
         if(questHistory==null) Companion.questHistory = QuestHistory()
         Companion.questHistory?.addToQuestHistory(date, quest,completed)

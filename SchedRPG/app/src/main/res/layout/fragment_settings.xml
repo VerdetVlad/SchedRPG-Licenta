@@ -22,7 +22,8 @@
             android:layout_weight="1"
             android:text="Light/Dark Mode"
             android:textColor="?attr/colorOnPrimary"
-            android:textSize="30sp" />
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +37,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Avatar Picture"
-                android:textSize="30sp" />
+                android:textSize="26sp"
+                android:textStyle="bold"  />
 
             <Button
                 android:id="@+id/settingsChangeAvatarButton"
@@ -58,7 +60,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Profile Description"
-                android:textSize="30sp" />
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/settingsChangePublicDescription"
@@ -80,7 +83,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Change Password"
-                android:textSize="30sp" />
+                android:textSize="26sp"
+                android:textStyle="bold"  />
 
             <Button
                 android:id="@+id/settingsChangePasswordButton"
@@ -102,7 +106,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="About application"
-                android:textSize="30sp" />
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/settingsAboutButton"
@@ -124,7 +129,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Assets creators"
-                android:textSize="30sp" />
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/settingsAssetsButton"

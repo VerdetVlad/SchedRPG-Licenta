@@ -172,7 +172,7 @@ class MyDate{
 
         day = day?.plus(1)
         if(day!! >daysInMonth) {
-            day = 1;
+            day = 1
             month = month?.plus(1)
             if(month!!>12){
                 month = 1
@@ -183,22 +183,6 @@ class MyDate{
 
         weekDay = if(weekDay==7) 1
                   else weekDay?.plus(1)
-    }
-
-    fun increaseDayByOne(monthDays: Int) {
-        day = day?.plus(1)
-        if(day!! >monthDays) {
-            day = 1;
-            month = month?.plus(1)
-            if(month!!>12){
-                month = 1
-                year = year?.plus(1)
-            }
-        }
-
-
-        weekDay = if(weekDay==7) 1
-        else weekDay?.plus(1)
     }
 
 

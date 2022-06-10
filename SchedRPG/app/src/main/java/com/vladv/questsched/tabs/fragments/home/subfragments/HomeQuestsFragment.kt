@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ListView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
@@ -14,16 +15,12 @@ import androidx.fragment.app.FragmentActivity
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentHomeQuestsBinding
 import com.example.schedrpg.databinding.PopUpFailedQuestsBinding
-import com.example.schedrpg.databinding.PopUpQuestBinding
-import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
-import com.vladv.questsched.tabs.fragments.questlistview.QuestListFragment
-import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.user.Quest
+import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.MyDate
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class HomeQuestsFragment : Fragment() {
@@ -74,12 +71,16 @@ class HomeQuestsFragment : Fragment() {
 
                 if(user.lastLogIn!!.unfinishedQuests.isNotEmpty()) {
                     oldDate.increaseDayByOne()
-                    for (q in user.lastLogIn!!.unfinishedQuests) {
+
+                    while(user.lastLogIn!!.unfinishedQuests.isNotEmpty())
+                    {
+                        val q = user.lastLogIn!!.unfinishedQuests[0]
                         User().addToQuestHistory(oldDate, q, false)
                         User().abandonQuest(q)
                         questsFailed++
                         questFailedNames += "'" + q.name + "'" + " failed on " + "\n" + oldDate.toStringDate() + "\n\n"
                     }
+
                 }
 
                 while (oldDate != currDate) {
@@ -134,9 +135,12 @@ class HomeQuestsFragment : Fragment() {
         var context: Context? = null
         var listAdapter: HomeQuestsAdapter? = null
 
-        fun removeItem(quest: Quest) {
+        fun removeItem(quest: Quest,status:String) {
             auxQuestArray?.remove(quest)
             listAdapter?.notifyDataSetChanged()
+            FirebaseData().updateUserData(auxActivity!!, "Quest: ${quest.name} $status", "Error: ${quest.name} not $status")
+
+
         }
 
     }
@@ -156,6 +160,11 @@ class HomeQuestsFragment : Fragment() {
         dialogBuilder.setView(auxBinding.root)
         dialog = dialogBuilder.create()
         dialog.show()
+
+        val layoutParams = WindowManager.LayoutParams()
+        layoutParams.copyFrom(dialog.window?.attributes ?: return)
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+        dialog.window!!.attributes = layoutParams
 
         auxBinding.closeQuestFailedPopUpButton.setOnClickListener{
             dialog.dismiss()

@@ -51,6 +51,8 @@ class EditQuestFragment : Fragment {
 
         fieldsSetUp()
 
+        MyFragmentManager.currentFragment = this
+
         return binding.root
     }
 

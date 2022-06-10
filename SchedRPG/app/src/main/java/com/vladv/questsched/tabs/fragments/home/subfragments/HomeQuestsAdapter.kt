@@ -1,19 +1,14 @@
 package com.vladv.questsched.tabs.fragments.home.subfragments
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.schedrpg.R
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
-import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.FirebaseData
-import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.user.Quest
-import com.vladv.questsched.utilities.Recurrence
+import com.vladv.questsched.user.User
 
 
 class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
@@ -52,13 +47,13 @@ class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
         buttonFinish.setOnClickListener{
             User().completeQuest(quest)
             User().addToQuestHistory(HomeQuestsFragment.date,quest,true)
-            HomeQuestsFragment.removeItem(quest)
+            HomeQuestsFragment.removeItem(quest,"completed")
         }
         buttonAbandon.setOnClickListener{
 
             User().abandonQuest(quest)
             User().addToQuestHistory(HomeQuestsFragment.date,quest,false)
-            HomeQuestsFragment.removeItem(quest)
+            HomeQuestsFragment.removeItem(quest,"abandoned")
         }
 
         return convtView

@@ -7,17 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentQuestViewBinding
-import com.example.schedrpg.databinding.PopUpQuestBinding
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
-import com.vladv.questsched.utilities.FirebaseData
-import com.vladv.questsched.user.User
 import com.vladv.questsched.user.Quest
+import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.FirebaseData
 
 class QuestListFragment : Fragment() {
 
@@ -35,6 +31,7 @@ class QuestListFragment : Fragment() {
         activity?.title = "Quest List"
 
 
+        MyFragmentManager.currentFragment = this
 
         auxActivity = activity
 

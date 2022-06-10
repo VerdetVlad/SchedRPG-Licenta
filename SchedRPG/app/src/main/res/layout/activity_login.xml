@@ -92,12 +92,12 @@
                 android:text="Create Account"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/forgotPassword"
+                app:layout_constraintBottom_toBottomOf="@id/forgotPasswordLogIn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/forgotPassword" />
+                app:layout_constraintTop_toTopOf="@id/forgotPasswordLogIn" />
 
             <TextView
-                android:id="@+id/forgotPassword"
+                android:id="@+id/forgotPasswordLogIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -116,7 +116,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/forgotPassword" />
+                app:layout_constraintTop_toBottomOf="@id/forgotPasswordLogIn" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

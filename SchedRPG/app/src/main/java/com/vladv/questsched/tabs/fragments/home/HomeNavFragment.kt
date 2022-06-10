@@ -1,18 +1,16 @@
 package com.vladv.questsched.tabs.fragments.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentHomeNavBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.home.subfragments.HomeQuestsFragment
 import com.vladv.questsched.tabs.fragments.home.subfragments.HomeStatsFragment
-import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 
 
 class HomeNavFragment : Fragment() {

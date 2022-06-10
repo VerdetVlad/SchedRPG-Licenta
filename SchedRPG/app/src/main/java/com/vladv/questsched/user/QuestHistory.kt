@@ -2,8 +2,6 @@ package com.vladv.questsched.user
 
 import com.vladv.questsched.utilities.FinishedQuestData
 import com.vladv.questsched.utilities.MyDate
-import java.util.*
-import kotlin.collections.ArrayList
 
 class QuestHistory {
 

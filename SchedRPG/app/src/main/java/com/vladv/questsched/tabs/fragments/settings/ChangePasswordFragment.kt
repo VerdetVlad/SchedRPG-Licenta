@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentSettingsChangePasswordBinding
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.vladv.questsched.tabs.MyFragmentManager
 
 class ChangePasswordFragment : Fragment() {
 
@@ -33,6 +34,7 @@ class ChangePasswordFragment : Fragment() {
             changePassword()
         }
 
+        MyFragmentManager.currentFragment = this
 
         return binding.root
     }

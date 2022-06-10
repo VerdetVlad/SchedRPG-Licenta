@@ -13,7 +13,6 @@ import com.example.schedrpg.databinding.FragmentSocialChatBinding
 import com.google.firebase.database.*
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.utilities.ChatMessages
-import com.vladv.questsched.utilities.UserSocialProfile
 
 
 class  SocialChatFragment : Fragment {
@@ -31,7 +30,7 @@ class  SocialChatFragment : Fragment {
     }
 
 
-    constructor(friendUserID: String, username:String, profilePicture: Int,) : super() {
+    constructor(friendUserID: String, username: String, profilePicture: Int) : super() {
         this.friendUserID = friendUserID
         this.username = username
         this.profilePicture = profilePicture
@@ -55,6 +54,8 @@ class  SocialChatFragment : Fragment {
         activity?.title = "Chat"
 
         rootRef = FirebaseDatabase.getInstance().reference
+
+        MyFragmentManager.currentFragment = this
 
         return binding.root
     }

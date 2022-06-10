@@ -15,11 +15,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.utilities.SentFriendRequest
-import com.vladv.questsched.utilities.UserSocialProfile
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.SentFriendRequest
+import com.vladv.questsched.utilities.UserSocialProfile
 
 
 class SocialUserProfile : Fragment {
@@ -52,7 +52,7 @@ class SocialUserProfile : Fragment {
 
         userRef = FirebaseDatabase.getInstance().reference.child("User")
         friendReqRef = FirebaseDatabase.getInstance().reference.child("FriendRequest")
-        friendListRef = FirebaseDatabase.getInstance().reference.child("FriendList");
+        friendListRef = FirebaseDatabase.getInstance().reference.child("FriendList")
 
         binding.sendFriendRequestButton.setOnClickListener{
             sendFriendRequest()
@@ -71,14 +71,10 @@ class SocialUserProfile : Fragment {
         }
 
 
-
+        MyFragmentManager.currentFragment = this
 
 
         return binding.root
-    }
-
-    override fun onDetach() {
-        super.onDetach()
     }
 
     override fun onStart() {

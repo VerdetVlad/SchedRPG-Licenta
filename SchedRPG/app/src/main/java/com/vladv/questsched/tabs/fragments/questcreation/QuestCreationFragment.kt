@@ -4,7 +4,6 @@ import android.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +11,12 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentQuestCreationBinding
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.user.Quest
-import com.vladv.questsched.utilities.Recurrence
 import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.MyDate
+import com.vladv.questsched.utilities.Recurrence
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATION")
@@ -43,6 +41,7 @@ class QuestCreationFragment : Fragment() {
         _binding = FragmentQuestCreationBinding.inflate(inflater, container, false)
         activity?.title = "Quest Creation"
 
+        MyFragmentManager.currentFragment = this
 
         val stats = arrayOf("Strength","Dexterity", "Constitution", "Wisdom", "Intelligence","Charisma")
         val adapter = ArrayAdapter(
@@ -184,11 +183,6 @@ class QuestCreationFragment : Fragment() {
             "Quest: " + quest.name + " creation failed: database connection error")
 
     }
-
-    private fun makeToast(s: String) {
-        Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
-    }
-
 
 
     private fun resetWeekFields()

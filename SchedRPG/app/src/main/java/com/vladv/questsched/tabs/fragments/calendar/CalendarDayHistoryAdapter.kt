@@ -1,21 +1,16 @@
 package com.vladv.questsched.tabs.fragments.calendar
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.commit
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import com.example.schedrpg.R
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.questlistview.EditQuestFragment
-import com.vladv.questsched.user.Quest
-import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FinishedQuestData
-import com.vladv.questsched.utilities.MyDate
-import com.vladv.questsched.utilities.Recurrence
 
 
 class CalendarDayHistoryAdapter(context: Context?, questList: ArrayList<FinishedQuestData>?) :

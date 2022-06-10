@@ -2,13 +2,13 @@ package com.vladv.questsched.tabs.fragments.social.subfragments
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +21,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
-import com.vladv.questsched.utilities.ChatMessages
 import com.vladv.questsched.utilities.UserSocialProfile
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -45,6 +44,7 @@ class SocialFriendsFragment : Fragment() {
         _binding = FragmentSocialFriendsBinding.inflate(inflater, container, false)
         activity?.title = "Friends List"
         SocialNavFragment.currentFragment = SocialFriendsFragment()
+
 
 
         friendsRef = FirebaseDatabase.getInstance().reference.child("FriendList").child(currentUser!!)
@@ -135,7 +135,6 @@ class SocialFriendsFragment : Fragment() {
                                         R.id.flFragment,
                                         SocialUserProfile(friendID)
                                     )
-                                    addToBackStack(null)
                                 }
                             }
 
@@ -151,7 +150,6 @@ class SocialFriendsFragment : Fragment() {
                                         R.id.flFragment,
                                         SocialChatFragment(friendID,username,image)
                                     )
-                                    addToBackStack(null)
                                 }
                             }
 
@@ -187,7 +185,8 @@ class SocialFriendsFragment : Fragment() {
         else {
             if(seen == "unseen") {
                 holder.lastMessage?.typeface = Typeface.DEFAULT_BOLD
-                holder.lastMessage?.setTextColor(ContextCompat.getColor(requireContext(),R.color.c_accent))
+//                holder.lastMessage?.setTextColor(ContextCompat.getColor(requireContext(),R.color.c_accent))
+                holder.lastMessage?.setTextSize(TypedValue.COMPLEX_UNIT_SP,22F)
             }
 
             message ="Them: " + snapshot.child("message").value.toString()

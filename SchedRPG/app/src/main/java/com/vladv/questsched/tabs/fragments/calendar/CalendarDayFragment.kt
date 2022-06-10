@@ -11,12 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.schedrpg.databinding.FragmentCalendarDayBinding
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.FinishedQuestData
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CalendarDayFragment : Fragment {
 
@@ -41,6 +38,7 @@ class CalendarDayFragment : Fragment {
         _binding = FragmentCalendarDayBinding.inflate(inflater, container, false)
 
         auxActivity=activity
+        MyFragmentManager.currentFragment = this
 
         return binding.root
 
@@ -54,8 +52,11 @@ class CalendarDayFragment : Fragment {
         activity?.title = "Quest from ${date.toStringDate()}"
 
 
+
+
         // bigger than current date
-        if(date.compareDates(MyDate(Calendar.getInstance()))){
+        if(date.compareDates(MyDate(Calendar.getInstance())))
+        {
 
 
             if(User().quests.isNullOrEmpty()) {
@@ -68,7 +69,7 @@ class CalendarDayFragment : Fragment {
             val questList = User().quests?.filter{ quest ->
                 quest.validDate(date)
             }
-            val questArray = questList?.let { ArrayList<Quest>(it) }
+            val questArray = questList?.let { ArrayList(it) }
             listAdapter = CalendarDayAdapter(requireContext(), questArray)
             listView = binding.dayview
             listView!!.adapter = listAdapter
@@ -83,7 +84,7 @@ class CalendarDayFragment : Fragment {
 
             binding.noQuestTextView2.visibility = View.GONE
 
-            val questArray = ArrayList<FinishedQuestData>(quests)
+            val questArray = ArrayList(quests)
             listAdapterHistory = CalendarDayHistoryAdapter(requireContext(), questArray)
             listView = binding.dayview
             listView!!.adapter = listAdapterHistory

@@ -1,11 +1,8 @@
 package com.vladv.questsched.user
 
-import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.appcompat.app.AlertDialog
 import com.example.schedrpg.R
-import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.utilities.Recurrence
 import java.util.*

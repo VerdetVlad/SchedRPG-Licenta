@@ -10,8 +10,6 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.schedrpg.databinding.FragmentSettingsAvatarPickBinding
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
-import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.AvatarList
 
 
@@ -29,14 +27,13 @@ class AvatarPickFragment : Fragment() {
         listView = binding.avatarList
         listView!!.adapter = listAdapter
 
-
+        MyFragmentManager.currentFragment = this
 
         return binding.root
     }
 
 
     companion object {
-        private var user = User()
 
         @SuppressLint("StaticFieldLeak")
         var listView: ListView? = null

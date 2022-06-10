@@ -35,12 +35,10 @@ class Register : AppCompatActivity() {
         setContentView(view)
         mAuth = FirebaseAuth.getInstance()
         binding!!.appNameReg.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    LogIn::class.java
-                )
-            )
+            val intent = Intent(this@Register, LogIn::class.java)
+            intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
+            startActivity(intent)
+            finish()
         }
         binding!!.buttonRegister.setOnClickListener { registerUser() }
         editTextFullName = binding!!.fullName
@@ -103,6 +101,7 @@ class Register : AppCompatActivity() {
                             if (it.isSuccessful) {
                                 createUser()
                                 Toast.makeText(this@Register, "Confirmation link sent to email address.", Toast.LENGTH_LONG).show()
+                                mAuth!!.signOut()
                             }
                         }
                 } else {
@@ -135,6 +134,7 @@ class Register : AppCompatActivity() {
         finish()
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
         startActivity(intent)
+        finish()
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
 }

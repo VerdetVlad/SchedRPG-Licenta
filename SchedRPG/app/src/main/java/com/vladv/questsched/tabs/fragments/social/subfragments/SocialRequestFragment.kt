@@ -11,15 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schedrpg.R
-import com.example.schedrpg.databinding.*
+import com.example.schedrpg.databinding.FragmentSocialRequestBinding
+import com.example.schedrpg.databinding.FragmentSocialRequestItemBinding
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.vladv.questsched.tabs.MyFragmentManager
-import com.vladv.questsched.utilities.SentFriendRequest
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
+import com.vladv.questsched.utilities.SentFriendRequest
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -40,7 +41,7 @@ class SocialRequestFragment : Fragment() {
 
         _binding = FragmentSocialRequestBinding.inflate(inflater, container, false)
         activity?.title = "Friend Request"
-        SocialNavFragment.currentFragment = SocialRequestFragment()
+        SocialNavFragment.currentFragment = SocialFriendsFragment()
 
 
 

@@ -92,7 +92,7 @@ class Recurrence{
     }
 
     override fun toString(): String {
-        var str:String = ""
+        var str = ""
         str += recurringFrequency
         for(i in 0..6) str+=if(recurringDays?.get(i) == true) " 1" else " 0"
         str+= " " + untilDate.toString()
