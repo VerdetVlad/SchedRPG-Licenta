@@ -65,7 +65,7 @@ class HomeNavFragment : Fragment() {
 
         binding.homeBottomNav.selectedItemId = pressedButtonId
         parentFragmentManager.beginTransaction().replace(binding.homeNavFragmentLayout.id,
-            currentFragment
+            HomeQuestsFragment()
         ).commit()
     }
 

@@ -14,7 +14,7 @@ class Quest : Parcelable{
     var description: String?=null
     var initialDate: MyDate?=null
     var repeat: Recurrence?=null
-    var type: Int?=null// 0 - STR, 1 - DEX, 2 - CON, 3 - WIS, 4 - INT, 5 - CHA
+    var type: Int?=null// 0 - STR, 1 - DEX, 2 - CON, 3 - INT, 4 - WIS, 5 - CHA
     var difficulty: Int?=null// 0 - very easy, 1 - easy, 2 - medium, 3 - hard, 4 - very hard
 
     constructor(parcel: Parcel){
@@ -80,8 +80,8 @@ class Quest : Parcelable{
             "Strength",
             "Dexterity",
             "Constitution",
-            "Wisdom",
             "Intelligence",
+            "Wisdom",
             "Charisma"
         )
         return stats[type!!]
@@ -92,8 +92,8 @@ class Quest : Parcelable{
             R.drawable.quest_type_strenght,
             R.drawable.quest_type_dexterity,
             R.drawable.quest_type_constitution,
-            R.drawable.quest_type_wisdom,
             R.drawable.quest_type_intelligence,
+            R.drawable.quest_type_wisdom,
             R.drawable.quest_type_charisma
         )
         return stats[type!!]

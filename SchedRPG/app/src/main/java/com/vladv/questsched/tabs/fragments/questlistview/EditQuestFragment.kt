@@ -3,21 +3,23 @@ package com.vladv.questsched.tabs.fragments.questlistview
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.CheckBox
+import android.widget.EditText
+import androidx.fragment.app.Fragment
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentQuestEditBinding
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.Quest
-import com.vladv.questsched.utilities.Recurrence
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FirebaseData
 import com.vladv.questsched.utilities.MyDate
+import com.vladv.questsched.utilities.Recurrence
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class EditQuestFragment : Fragment {
@@ -100,7 +102,7 @@ class EditQuestFragment : Fragment {
 
     private fun fieldsSetUp()
     {
-        val stats = arrayOf("Strength","Dexterity", "Constitution", "Wisdom", "Intelligence","Charisma")
+        val stats = arrayOf("Strength","Dexterity", "Constitution","Intelligence", "Wisdom", "Charisma")
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
