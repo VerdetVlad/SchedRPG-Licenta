@@ -2,6 +2,7 @@ package com.vladv.questsched
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -15,6 +16,8 @@ import com.vladv.questsched.authentification.LogIn
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.User
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +34,27 @@ class MainActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
         val user = mAuth.currentUser
+
+        try{
+            val filename = "logcat_" + System.currentTimeMillis() +".txt"
+
+            val downloadFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
+
+            val logFiles = Files.createDirectories(Paths.get("$downloadFile/schedLogFile"))
+
+            val outputFile = File(logFiles.toFile(),filename)
+
+
+            Runtime.getRuntime().exec("logcat -f " + outputFile.absolutePath)
+
+            Toast.makeText(applicationContext, "Error trying to write log: $logFiles", Toast.LENGTH_LONG).show()
+
+
+        }catch (e:Exception)
+        {
+            Toast.makeText(applicationContext, "Error trying to write log: $e", Toast.LENGTH_LONG).show()
+        }
 
         if (user!= null && user.isEmailVerified)
         {
@@ -49,17 +73,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        try{
-            val filename = "logcat_" + System.currentTimeMillis() +".txt"
-            val outputFile = File(applicationContext.externalCacheDir,filename)
 
-            Runtime.getRuntime().exec("logcat -f" + outputFile.absolutePath)
-
-
-        }catch (e:Exception)
-        {
-            Toast.makeText(applicationContext, "Error trying to write log: $e", Toast.LENGTH_LONG).show()
-        }
 
     }
 
