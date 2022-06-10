@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
 
             Runtime.getRuntime().exec("logcat -f " + outputFile.absolutePath)
 
-            Toast.makeText(applicationContext, "Error trying to write log: $logFiles", Toast.LENGTH_LONG).show()
 
 
         }catch (e:Exception)
