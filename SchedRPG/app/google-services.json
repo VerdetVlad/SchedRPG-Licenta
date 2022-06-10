@@ -8,41 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:27624007332:android:69ef4e5c7e060b378ca831",
-        "android_client_info": {
-          "package_name": "com.example.schedrpg"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "27624007332-e1okjockv3bu1bnjhvj66q6qudcaoo9o.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCVgibSvDXPic6nRxjlMAagwVC-tXp9RLk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "27624007332-e1okjockv3bu1bnjhvj66q6qudcaoo9o.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:27624007332:android:162014b8f91cb1568ca831",
         "android_client_info": {
           "package_name": "com.vladv.questsched"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "27624007332-krhf08mi9ko7vj819nl9ll7g3iq40h5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vladv.questsched",
+            "certificate_hash": "326130d145c9e926f82c9e94827f38919b1ba1b2"
+          }
+        },
         {
           "client_id": "27624007332-e1okjockv3bu1bnjhvj66q6qudcaoo9o.apps.googleusercontent.com",
           "client_type": 3

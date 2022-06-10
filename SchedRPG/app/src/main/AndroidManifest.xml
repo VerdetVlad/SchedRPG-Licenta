@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.schedrpg" >
+    package="com.example.schedrpg">
 
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.SchedRPG" >
-        <receiver android:name="com.vladv.questsched.utilities.Notification"
-            android:enabled="true"/>
-        <activity android:name="com.vladv.questsched.tabs.MyFragmentManager" />
-        <activity android:name="com.vladv.questsched.authentification.Register" />
+        android:theme="@style/Theme.SchedRPG">
         <activity
-            android:name="com.vladv.questsched.authentification.LogIn"
-            android:exported="true" >
+            android:name="com.vladv.questsched.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name="com.vladv.questsched.utilities.Notification"
+            android:enabled="true" />
+
+        <activity android:name="com.vladv.questsched.tabs.MyFragmentManager" />
+        <activity android:name="com.vladv.questsched.authentification.Register" />
+        <activity android:name="com.vladv.questsched.authentification.LogIn"/>
     </application>
 
 </manifest>

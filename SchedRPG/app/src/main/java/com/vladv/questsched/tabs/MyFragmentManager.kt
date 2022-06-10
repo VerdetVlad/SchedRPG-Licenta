@@ -11,7 +11,10 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.*
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -118,12 +121,7 @@ class MyFragmentManager : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 userData = snapshot.getValue(User::class.java)
-                if (userData?.themeNightMode == true) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                }
-                else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                }
+
 
                 stopLoading()
             }
@@ -141,13 +139,7 @@ class MyFragmentManager : AppCompatActivity() {
         firebaseAuth.removeAuthStateListener(this.authStateListener)
     }
 
-    override fun recreate() {
-        finish()
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-        startActivity(intent)
-        finish()
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-    }
+
 
 
     private fun configureDrawer()
