@@ -14,6 +14,7 @@ import com.google.firebase.database.ValueEventListener
 import com.vladv.questsched.authentification.LogIn
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.User
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +39,22 @@ class MainActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
             startActivity(intent)
             finish()
+        }
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        try{
+            val filename = "logcat_" + System.currentTimeMillis() +".txt"
+            val outputFile = File(applicationContext?.externalCacheDir,filename)
+            Runtime.getRuntime().exec("logcat -f" + outputFile.absolutePath)
+
+        }catch (e:Exception)
+        {
+            Toast.makeText(applicationContext, "Error trying to write log: $e", Toast.LENGTH_LONG).show()
         }
 
 
