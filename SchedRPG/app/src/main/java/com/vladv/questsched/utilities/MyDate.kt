@@ -1,5 +1,6 @@
 package com.vladv.questsched.utilities
 
+import java.time.YearMonth
 import java.util.*
 
 class MyDate{
@@ -75,6 +76,15 @@ class MyDate{
                               else month.toString()
 
         return "$auxDay/$auxMonth/$year"
+    }
+
+    fun toStringDateKey(): String {
+        val auxDay:String = if(day!! <10) "0$day"
+        else day.toString()
+        val auxMonth:String = if(month!! <10) "0$month"
+        else month.toString()
+
+        return "$year $auxMonth $auxDay"
     }
 
     fun toStringWeekDay(): String {
@@ -156,10 +166,41 @@ class MyDate{
 
 
     fun increaseDayByOne() {
+
+        val yearMonthObject: YearMonth = YearMonth.of(year!!, month!!)
+        val daysInMonth: Int = yearMonthObject.lengthOfMonth()
+
         day = day?.plus(1)
+        if(day!! >daysInMonth) {
+            day = 1;
+            month = month?.plus(1)
+            if(month!!>12){
+                month = 1
+                year = year?.plus(1)
+            }
+        }
+
+
         weekDay = if(weekDay==7) 1
                   else weekDay?.plus(1)
     }
+
+    fun increaseDayByOne(monthDays: Int) {
+        day = day?.plus(1)
+        if(day!! >monthDays) {
+            day = 1;
+            month = month?.plus(1)
+            if(month!!>12){
+                month = 1
+                year = year?.plus(1)
+            }
+        }
+
+
+        weekDay = if(weekDay==7) 1
+        else weekDay?.plus(1)
+    }
+
 
 
 
@@ -167,5 +208,12 @@ class MyDate{
     {
         return if(dayOfWeek == 1) 7
         else (dayOfWeek - 1)
+    }
+
+    fun todayCheck(): Boolean {
+
+        val calendar = Calendar.getInstance()
+        val date = MyDate(calendar)
+        return this == date
     }
 }

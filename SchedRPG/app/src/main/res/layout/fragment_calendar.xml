@@ -19,5 +19,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:pagesColor="?attr/colorOnSecondary"
-        app:todayLabelColor="?attr/colorOnPrimary" />
+        app:todayLabelColor="?attr/colorOnPrimary"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

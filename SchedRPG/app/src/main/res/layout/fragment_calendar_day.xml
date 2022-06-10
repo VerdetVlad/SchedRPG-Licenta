@@ -7,6 +7,20 @@
     android:background="?attr/colorOnSecondary"
     tools:context="com.vladv.questsched.tabs.fragments.calendar.CalendarDayFragment">
 
+    <TextView
+        android:id="@+id/noQuestTextView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="No quests for this date"
+        android:textSize="48sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/dayview"
         android:layout_width="match_parent"

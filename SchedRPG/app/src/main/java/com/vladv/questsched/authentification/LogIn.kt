@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.example.schedrpg.databinding.ActivityLoginBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -37,11 +36,16 @@ class LogIn : AppCompatActivity() {
         val view: View = binding!!.root
         setContentView(view)
 
+
         firebaseAuth = FirebaseAuth.getInstance()
-        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-            val firebaseUser = firebaseAuth.currentUser
-            if (firebaseUser != null) {
+        val currentUser = firebaseAuth.currentUser
+        if(currentUser!= null){
+            if(currentUser.isEmailVerified)
                 retrieveUserData()
+            else
+            {
+
+                Toast.makeText(this@LogIn, "Failed to LogIn. Please confirm email first.", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -58,19 +62,9 @@ class LogIn : AppCompatActivity() {
 
 
         //for testing only
-        editTextEmail!!.setText("a@g.com")
+        editTextEmail!!.setText("tefema5526@musezoo.com")
         editTextPassword!!.setText("123456")
 
-    }
-
-    override fun onStart() {
-        super.onStart()
-        firebaseAuth.addAuthStateListener(this.authStateListener)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        firebaseAuth.removeAuthStateListener(this.authStateListener)
     }
 
     private fun userLogin() {
@@ -105,17 +99,13 @@ class LogIn : AppCompatActivity() {
 
         mAuth!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task: Task<AuthResult?> ->
-                if (task.isSuccessful) {
-
-                    retrieveUserData()
-
-                } else {
-                    Toast.makeText(
-                        this@LogIn,
-                        "Failed to LogIn. Please check your credentials and try again.",
-                        Toast.LENGTH_LONG
-                    ).show()
+                if (!task.isSuccessful) {
+                    Toast.makeText(this@LogIn, "Failed to LogIn. Please check your credentials and try again.", Toast.LENGTH_LONG).show()
                     stopLoading()
+                }
+                else
+                {
+                    retrieveUserData()
                 }
             }
     }
@@ -128,9 +118,9 @@ class LogIn : AppCompatActivity() {
         reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                MyFragmentManager.userProfile = snapshot.getValue(User::class.java)
+                MyFragmentManager.userData = snapshot.getValue(User::class.java)
 
-                //stopLoading()
+                stopLoading()
 
 
                 val intent = Intent(this@LogIn, MyFragmentManager::class.java)

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.FragmentCalendarBinding
@@ -34,6 +35,7 @@ class CalendarFragment : Fragment() {
 
         activity?.title = "Quest Calendar"
 
+        calendar.set(Calendar.DAY_OF_MONTH,1)
         setCalendarEvents()
 
         binding.calendarView.setOnForwardPageChangeListener{
@@ -42,7 +44,7 @@ class CalendarFragment : Fragment() {
         }
 
         binding.calendarView.setOnPreviousPageChangeListener{
-            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),1)
+            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)-2,1)
             setCalendarEvents()
         }
 
@@ -78,7 +80,7 @@ class CalendarFragment : Fragment() {
         if(User().quests.isNullOrEmpty()) return
 
         val lastMonthDay = calendar.getActualMaximum(Calendar.DATE)
-        val startMonthDay = calendar.get(Calendar.DAY_OF_MONTH)
+
         val auxDate = MyDate(
             myDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)),
             calendar.get(Calendar.DAY_OF_MONTH),
@@ -87,22 +89,34 @@ class CalendarFragment : Fragment() {
 
         val highlightDays: MutableList<Calendar> = ArrayList()
 
+        for(i in 1..lastMonthDay) {
 
-        for(i in startMonthDay..lastMonthDay)
-        {
-            for(quest in User().quests!!) {
-                if(quest.validDate(auxDate)) {
-                    val newTime = calendar.clone() as Calendar
-                    events.add(EventDay(newTime, R.drawable.calendar_event_notification))
-                    highlightDays.add(newTime)
-                    break
+            if(!auxDate.compareDates(MyDate(Calendar.getInstance()))){
+
+                if(User().questHistory != null)
+                    if(!User().questHistory!!
+                            .questHistoryMap[auxDate.toStringDateKey()].isNullOrEmpty())
+                    {
+                        val newTime = calendar.clone() as Calendar
+                        events.add(EventDay(newTime, R.drawable.calendar_event_notification2))
+                    }
+            }
+            else {
+                for (quest in User().quests!!) {
+                    if (quest.validDate(auxDate)) {
+                        val newTime = calendar.clone() as Calendar
+                        events.add(EventDay(newTime, R.drawable.calendar_event_notification))
+                        highlightDays.add(newTime)
+                        break
+                    }
                 }
             }
             auxDate.increaseDayByOne()
-            calendar.add(Calendar.DAY_OF_MONTH,1)
-
-
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
+
+
+
         binding.calendarView.setEvents(events)
         binding.calendarView.setHighlightedDays(highlightDays)
 

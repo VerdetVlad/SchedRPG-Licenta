@@ -41,16 +41,10 @@
                     android:id="@+id/userSocialName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:text="User Name"
                     android:textSize="26sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/userSocialDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="Description" />
 
             </LinearLayout>
 

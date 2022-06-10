@@ -171,7 +171,9 @@ class QuestCreationFragment : Fragment() {
         val repeat = Recurrence(repeatType,checkedWeeks, untilDate)
 
         val quest = Quest(name, description,date,repeat,type, difficulty)
+
         user.addQuest(quest)
+        if(quest.initialDate!!.todayCheck()) user.addUnfinishedQuest(quest)
 
 
 

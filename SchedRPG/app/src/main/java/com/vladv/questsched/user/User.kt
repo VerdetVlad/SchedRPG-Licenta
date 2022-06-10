@@ -1,15 +1,25 @@
 package com.vladv.questsched.user
 
 import com.vladv.questsched.utilities.AvatarList
+import com.vladv.questsched.utilities.MyDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 class User {
 
     companion object {
         private var username: String? = null
         private var email: String? = null
+        private var profileDescription: String? = null
         private var stats: CharacterStats? = null
         private var quests: ArrayList<Quest>? = null
         private var avatar: Avatar? = null
+        private var lastLogIn:LastLogIn?=null
+        private var questHistory:QuestHistory?=null
+
+        fun setDescription(profileDescription: String){
+            this.profileDescription = profileDescription
+        }
 
         fun setQuestsAtIndex(q: Quest, i: Int)
         {
@@ -24,42 +34,77 @@ class User {
         get() = Companion.username
     val email: String?
         get() = Companion.email
+    val profileDescription: String?
+        get() = Companion.profileDescription
     val stats: CharacterStats?
         get() = Companion.stats
     val quests: ArrayList<Quest>?
         get() = Companion.quests
     val avatar: Avatar?
         get() = Companion.avatar
+    val lastLogIn: LastLogIn?
+        get() = Companion.lastLogIn
+    val questHistory: QuestHistory?
+        get() = Companion.questHistory
 
     constructor()
     constructor(username: String, email: String) {
         Companion.username = username
         Companion.email = email
         Companion.quests = ArrayList()
-        val a:ArrayList<Int> = arrayListOf(1,2,3,4,5,6)
-        Companion.stats = CharacterStats(13,455,2000,a)
+        Companion.profileDescription = "Hello world!"
+        val sLVL:ArrayList<Int> = arrayListOf(1,1,1,1,1,1)
+        val sCurrXP:ArrayList<Int> = arrayListOf(0,0,0,0,0,0)
+        val sMaxXP:ArrayList<Int> = arrayListOf(100,100,100,100,100,100)
+        Companion.stats = CharacterStats(1,sLVL,sCurrXP,sMaxXP)
         Companion.avatar = AvatarList.avatarList[2]
+        val calendar = Calendar.getInstance()
+        val date = MyDate(calendar)
+        Companion.lastLogIn = LastLogIn(date)
+
     }
 
 
-    constructor(username: String, email: String, stats: CharacterStats, quests: ArrayList<Quest>, avatar: Avatar) {
+    constructor(username: String, email: String, profileDescription:String,
+                stats: CharacterStats, quests: ArrayList<Quest>, avatar: Avatar,
+                lastLogIn: LastLogIn, questHistory: QuestHistory) {
         Companion.username = username
         Companion.email = email
+        Companion.profileDescription = profileDescription
         Companion.quests = quests
         Companion.stats = stats
         Companion.avatar = avatar
+        Companion.lastLogIn = lastLogIn
+        Companion.questHistory = questHistory
     }
 
 
 
     fun addQuest(quest: Quest) {
         if(quests==null) Companion.quests = ArrayList()
-        Companion.quests!!.add(quest)
+        Companion.quests!!.add(0,quest)
     }
 
     fun removeQuest(quest: Quest) {
         Companion.quests!!.remove(quest)
     }
+
+    fun addToQuestHistory(date: MyDate, quest: Quest, completed:Boolean)
+    {
+        if(questHistory==null) Companion.questHistory = QuestHistory()
+        Companion.questHistory?.addToQuestHistory(date, quest,completed)
+    }
+    fun addToQuestHistory(date: String, quest: Quest, completed:Boolean)
+    {
+        if(questHistory==null) Companion.questHistory = QuestHistory()
+        Companion.questHistory?.addToQuestHistory(date, quest,completed)
+    }
+
+    fun addUnfinishedQuest(q: Quest)
+    {
+        lastLogIn!!.addUnfinishedQuest(q)
+    }
+
 
     override fun toString(): String {
         return "User{" +
@@ -73,14 +118,20 @@ class User {
 
     fun completeQuest(q: Quest)
     {
-        val find = Companion.quests?.firstOrNull { it == q }
-        val changeXP = Companion.stats?.changeXP(find!!.questXpReward())
+        val xpReward = q.difficulty!!.plus(1).times(stats!!.statsLvl[q.type!!])
+            .times(stats!!.level!!).times(5)
+
+        Companion.stats?.changeXP(q.type!!,xpReward)
+        lastLogIn!!.removeFinishedQuest(q)
     }
 
     fun abandonQuest(q: Quest)
     {
-        val find = Companion.quests?.firstOrNull { it == q }
-        val changeXP = Companion.stats?.changeXP(find!!.questXpLoss())
+        val xpLoss = q.difficulty!!.plus(1).times(stats!!.statsLvl[q.type!!])
+            .times(stats!!.level!!).times(5).div(2)
+
+        Companion.stats?.changeXP(q.type!!,xpLoss*(-1))
+        lastLogIn!!.removeFinishedQuest(q)
     }
 
 

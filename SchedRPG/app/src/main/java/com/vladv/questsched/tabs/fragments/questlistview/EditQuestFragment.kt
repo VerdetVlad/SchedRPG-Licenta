@@ -114,10 +114,11 @@ class EditQuestFragment : Fragment {
 
 
 
+
         binding.buttonDate.setOnClickListener { buttonSelectDate(binding.editTextDate) }
         binding.editRepeatUntilButton.setOnClickListener { buttonSelectDate(binding.editRepeatUntileText) }
-        resetCalendarField()
 
+        resetCalendarDialog()
 
 
         val repeatOptions = arrayOf("never", "daily", "weekly", "monthly")
@@ -236,16 +237,14 @@ class EditQuestFragment : Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun resetCalendarField()
+    private fun resetCalendarDialog()
     {
         val c = Calendar.getInstance()
         lastSelectedYear = c[Calendar.YEAR]
         lastSelectedMonth = c[Calendar.MONTH]
         lastSelectedDayOfMonth = c[Calendar.DAY_OF_MONTH]
 
-        binding.editTextDate.setText(myDateFormat(lastSelectedDayOfMonth,lastSelectedMonth,lastSelectedYear))
     }
-
 
     @SuppressLint("SetTextI18n")
     private fun buttonSelectDate(editText: EditText) {

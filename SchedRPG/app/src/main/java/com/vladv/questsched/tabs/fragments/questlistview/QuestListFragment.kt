@@ -37,10 +37,16 @@ class QuestListFragment : Fragment() {
 
 
         auxActivity = activity
-        val quests = User().quests
-        if(quests.isNullOrEmpty()) return binding.root
-        quests.reverse()
-        listAdapter = QuestListAdapter(requireContext(), quests)
+
+        auxQuestList = User().quests
+        if(auxQuestList.isNullOrEmpty()) {
+            binding.noQuestTextView3.visibility = View.VISIBLE
+            return binding.root
+        }
+
+        binding.noQuestTextView3.visibility = View.GONE
+
+        listAdapter = QuestListAdapter(requireContext(), auxQuestList)
         listView = binding.listview
         listView!!.adapter = listAdapter
 
@@ -56,6 +62,7 @@ class QuestListFragment : Fragment() {
 
         @SuppressLint("StaticFieldLeak")
         var listView: ListView? = null
+        var auxQuestList : ArrayList<Quest>?=null
 
         var auxActivity: FragmentActivity? = null
 
@@ -63,10 +70,13 @@ class QuestListFragment : Fragment() {
         @SuppressLint("StaticFieldLeak")
         var context: Context? = null
         var listAdapter: QuestListAdapter? = null
-        fun removeItem(task: Quest) {
-            user.removeQuest(task)
+        fun removeItem(quest: Quest) {
+            user.removeQuest(quest)
+            auxQuestList?.remove(quest)
+
+            user.lastLogIn?.unfinishedQuests?.remove(quest)
             listAdapter?.notifyDataSetChanged()
-            FirebaseData().updateUserData()
+            FirebaseData().updateUserData(auxActivity!!,"Quest:${quest.name} removed successfully", "Quest:${quest.name} removal failed")
         }
 
 

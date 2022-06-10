@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import com.example.schedrpg.databinding.FragmentAvatarPickBinding
+import com.example.schedrpg.databinding.FragmentSettingsAvatarPickBinding
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.tabs.fragments.social.subfragments.SocialSearchFragment
 import com.vladv.questsched.user.User
@@ -16,14 +16,14 @@ import com.vladv.questsched.utilities.AvatarList
 
 
 class AvatarPickFragment : Fragment() {
-    private var _binding: FragmentAvatarPickBinding? = null
+    private var _binding: FragmentSettingsAvatarPickBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
-        _binding = FragmentAvatarPickBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsAvatarPickBinding.inflate(inflater, container, false)
 
         listAdapter = AvatarPickAdapter(requireContext(), AvatarList.avatarList)
         listView = binding.avatarList

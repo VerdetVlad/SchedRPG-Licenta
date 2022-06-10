@@ -117,10 +117,12 @@ class SocialFriendsFragment : Fragment() {
 
                     userRef.child(friendID).addValueEventListener(object :ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            val friendProfile = snapshot.getValue(UserSocialProfile::class.java) ?: return
 
-                            holder.username?.text = friendProfile.username
-                            friendProfile.avatar?.drawableFace?.let { holder.image?.setImageResource(it) }
+                            val username = snapshot.child("username").value.toString()
+                            val image = snapshot.child("avatar").child("drawableFace").value.toString().toInt()
+
+                            holder.username?.text = username
+                            image.let { holder.image?.setImageResource(it) }
                             holder.viewButton?.setOnClickListener {
                                 activity?.supportFragmentManager?.commit {
                                     setCustomAnimations(
@@ -147,7 +149,7 @@ class SocialFriendsFragment : Fragment() {
                                     )
                                     replace(
                                         R.id.flFragment,
-                                        SocialChatFragment(friendID,friendProfile.username!!,friendProfile.avatar!!.drawableFace!!)
+                                        SocialChatFragment(friendID,username,image)
                                     )
                                     addToBackStack(null)
                                 }

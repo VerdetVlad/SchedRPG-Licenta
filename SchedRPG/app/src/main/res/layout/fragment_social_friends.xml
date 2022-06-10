@@ -5,6 +5,17 @@
     android:background="?attr/colorOnSecondary"
     tools:context="com.vladv.questsched.tabs.fragments.social.subfragments.SocialFriendsFragment">
 
+    <TextView
+        android:id="@+id/noFriendsTextView4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="50sp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Friend List Empty"
+        android:textSize="48sp"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/socialFriendList"
         android:layout_width="match_parent"

@@ -2,56 +2,76 @@ package com.vladv.questsched.user
 
 class CharacterStats {
     var level:Int? = null
-    var currXP:Int? = null
-    var maxXP:Int? = null
-    var stats:ArrayList<Int> = ArrayList(6)
+    var statsLvl:ArrayList<Int> = ArrayList(6)
+    var statsCurrXP:ArrayList<Int> = ArrayList(6)
+    var statsMaxXP:ArrayList<Int> = ArrayList(6)
 
     constructor()
-    constructor(level: Int?, currXP: Int?, maxXP: Int?, stats: ArrayList<Int>) {
+    constructor(
+        level: Int?,
+        statsLvl: ArrayList<Int>,
+        statsCurrXP: ArrayList<Int>,
+        statsMaxXP: ArrayList<Int>
+    ) {
         this.level = level
-        this.currXP = currXP
-        this.maxXP = maxXP
-        this.stats = stats
+        this.statsLvl = statsLvl
+        this.statsCurrXP = statsCurrXP
+        this.statsMaxXP = statsMaxXP
     }
 
+
     //-1 lvl down, 0 - same lvl, 1 - lvl up
-    fun changeXP(auxXP:Int):Int
+    fun changeXP(statChanged:Int,auxXP:Int):Int
     {
-        currXP = currXP?.plus(auxXP)
+        var currXP = statsCurrXP[statChanged]
+        val maxXP = statsMaxXP[statChanged]
+
+        currXP = currXP.plus(auxXP)
         return when {
-            currXP!! >= maxXP!! -> {
-                currXP = currXP!! - maxXP!!
-                lvlUP()
+            currXP >= maxXP -> {
+                currXP -= maxXP
+                statsCurrXP[statChanged]=currXP
+                lvlUP(statChanged)
                 1
             }
-            currXP!! <=0 -> {
-                lvlDown()
-                currXP = maxXP!! - currXP!!
+            currXP <=0 -> {
+                if(statsLvl[statChanged]>1){
+                    lvlDown(statChanged)
+                    currXP += statsMaxXP[statChanged]
+                    statsCurrXP[statChanged]=currXP
+                }
+                else{
+                    statsCurrXP[statChanged]=0
+                }
                 -1
             }
-            else -> 0
+            else -> {
+                statsCurrXP[statChanged]=currXP
+                0
+            }
         }
 
     }
 
-    private fun lvlUP()
+    private fun lvlUP(statChanged: Int)
     {
         level = level?.plus(1)
-        maxXP =maxXP!! * 2
-        for(i in 0 until stats.size) stats[i]= stats[i] +1
+        statsMaxXP[statChanged] = (statsMaxXP[statChanged] * 2)
+        statsLvl[statChanged] +=1
 
     }
 
-    private fun lvlDown()
+    private fun lvlDown(statChanged: Int)
     {
+
         level = level?.plus(-1)
-        maxXP =maxXP!! / 2
-        for(i in 0 until stats.size-1) stats[i]= stats[i] -1
+        statsMaxXP[statChanged] = (statsMaxXP[statChanged] / 2)
+        statsLvl[statChanged] -=1
 
     }
 
     override fun toString(): String {
-        return "CharacterStats(level=$level, currXP=$currXP, maxXP=$maxXP, stats=$stats)"
+        return "CharacterStats(level=$level, statsLvl=$statsLvl, statsCurrXP=$statsCurrXP, statsMaxXP=$statsMaxXP)"
     }
 
 

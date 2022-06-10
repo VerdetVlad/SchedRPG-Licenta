@@ -86,6 +86,7 @@ class SocialSearchFragment : Fragment() {
                     model: UserSocialProfile
                 ) {
                     holder.username?.text = model.username
+                    holder.description?.text = model.profileDescription
                     model.avatar?.drawableFace?.let { holder.image?.setImageResource(it) }
                     holder.viewButton?.setOnClickListener {
                         val visitUserId = getRef(position).key
@@ -117,11 +118,13 @@ class SocialSearchFragment : Fragment() {
         class FindUsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         {
             var username:TextView? =null
+            var description:TextView? =null
             var image:CircleImageView?=null
             var viewButton: ImageButton?=null
 
             init{
                 username = itemView.findViewById(R.id.userSocialName)
+                description = itemView.findViewById(R.id.userSocialDescription)
                 image = itemView.findViewById(R.id.userSocialImage)
                 viewButton = itemView.findViewById(R.id.searchViewProfileButton)
             }

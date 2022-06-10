@@ -1,12 +1,10 @@
 package com.vladv.questsched.tabs.fragments.settings
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
 import com.example.schedrpg.R
 import com.vladv.questsched.user.Avatar
 import com.vladv.questsched.user.User
@@ -14,7 +12,7 @@ import com.vladv.questsched.utilities.*
 
 
 class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
-    ArrayAdapter<Avatar?>(context!!, R.layout.fragment_avatar_pick_item, avatarList as List<Avatar?>)
+    ArrayAdapter<Avatar?>(context!!, R.layout.fragment_settings_avatar_pick_item, avatarList as List<Avatar?>)
 {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -23,7 +21,7 @@ class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
         val avatar = getItem(position)
         if (convtView == null) {
             convtView =
-                LayoutInflater.from(context).inflate(R.layout.fragment_avatar_pick_item, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.fragment_settings_avatar_pick_item, parent, false)
         }
 
         val name = convtView!!.findViewById<TextView>(R.id.avatarPicName)

@@ -13,7 +13,10 @@ import com.example.schedrpg.databinding.FragmentCalendarDayBinding
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.FinishedQuestData
 import com.vladv.questsched.utilities.MyDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CalendarDayFragment : Fragment {
 
@@ -50,21 +53,48 @@ class CalendarDayFragment : Fragment {
 
         activity?.title = "Quest from ${date.toStringDate()}"
 
-        if(User().quests.isNullOrEmpty()) return
+
+        // bigger than current date
+        if(date.compareDates(MyDate(Calendar.getInstance()))){
 
 
-        val questList = User().quests?.filter{ quest ->
-            quest.validDate(date)
+            if(User().quests.isNullOrEmpty()) {
+                binding.noQuestTextView2.visibility = View.VISIBLE
+                return
+            }
+
+            binding.noQuestTextView2.visibility = View.GONE
+
+            val questList = User().quests?.filter{ quest ->
+                quest.validDate(date)
+            }
+            val questArray = questList?.let { ArrayList<Quest>(it) }
+            listAdapter = CalendarDayAdapter(requireContext(), questArray)
+            listView = binding.dayview
+            listView!!.adapter = listAdapter
         }
-        val questArray = questList?.let { ArrayList<Quest>(it) }
-        listAdapter = CalendarDayAdapter(requireContext(), questArray)
-        listView = binding.dayview
-        listView!!.adapter = listAdapter
+        else//history
+        {
+            val quests = User().questHistory?.questHistoryMap?.get(date.toStringDateKey())
+            if(quests.isNullOrEmpty()) {
+                binding.noQuestTextView2.visibility = View.VISIBLE
+                return
+            }
+
+            binding.noQuestTextView2.visibility = View.GONE
+
+            val questArray = ArrayList<FinishedQuestData>(quests)
+            listAdapterHistory = CalendarDayHistoryAdapter(requireContext(), questArray)
+            listView = binding.dayview
+            listView!!.adapter = listAdapterHistory
+
+
+        }
+
 
     }
 
     companion object {
-        private var user = User()
 
         var auxActivity: FragmentActivity? = null
 
@@ -75,6 +105,7 @@ class CalendarDayFragment : Fragment {
         @SuppressLint("StaticFieldLeak")
         var context: Context? = null
         var listAdapter: CalendarDayAdapter? = null
+        var listAdapterHistory: CalendarDayHistoryAdapter? = null
 
     }
 

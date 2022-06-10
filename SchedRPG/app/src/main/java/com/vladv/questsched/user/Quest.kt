@@ -133,6 +133,7 @@ class Quest : Parcelable{
         return initialDate?.day!!
     }
 
+    //check if quest can still be finished on 'date'
     fun validDate(date: MyDate):Boolean
     {
 
@@ -147,15 +148,16 @@ class Quest : Parcelable{
                 (this.repeat?.recurringFrequency == 3 && this.getQuestDay() == date.day)
     }
 
-    fun questXpReward():Int
+    //check if quest could have been finished on 'date'
+    fun wasValidDate(date: MyDate):Boolean
     {
-        return 10*(difficulty!!+1)
+        if(!date.compareDates(initialDate!!)) return false
+        if(this.repeat?.untilDate?.compareDates(date) == false) return false
+        return this.repeat?.recurringFrequency == 1 ||
+                (this.repeat?.recurringFrequency == 2 && this.repeat?.recurringDays?.get(date.weekDay!!-1) == true) ||
+                (this.repeat?.recurringFrequency == 3 && this.getQuestDay() == date.day)
     }
 
-    fun questXpLoss():Int
-    {
-        return -5*(difficulty!!+1)
-    }
 
     companion object CREATOR : Parcelable.Creator<Quest> {
         override fun createFromParcel(parcel: Parcel): Quest {

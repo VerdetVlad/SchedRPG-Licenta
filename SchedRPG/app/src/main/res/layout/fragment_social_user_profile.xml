@@ -43,7 +43,7 @@
 
 
         <TextView
-            android:id="@+id/visit_profile_status"
+            android:id="@+id/userProfileDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/visitUserName"
@@ -61,7 +61,7 @@
             android:id="@+id/requestConstrLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/visit_profile_status"
+            android:layout_below="@+id/userProfileDescription"
             android:visibility="visible">
 
             <Button

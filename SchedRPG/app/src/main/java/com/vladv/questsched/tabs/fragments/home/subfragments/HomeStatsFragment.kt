@@ -26,19 +26,30 @@ class HomeStatsFragment : Fragment() {
         activity?.title = "Character screen"
         HomeNavFragment.currentFragment = HomeStatsFragment()
 
-        val progressXP = User().stats?.currXP?.times(100)?.div(User().stats!!.maxXP!!)
-        val stats:ArrayList<Int> = User().stats?.stats!!
+
+        val statsCurrProgress = ArrayList<Int>(6)
+        for(i in 0..5)
+            statsCurrProgress.add(User().stats!!.statsCurrXP[i]
+                .times(100).div(User().stats!!.statsMaxXP[i]))
+
+
+        val stats:ArrayList<Int> = User().stats?.statsLvl!!
         binding.userName.text = User().username + " LvL." + User().stats?.level
 
         User().avatar?.drawableBody?.let { binding.fullAvatarImageView.setImageResource(it) }
 
-        binding.xpProgressBar2.progress = progressXP!!
         binding.strTextView.text = "STR:" + "\n" + stats[0]
+        binding.progressBarLvlSTR.progress = statsCurrProgress[0]
         binding.conTextView.text = "CON:" + "\n" + stats[1]
+        binding.progressBarLvlCON.progress = statsCurrProgress[1]
         binding.dexTextView.text = "DEX:" + "\n" + stats[2]
+        binding.progressBarLvlDEX.progress = statsCurrProgress[2]
         binding.intTextView.text = "INT:" + "\n" + stats[3]
+        binding.progressBarLvlINT.progress = statsCurrProgress[3]
         binding.wisTextView.text = "WIS:" + "\n" + stats[4]
+        binding.progressBarLvlWIS.progress = statsCurrProgress[4]
         binding.chaTextView.text = "CHA:" + "\n" + stats[5]
+        binding.progressBarLvlCHA.progress = statsCurrProgress[5]
 
         return binding.root
     }

@@ -50,16 +50,15 @@ class HomeQuestsAdapter(context: Context?, questList: ArrayList<Quest>?) :
         }
 
         buttonFinish.setOnClickListener{
-
             User().completeQuest(quest)
-
-            FirebaseData().updateUserData()
+            User().addToQuestHistory(HomeQuestsFragment.date,quest,true)
+            HomeQuestsFragment.removeItem(quest)
         }
         buttonAbandon.setOnClickListener{
 
             User().abandonQuest(quest)
-
-            FirebaseData().updateUserData()
+            User().addToQuestHistory(HomeQuestsFragment.date,quest,false)
+            HomeQuestsFragment.removeItem(quest)
         }
 
         return convtView

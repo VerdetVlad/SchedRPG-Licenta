@@ -77,6 +77,9 @@ class SocialUserProfile : Fragment {
         return binding.root
     }
 
+    override fun onDetach() {
+        super.onDetach()
+    }
 
     override fun onStart() {
         super.onStart()
@@ -104,22 +107,28 @@ class SocialUserProfile : Fragment {
                     }
                     else
                     {
-
-                        friendListRef.child(currentUserId)
-                            .addListenerForSingleValueEvent(object : ValueEventListener{
-                                override fun onDataChange(snapshot: DataSnapshot) {
-                                    if (snapshot.hasChild(viewedUserID))
-                                    {
-                                        friendshipState = "friends"
-                                        manageRequests()
-                                        showQuests()
+                        if(friendshipState == "friends")
+                        {
+                            friendshipState = "not friends"
+                        }
+                        else{
+                            friendListRef.child(currentUserId)
+                                .addListenerForSingleValueEvent(object : ValueEventListener{
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        if (snapshot.hasChild(viewedUserID))
+                                        {
+                                            friendshipState = "friends"
+                                            manageRequests()
+                                            showQuests()
+                                        }
                                     }
-                                }
 
-                                override fun onCancelled(error: DatabaseError) {
-                                }
+                                    override fun onCancelled(error: DatabaseError) {
+                                    }
 
-                            })
+                                })
+                        }
+
                     }
 
                     manageRequests()
@@ -173,6 +182,13 @@ class SocialUserProfile : Fragment {
 
                         context?.let { MyFragmentManager.createQuestPopUp(model, it) }
                     }
+
+                    if(currentUserId == viewedUserID)
+                    {
+                        holder.copyButton?.visibility =View.GONE
+                    }
+
+
                     holder.copyButton?.setOnClickListener {
                         if (User().quests?.contains(model) == true) Toast.makeText(context,"Quest already owned",Toast.LENGTH_SHORT).show()
                         else
@@ -223,7 +239,7 @@ class SocialUserProfile : Fragment {
                 if (profile != null) {
                     profile.avatar?.drawableFace?.let { binding.visitProfileImage.setImageResource(it) }
                     binding.visitUserName.text = profile.username
-                    binding.visitProfileStatus.text = "Description Status"
+                    binding.userProfileDescription.text = profile.profileDescription
 
                 }
 

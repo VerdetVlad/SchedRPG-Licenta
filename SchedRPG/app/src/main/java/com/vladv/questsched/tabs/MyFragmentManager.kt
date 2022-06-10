@@ -33,13 +33,14 @@ import com.vladv.questsched.tabs.fragments.settings.SettingsFragment
 import com.vladv.questsched.tabs.fragments.social.SocialNavFragment
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
+import com.vladv.questsched.utilities.FinishedQuestData
 
 
 class MyFragmentManager : AppCompatActivity() {
 
 
     companion object {
-        var userProfile: User? = User()
+        var userData: User? = User()
         var currentFragment : Fragment = HomeNavFragment()
 
         lateinit var firebaseAuth : FirebaseAuth
@@ -51,7 +52,6 @@ class MyFragmentManager : AppCompatActivity() {
         fun createQuestPopUp(quest: Quest, context: Context)
         {
             val dialog: AlertDialog?
-
             val dialogBuilder: AlertDialog.Builder = context.let { AlertDialog.Builder(it, R.style.AlertDialogStyle) }
             val inflater = LayoutInflater.from(context)
             val auxBinding = PopUpQuestBinding.inflate(inflater)
@@ -82,6 +82,37 @@ class MyFragmentManager : AppCompatActivity() {
             dialog = dialogBuilder.create()
             dialog.show()
 
+            auxBinding.closeQuestPopUpButton.setOnClickListener{
+                dialog.dismiss()
+            }
+        }
+
+        @SuppressLint("SetTextI18n")
+        fun createQuestPopUp(quest: FinishedQuestData, context: Context)
+        {
+            val dialog: AlertDialog?
+            val dialogBuilder: AlertDialog.Builder = context.let { AlertDialog.Builder(it, R.style.AlertDialogStyle) }
+            val inflater = LayoutInflater.from(context)
+            val auxBinding = PopUpQuestBinding.inflate(inflater)
+            auxBinding.popUpQuestName.text = quest.name
+            auxBinding.popUpQuestType.text = quest.type
+            auxBinding.popUpQuestDificulty.text = quest.difficulty
+
+            auxBinding.popUpStartDate.visibility = View.GONE
+
+
+            if(quest.description!="") {
+                auxBinding.popUpQuestDescription.visibility = View.VISIBLE
+                auxBinding.popUpQuestDescription.text = "Description: \n" + quest.description
+            }
+
+            dialogBuilder.setView(auxBinding.root)
+            dialog = dialogBuilder.create()
+            dialog.show()
+
+            auxBinding.closeQuestPopUpButton.setOnClickListener{
+                dialog.dismiss()
+            }
         }
 
     }
@@ -99,6 +130,7 @@ class MyFragmentManager : AppCompatActivity() {
         binding = ActivityFragmentManagerBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
+
 
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -138,16 +170,16 @@ class MyFragmentManager : AppCompatActivity() {
         super.onStart()
         firebaseAuth.addAuthStateListener(this.authStateListener)
 
-
+        startLoading()
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val reference = FirebaseDatabase.getInstance().getReference(User::class.java.simpleName)
         val userID = firebaseUser!!.uid
         reference.child(userID).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                userProfile = snapshot.getValue(User::class.java)
+                userData = snapshot.getValue(User::class.java)
 
-                //stopLoading()
+                stopLoading()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -182,9 +214,9 @@ class MyFragmentManager : AppCompatActivity() {
         val mailAddress = navHeader.findViewById(R.id.nav_mail_adress) as TextView
         val avatarProfile = navHeader.findViewById(R.id.avatarProfilePic) as ImageView
 
-        userName.text = userProfile!!.username
-        mailAddress.text = userProfile!!.email
-        userProfile!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
+        userName.text = userData!!.username
+        mailAddress.text = userData!!.email
+        userData!!.avatar?.drawableFace?.let { avatarProfile.setImageResource(it) }
 
 
 
@@ -204,7 +236,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
-                    clearBackStack()
+
                     replace(binding.flFragment.id, HomeNavFragment())
                     drawerLayout.closeDrawers()
                 }
@@ -216,7 +248,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
-                    clearBackStack()
+
                     replace(binding.flFragment.id, QuestCreationFragment())
                     drawerLayout.closeDrawers()
                 }
@@ -229,7 +261,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
-                    clearBackStack()
+
                     replace(binding.flFragment.id, QuestListFragment())
                     drawerLayout.closeDrawers()
                 }
@@ -241,7 +273,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
-                    clearBackStack()
+
                     replace(binding.flFragment.id, CalendarFragment())
 
                     drawerLayout.closeDrawers()
@@ -254,7 +286,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
-                    clearBackStack()
+
                     replace(binding.flFragment.id, SettingsFragment())
 
                     drawerLayout.closeDrawers()
@@ -267,7 +299,7 @@ class MyFragmentManager : AppCompatActivity() {
                         R.anim.fragment_fadein,
                         R.anim.fragment_fadeout
                     )
-                    clearBackStack()
+
                     replace(binding.flFragment.id, SocialNavFragment())
 
                     drawerLayout.closeDrawers()

@@ -95,6 +95,7 @@ class SocialRequestFragment : Fragment() {
                 }
 
             }
+
         friendRequestRecyclerList.adapter = adapter
 
         adapter.startListening()
