@@ -2,11 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.schedrpg" >
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.SchedRPG" >
+        <receiver android:name="com.vladv.questsched.utilities.Notification"
+            android:enabled="true"/>
         <activity android:name="com.vladv.questsched.tabs.MyFragmentManager" />
         <activity android:name="com.vladv.questsched.authentification.Register" />
         <activity

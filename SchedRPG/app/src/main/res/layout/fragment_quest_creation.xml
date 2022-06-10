@@ -233,6 +233,35 @@
                 app:layout_constraintTop_toTopOf="@+id/repeatUntileText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout
+            android:id="@+id/notificationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/creationDifficultyText">
+
+            <CheckBox
+                android:id="@+id/creationNotifyCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remind me"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <TimePicker
+                android:id="@+id/creationTimePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/creationTypeText"
             android:layout_width="100sp"
@@ -245,7 +274,7 @@
             app:layout_constraintEnd_toStartOf="@+id/createTaskType"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repeatConstrLayout" />
+            app:layout_constraintTop_toBottomOf="@id/repeatConstrLayout" />
 
         <Spinner
             android:id="@+id/createTaskType"
@@ -299,7 +328,7 @@
             android:text="Create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/creationDifficultyText" />
+            app:layout_constraintTop_toBottomOf="@id/notificationLayout" />
 
         <TextView
             android:id="@+id/buttomSpace"

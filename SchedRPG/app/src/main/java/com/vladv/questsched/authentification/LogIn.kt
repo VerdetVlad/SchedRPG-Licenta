@@ -33,6 +33,7 @@ class LogIn : AppCompatActivity() {
     private lateinit var firebaseAuth : FirebaseAuth
 
 
+    private lateinit var authStateListener : FirebaseAuth.AuthStateListener
     private var binding: ActivityLoginBinding? = null
 
 
@@ -44,7 +45,13 @@ class LogIn : AppCompatActivity() {
         setContentView(view)
 
 
-
+        firebaseAuth = FirebaseAuth.getInstance()
+        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val firebaseUser = firebaseAuth.currentUser
+            if (firebaseUser != null && firebaseUser.isEmailVerified) {
+                retrieveUserData()
+            }
+        }
 
 
         binding!!.createAccount.setOnClickListener {
@@ -91,6 +98,16 @@ class LogIn : AppCompatActivity() {
 //        editTextEmail!!.setText("tefema5526@musezoo.com")
 //        editTextPassword!!.setText("123456")
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth.addAuthStateListener(this.authStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firebaseAuth.removeAuthStateListener(this.authStateListener)
     }
 
     private fun userLogin() {
