@@ -18,7 +18,7 @@ import com.example.schedrpg.databinding.PopUpFailedQuestsBinding
 import com.vladv.questsched.tabs.fragments.home.HomeNavFragment
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.FirebaseUtilities
 import com.vladv.questsched.utilities.MyDate
 import java.util.*
 
@@ -103,7 +103,7 @@ class HomeQuestsFragment : Fragment() {
 
             user.lastLogIn!!.logInDate = date
             if(auxQuestArray!= null) user.lastLogIn!!.unfinishedQuests = auxQuestArray as ArrayList<Quest>
-            FirebaseData().updateUserData()
+            FirebaseUtilities().updateUserData()
 
         }
 
@@ -138,7 +138,7 @@ class HomeQuestsFragment : Fragment() {
         fun removeItem(quest: Quest,status:String) {
             auxQuestArray?.remove(quest)
             listAdapter?.notifyDataSetChanged()
-            FirebaseData().updateUserData(auxActivity!!, "Quest: ${quest.name} $status", "Error: ${quest.name} not $status")
+            FirebaseUtilities().updateUserData(auxActivity!!, "Quest: ${quest.name} $status", "Error: ${quest.name} not $status")
 
 
         }

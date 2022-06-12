@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.example.schedrpg.R
 import com.vladv.questsched.user.Avatar
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.FirebaseUtilities
 
 
 class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
@@ -55,7 +55,7 @@ class AvatarPickAdapter(context: Context?, avatarList: ArrayList<Avatar>) :
 
             User.setAvatar(avatar)
 
-            FirebaseData().updateUserData()
+            FirebaseUtilities().updateUserData()
 
 
             SettingsFragment.auxActivity.recreate()

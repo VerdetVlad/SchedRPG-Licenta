@@ -44,6 +44,7 @@ import com.vladv.questsched.tabs.fragments.social.subfragments.SocialUserProfile
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.FinishedQuestData
+import com.vladv.questsched.utilities.FirebaseUtilities
 
 
 class MyFragmentManager : AppCompatActivity() {
@@ -263,7 +264,7 @@ class MyFragmentManager : AppCompatActivity() {
 
                 R.id.nav_logout ->{
                     clearBackStack()
-                    FirebaseAuth.getInstance().signOut()
+                    FirebaseUtilities().removeTokenAndLogOut(this)
                 }
 
 

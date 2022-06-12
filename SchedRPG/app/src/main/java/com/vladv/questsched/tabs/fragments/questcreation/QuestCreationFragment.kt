@@ -193,14 +193,14 @@ class QuestCreationFragment : Fragment() {
 
 
 
-        val changeFirebaseData = FirebaseData()
+        val changeFirebaseUtilities = FirebaseUtilities()
 
         if(binding.creationNotifyCheckBox.isChecked)
         {
             scheduleNotification()
         }
 
-        changeFirebaseData.updateUserData(requireActivity(),
+        changeFirebaseUtilities.updateUserData(requireActivity(),
             "Quest: " + quest.name + " created succesfully",
             "Quest: " + quest.name + " creation failed: database connection error")
 

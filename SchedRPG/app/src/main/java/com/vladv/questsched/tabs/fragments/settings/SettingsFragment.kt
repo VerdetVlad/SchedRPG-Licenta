@@ -19,7 +19,7 @@ import com.example.schedrpg.databinding.PopUpAssetsBinding
 import com.example.schedrpg.databinding.PopUpProfileDescriptionBinding
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.FirebaseUtilities
 
 
 class SettingsFragment : Fragment() {
@@ -55,13 +55,13 @@ class SettingsFragment : Fragment() {
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 User.setNighMode(true)
-                FirebaseData().updateUserData(requireActivity(),"Night Mode Saved", "Nigh Mode Save Failed")
+                FirebaseUtilities().updateUserData(requireActivity(),"Night Mode Saved", "Nigh Mode Save Failed")
                 binding.darkLightSwitch.text = "Night Mode"
             }
             else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 User.setNighMode(false)
-                FirebaseData().updateUserData(requireActivity(),"Light Mode Saved", "Light Mode Save Failed")
+                FirebaseUtilities().updateUserData(requireActivity(),"Light Mode Saved", "Light Mode Save Failed")
                 binding.darkLightSwitch.text = "Light Mode"
             }
         }
@@ -132,7 +132,7 @@ class SettingsFragment : Fragment() {
 
         auxBinding.settingsNewDescriptionButton.setOnClickListener{
             User.setDescription(auxBinding.settingProfileDescriptionEdit.text.toString())
-            FirebaseData().updateUserData()
+            FirebaseUtilities().updateUserData()
             dialog.dismiss()
         }
 

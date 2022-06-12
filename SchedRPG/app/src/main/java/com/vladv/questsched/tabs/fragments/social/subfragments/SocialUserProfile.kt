@@ -17,7 +17,7 @@ import com.google.firebase.database.*
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.FirebaseUtilities
 import com.vladv.questsched.utilities.SentFriendRequest
 import com.vladv.questsched.utilities.UserSocialProfile
 
@@ -190,7 +190,7 @@ class SocialUserProfile : Fragment {
                         else
                         {
                             User().quests?.add(model)
-                            FirebaseData().updateUserData(activity!!,"Quest copied","Failed to add to database")
+                            FirebaseUtilities().updateUserData(activity!!,"Quest copied","Failed to add to database")
                         }
                     }
                 }

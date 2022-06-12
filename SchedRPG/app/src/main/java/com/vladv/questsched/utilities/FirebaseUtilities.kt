@@ -1,5 +1,6 @@
 package com.vladv.questsched.utilities
 
+import android.app.Activity
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -8,9 +9,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.vladv.questsched.user.User
 
 
-class FirebaseData {
+class FirebaseUtilities {
     private val databaseReference: DatabaseReference
     private val userID: String = FirebaseAuth.getInstance().currentUser!!.uid
+
+    init {
+        val db = FirebaseDatabase.getInstance()
+        databaseReference = db.getReference(User::class.java.simpleName)
+    }
 
     fun updateUserData() {
 
@@ -35,10 +41,23 @@ class FirebaseData {
 
     }
 
+    fun removeTokenAndLogOut(activity: Activity){
 
-    init {
-        val db = FirebaseDatabase.getInstance()
-        databaseReference = db.getReference(User::class.java.simpleName)
+        databaseReference.child(userID).child("token")
+            .removeValue()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    FirebaseAuth.getInstance().signOut()
+                }
+                else
+                {
+                    Toast.makeText(activity, "Failed to remove token on logout from Firebase", Toast.LENGTH_SHORT).show()
+                }
+            }
+
     }
+
+
+
 
 }

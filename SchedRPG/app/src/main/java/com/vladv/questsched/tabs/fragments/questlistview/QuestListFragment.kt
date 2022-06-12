@@ -13,7 +13,7 @@ import com.example.schedrpg.databinding.FragmentQuestViewBinding
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.FirebaseUtilities
 
 class QuestListFragment : Fragment() {
 
@@ -73,7 +73,7 @@ class QuestListFragment : Fragment() {
 
             user.lastLogIn?.unfinishedQuests?.remove(quest)
             listAdapter?.notifyDataSetChanged()
-            FirebaseData().updateUserData(auxActivity!!,"Quest:${quest.name} removed successfully", "Quest:${quest.name} removal failed")
+            FirebaseUtilities().updateUserData(auxActivity!!,"Quest:${quest.name} removed successfully", "Quest:${quest.name} removal failed")
         }
 
 

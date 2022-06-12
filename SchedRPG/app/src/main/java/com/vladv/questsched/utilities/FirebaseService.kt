@@ -1,4 +1,4 @@
-package com.vladv.questsched.notifications
+package com.vladv.questsched.utilities
 
 import android.app.Notification
 import android.app.NotificationChannel

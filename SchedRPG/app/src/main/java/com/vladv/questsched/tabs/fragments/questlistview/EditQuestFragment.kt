@@ -16,7 +16,7 @@ import com.example.schedrpg.databinding.FragmentQuestEditBinding
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.Quest
 import com.vladv.questsched.user.User
-import com.vladv.questsched.utilities.FirebaseData
+import com.vladv.questsched.utilities.FirebaseUtilities
 import com.vladv.questsched.utilities.MyDate
 import com.vladv.questsched.utilities.Recurrence
 import java.util.*
@@ -206,9 +206,9 @@ class EditQuestFragment : Fragment {
         quest = auxQuest
 
         User.setQuestsAtIndex(quest,position!!)
-        val changeFirebaseData = FirebaseData()
+        val changeFirebaseUtilities = FirebaseUtilities()
         
-        changeFirebaseData.updateUserData(requireActivity(),
+        changeFirebaseUtilities.updateUserData(requireActivity(),
             "Quest: " + quest.name + " edited succesfully",
             "Quest: " + quest.name + " editeding failed: database connection error")
         refreshFragment()
