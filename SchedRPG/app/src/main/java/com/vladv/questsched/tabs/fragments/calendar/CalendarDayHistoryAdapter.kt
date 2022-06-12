@@ -44,8 +44,14 @@ class CalendarDayHistoryAdapter(context: Context?, questList: ArrayList<Finished
 
         description.text = if(quest.description == "")  "No description" else quest.description
 
-        if(quest.completed) completed.visibility = View.VISIBLE
-        else abandoned.visibility = View.VISIBLE
+        if(quest.completed) {
+            completed.visibility = View.VISIBLE
+            abandoned.visibility = View.GONE
+        }
+        else {
+            abandoned.visibility = View.VISIBLE
+            completed.visibility = View.GONE
+        }
 
         val layout = convtView.findViewById<RelativeLayout>(R.id.calendarDayItemRelLayout)
         layout.setOnClickListener{
