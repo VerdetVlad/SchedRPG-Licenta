@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.schedrpg.R
 import com.example.schedrpg.databinding.ActivityLoginBinding
 import com.example.schedrpg.databinding.PopUpForgotPasswordBinding
@@ -29,6 +30,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.vladv.questsched.tabs.MyFragmentManager
 import com.vladv.questsched.user.User
 
@@ -181,26 +183,56 @@ class LogIn : AppCompatActivity() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val reference = FirebaseDatabase.getInstance().getReference(User::class.java.simpleName)
         val userID = firebaseUser!!.uid
-        reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
 
-                MyFragmentManager.userData = snapshot.getValue(User::class.java)
+        var token: String?
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isComplete) {
+                token = task.result.toString()
+                reference.child(userID).child("token").setValue(token).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        reference.child(userID)
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
 
-                stopLoading()
+                                    MyFragmentManager.userData = snapshot.getValue(User::class.java)
+
+                                    if (MyFragmentManager.userData?.themeNightMode == true) {
+                                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                                    } else {
+                                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                                    }
 
 
-                val intent = Intent(this@LogIn, MyFragmentManager::class.java)
-                intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
-                startActivity(intent)
-                finish()
+                                    val intent = Intent(this@LogIn, MyFragmentManager::class.java)
+                                    intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
+                                    startActivity(intent)
+                                    finish()
+
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Something went wrong when retrieving data: $error",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+
+                                }
+                            })
+                    } else {
+
+                        Toast.makeText(
+                            applicationContext,
+                            "Something went wrong when retrieving data user token",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+
 
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Something went wrong when retrieving data: $error", Toast.LENGTH_LONG).show()
-                stopLoading()
-            }
-        })
+        }
     }
 
     override fun recreate() {
@@ -314,12 +346,7 @@ class LogIn : AppCompatActivity() {
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
             .setValue(user).addOnCompleteListener { task1: Task<Void?> ->
                 if (task1.isSuccessful) {
-                    stopLoading()
-                    MyFragmentManager.userData = user
-                    val intent = Intent(this, MyFragmentManager::class.java)
-                    intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
-                    startActivity(intent)
-                    finish()
+                    retrieveUserData()
                 } else {
                     Toast.makeText(this, "Something went wrong when creating user.", Toast.LENGTH_LONG).show()
                     stopLoading()

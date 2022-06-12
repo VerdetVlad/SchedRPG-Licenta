@@ -68,6 +68,8 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.7.0'
     implementation 'com.firebaseui:firebase-ui-database:8.0.1'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation "com.google.firebase:firebase-messaging:23.0.5"
+
 
 
 }

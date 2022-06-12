@@ -1,8 +1,8 @@
 package com.vladv.questsched.tabs.fragments.social.subfragments
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -186,7 +186,7 @@ class SocialFriendsFragment : Fragment() {
             if(seen == "unseen") {
                 holder.lastMessage?.typeface = Typeface.DEFAULT_BOLD
 //                holder.lastMessage?.setTextColor(ContextCompat.getColor(requireContext(),R.color.c_accent))
-                holder.lastMessage?.setTextSize(TypedValue.COMPLEX_UNIT_SP,22F)
+                holder.lastMessage?.setTextColor(Color.parseColor("#FF5722"))
             }
 
             message ="Them: " + snapshot.child("message").value.toString()

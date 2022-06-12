@@ -2,6 +2,8 @@ package com.vladv.questsched.tabs.fragments.social.subfragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.schedrpg.databinding.FragmentSocialChatBinding
 import com.google.firebase.database.*
 import com.vladv.questsched.tabs.MyFragmentManager
+import com.vladv.questsched.user.User
 import com.vladv.questsched.utilities.ChatMessages
 
 
@@ -21,8 +24,11 @@ class  SocialChatFragment : Fragment {
     private lateinit var username:String
     private var profilePicture: Int = 0
     private lateinit var lastMessage:DatabaseReference
+    private lateinit var notificationRef:DatabaseReference
     private lateinit var messageListener:ChildEventListener
     private lateinit var seenMessageListener:ChildEventListener
+
+    private var friendSeenStatus:Boolean = false
 
     constructor(){
         this.currentUserId = MyFragmentManager.firebaseAuth.uid!!
@@ -54,6 +60,7 @@ class  SocialChatFragment : Fragment {
         activity?.title = "Chat"
 
         rootRef = FirebaseDatabase.getInstance().reference
+        notificationRef = FirebaseDatabase.getInstance().reference.child("MessageNotifications");
 
         MyFragmentManager.currentFragment = this
 
@@ -74,6 +81,7 @@ class  SocialChatFragment : Fragment {
         binding.socialChatMessageList.adapter = chatAdapter
 
         lastMessage = FirebaseDatabase.getInstance().reference.child("Messages").child(currentUserId).child(friendUserID)
+
 
         binding.socialSendMessageButton.setOnClickListener{
             sendMessage()
@@ -108,8 +116,14 @@ class  SocialChatFragment : Fragment {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     val messages: ChatMessages? = dataSnapshot.getValue(ChatMessages::class.java)
                     if (messages != null) {
-                        if(messages.seenStatus=="unseen") binding.chatMessageSeenStatusText.visibility = View.VISIBLE
-                        else binding.chatMessageSeenStatusText.visibility = View.GONE
+                        if(messages.seenStatus=="unseen") {
+                            friendSeenStatus = false
+                            binding.chatMessageSeenStatusText.visibility = View.VISIBLE
+                        }
+                        else {
+                            friendSeenStatus = true
+                            binding.chatMessageSeenStatusText.visibility = View.GONE
+                        }
                     }
                 }
 
@@ -117,8 +131,14 @@ class  SocialChatFragment : Fragment {
                 override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
                     val messages: ChatMessages? = dataSnapshot.getValue(ChatMessages::class.java)
                     if (messages != null) {
-                        if(messages.seenStatus=="unseen") binding.chatMessageSeenStatusText.visibility = View.VISIBLE
-                        else binding.chatMessageSeenStatusText.visibility = View.GONE
+                        if(messages.seenStatus=="unseen") {
+                            friendSeenStatus = false
+                            binding.chatMessageSeenStatusText.visibility = View.VISIBLE
+                        }
+                        else {
+                            friendSeenStatus = true
+                            binding.chatMessageSeenStatusText.visibility = View.GONE
+                        }
                     }
                 }
                 override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
@@ -132,13 +152,14 @@ class  SocialChatFragment : Fragment {
     private fun sendMessage() {
 
 
-        val messageText: String = binding.socialInputMessage.text.toString()
+        val messageText: String = binding.socialInputMessage.text.toString().trim { it <= ' ' }
 
         if (TextUtils.isEmpty(messageText)) {
             Toast.makeText(context, "No message written yet", Toast.LENGTH_SHORT).show()
         } else {
             val messageSenderRef = "Messages/$currentUserId/$friendUserID"
             val messageReceiverRef = "Messages/$friendUserID/$currentUserId"
+
 
             val userMessageKeyRef: DatabaseReference = rootRef.child("Messages")
                 .child(currentUserId).child(friendUserID).push()
@@ -159,12 +180,40 @@ class  SocialChatFragment : Fragment {
             messageBodyDetails["$messageReceiverRef/$messagePushID"] = messageTextBody
             rootRef.updateChildren(messageBodyDetails)
                 .addOnCompleteListener { task ->
-                    if (!task.isSuccessful) {
+                    if (task.isSuccessful) {
+                        sendNotification(messageText, messagePushID)
+                    }
+                    else
+                    {
                         Toast.makeText(context, "Message Failed to send", Toast.LENGTH_SHORT).show()
                     }
                     binding.socialInputMessage.setText("")
                 }
         }
+    }
+
+    private fun sendNotification(message:String, messageID:String)
+    {
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+                if(!friendSeenStatus) {
+                    val chatNotificationMap: HashMap<String, String> = HashMap()
+                    chatNotificationMap["from"] = User().username!!
+                    chatNotificationMap["content"] = message
+
+                    notificationRef.child(friendUserID).push()
+                        .setValue(chatNotificationMap)
+                        .addOnCompleteListener { task ->
+                            if (!task.isSuccessful) {
+                                Toast.makeText(context, "Failed to notify user.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+
+            },
+            1000 // value in milliseconds
+        )
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
