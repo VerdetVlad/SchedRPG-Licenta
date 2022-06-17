@@ -32,42 +32,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         userRef = FirebaseDatabase.getInstance().reference.child("User")
-        mAuth = FirebaseAuth.getInstance()
-        val user = mAuth.currentUser
-
-        try{
-//            val filename = "logcat_" + System.currentTimeMillis() +".txt"
-            val filename = "logcat_file.txt"
-            val downloadFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
 
-            val logFiles = Files.createDirectories(Paths.get("$downloadFile/schedLogFile"))
+        createLogFile()
 
-            val outputFile = File(logFiles.toFile(),filename)
-            if(outputFile.exists()) outputFile.delete()
+        alreadyLoggedInCheck()
 
-
-
-
-            Runtime.getRuntime().exec("logcat -f " + outputFile.absolutePath)
-
-
-
-        }catch (e:Exception)
-        {
-            Toast.makeText(applicationContext, "Error trying to write log: $e", Toast.LENGTH_LONG).show()
-        }
-
-        if (user!= null && user.isEmailVerified)
-        {
-            retrieveUserData()
-        }else
-        {
-            val intent = Intent(this, LogIn::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
-            startActivity(intent)
-            finish()
-        }
 
 
     }
@@ -79,6 +49,39 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun alreadyLoggedInCheck()
+    {
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
+
+        if (user!= null && user.isEmailVerified)
+        {
+            retrieveUserData()
+        }else
+        {
+            val intent = Intent(this, LogIn::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun createLogFile()
+    {
+        try{
+            val filename = "logcat_file.txt"
+            val downloadFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val logFiles = Files.createDirectories(Paths.get("$downloadFile/schedLogFile"))
+            val outputFile = File(logFiles.toFile(),filename)
+
+            if(outputFile.exists()) outputFile.delete()
+            Runtime.getRuntime().exec("logcat -f " + outputFile.absolutePath)
+
+        }catch (e:Exception)
+        {
+            Toast.makeText(applicationContext, "Error trying to write log: $e", Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun recreate() {
         finish()
@@ -88,6 +91,15 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
 
+    private fun setTheme(darkTheme:Boolean?)
+    {
+        if (darkTheme == true) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
 
     private fun retrieveUserData()
     {
@@ -106,43 +118,30 @@ class MainActivity : AppCompatActivity() {
                     {
                         reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
-
                                 MyFragmentManager.userData = snapshot.getValue(User::class.java)
 
-                                if (MyFragmentManager.userData?.themeNightMode == true) {
-                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                                }
-                                else {
-                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                                }
-
+                                setTheme(MyFragmentManager.userData?.themeNightMode)
 
                                 val intent = Intent(this@MainActivity, MyFragmentManager::class.java)
                                 intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
                                 startActivity(intent)
                                 finish()
-
                             }
-
                             override fun onCancelled(error: DatabaseError) {
-                                Toast.makeText(applicationContext, "Something went wrong when retrieving data: $error", Toast.LENGTH_LONG).show()
-
+                                Toast.makeText(applicationContext,
+                                    "Something went wrong when retrieving data: $error",
+                                    Toast.LENGTH_LONG).show()
                             }
                         })
                     }
                     else{
-
-                        Toast.makeText(applicationContext, "Something went wrong when retrieving data user token", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext,
+                            "Something went wrong when retrieving data user token",
+                            Toast.LENGTH_LONG).show()
                     }
                 }
-
-
-
-
             }
         }
-
-
     }
 
 

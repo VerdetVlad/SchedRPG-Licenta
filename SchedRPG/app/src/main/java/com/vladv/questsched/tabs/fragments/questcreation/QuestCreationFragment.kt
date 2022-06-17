@@ -306,8 +306,8 @@ class QuestCreationFragment : Fragment() {
 
     private fun createNotificationChannel()
     {
-        val name = "Notification Channel"
-        val desc = "A Description of the Channel"
+        val name = ""
+        val desc = ""
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(channelID, name, importance)
         channel.description = desc

@@ -87,8 +87,8 @@ class HomeQuestsFragment : Fragment() {
                     for (q in User().quests!!) if (q.wasValidDate(oldDate)) {
                         questsFailed++
                         questFailedNames+= "'" + q.name + "'" + " failed on " + "\n"+ oldDate.toStringDate() +"\n\n"
-                        User().addToQuestHistory(oldDate,q,Math.random() < 0.5)
-//                        User().abandonQuest(q)
+                        User().addToQuestHistory(oldDate,q,false)
+                        User().abandonQuest(q)
                     }
                     oldDate.increaseDayByOne()
                 }

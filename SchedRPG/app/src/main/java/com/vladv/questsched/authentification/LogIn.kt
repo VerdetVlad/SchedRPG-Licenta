@@ -80,8 +80,6 @@ class LogIn : AppCompatActivity() {
             val inflater = LayoutInflater.from(this)
             val auxBinding = PopUpForgotPasswordBinding.inflate(inflater)
 
-
-
             dialogBuilder.setView(auxBinding.root)
             dialog = dialogBuilder.create()
             dialog.show()
@@ -162,18 +160,15 @@ class LogIn : AppCompatActivity() {
         }
         startLoading()
 
-
-
-
         mAuth!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task: Task<AuthResult?> ->
-                if (!task.isSuccessful) {
-                    Toast.makeText(this@LogIn, "Failed to LogIn. Please check your credentials and try again.", Toast.LENGTH_LONG).show()
-                    stopLoading()
+                if (task.isSuccessful) {
+                    retrieveUserData()
                 }
                 else
                 {
-                    retrieveUserData()
+                    Toast.makeText(this@LogIn, "Failed to LogIn. Please check your credentials and try again.", Toast.LENGTH_LONG).show()
+                    stopLoading()
                 }
             }
     }
@@ -277,27 +272,27 @@ class LogIn : AppCompatActivity() {
     //Google functions
     /////////////////////////////////////////////////////////
 
-
+    @Suppress("DEPRECATION")
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             val exception = task.exception
             if(task.isSuccessful){
                 try {
-                    // Google Sign In was successful, authenticate with Firebase
+
                     val account = task.getResult(ApiException::class.java)!!
                     Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                     firebaseAuthWithGoogle(account.idToken!!)
                 } catch (e: ApiException) {
-                    // Google Sign In failed, update UI appropriately
                     Log.w(TAG, "Google sign in failed", e)
                     Toast.makeText(this,"Google sign-in failed.",Toast.LENGTH_SHORT).show()
                 }
@@ -312,9 +307,8 @@ class LogIn : AppCompatActivity() {
 
 
     private fun firebaseAuthWithGoogle(idToken: String) {
+
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-
-
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -326,9 +320,8 @@ class LogIn : AppCompatActivity() {
                     }
 
 
-
                 } else {
-                    // If sign in fails, display a message to the user.
+
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(this,"Google sign in with credential failed.",Toast.LENGTH_SHORT).show()
                 }
@@ -341,14 +334,18 @@ class LogIn : AppCompatActivity() {
     {
         startLoading()
 
-        val user = User(currentUser.displayName.toString(), currentUser.email.toString())
+        val user = User(currentUser.displayName.toString(),
+            currentUser.email.toString())
+
         FirebaseDatabase.getInstance().getReference(User::class.java.simpleName)
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
             .setValue(user).addOnCompleteListener { task1: Task<Void?> ->
                 if (task1.isSuccessful) {
                     retrieveUserData()
                 } else {
-                    Toast.makeText(this, "Something went wrong when creating user.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,
+                        "Something went wrong when creating user.",
+                        Toast.LENGTH_LONG).show()
                     stopLoading()
                 }
             }
@@ -371,12 +368,12 @@ class LogIn : AppCompatActivity() {
 
 
 
-    fun startLoading()
+    private fun startLoading()
     {
         binding.progressBarContainer.visibility = View.VISIBLE
     }
 
-    fun stopLoading()
+    private fun stopLoading()
     {
         binding.progressBarContainer.visibility = View.GONE
     }

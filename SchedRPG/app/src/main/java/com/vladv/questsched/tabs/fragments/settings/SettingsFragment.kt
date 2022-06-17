@@ -117,11 +117,8 @@ class SettingsFragment : Fragment() {
         val auxBinding = PopUpProfileDescriptionBinding.inflate(inflater)
         auxBinding.settingProfileDescriptionEdit.setText(User().profileDescription)
 
-
         dialogBuilder.setView(auxBinding.root)
-
         dialog = dialogBuilder.create()
-
         dialog.show()
 
         val layoutParams = WindowManager.LayoutParams()

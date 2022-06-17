@@ -209,11 +209,9 @@ class  SocialChatFragment : Fragment {
                             }
                         }
                 }
-
             },
-            1000 // value in milliseconds
+            1000
         )
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

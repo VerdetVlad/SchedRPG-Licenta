@@ -180,9 +180,7 @@ class MyFragmentManager : AppCompatActivity() {
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navView.setNavigationItemSelectedListener {
-
             when(it.itemId){
-
                 R.id.nav_home -> supportFragmentManager.commit {
                     setCustomAnimations(
                         R.anim.fragment_fadein,

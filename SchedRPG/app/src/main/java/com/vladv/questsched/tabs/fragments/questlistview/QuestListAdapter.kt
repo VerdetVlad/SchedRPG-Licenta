@@ -51,7 +51,6 @@ class QuestListAdapter( context: Context?, userArrayList: ArrayList<Quest>?) :
 
         deleteButton.setOnClickListener {
             QuestListFragment.removeItem(quest)
-
         }
         return convtView
     }

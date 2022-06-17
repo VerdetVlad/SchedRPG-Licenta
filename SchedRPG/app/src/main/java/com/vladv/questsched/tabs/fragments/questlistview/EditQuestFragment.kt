@@ -85,7 +85,7 @@ class EditQuestFragment : Fragment {
                 binding.editQuestFloatingButton.setImageResource(R.drawable.quest_edit_save)
                 binding.editQuestBlockLayout.visibility = View.GONE
             }
-            else//save new data
+            else
             {
                 binding.editQuestFloatingButton.setImageResource(R.drawable.quest_edit_edit)
                 editQuestInFirebase()

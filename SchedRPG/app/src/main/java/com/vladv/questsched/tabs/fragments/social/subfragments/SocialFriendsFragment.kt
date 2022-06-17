@@ -65,7 +65,6 @@ class SocialFriendsFragment : Fragment() {
             .setQuery(friendsRef, UserSocialProfile::class.java)
             .build()
 
-
         val adapter : FirebaseRecyclerAdapter<UserSocialProfile, FindFriendViewHolder> =
             object : FirebaseRecyclerAdapter<UserSocialProfile, FindFriendViewHolder>(options){
                 override fun onCreateViewHolder(
@@ -185,7 +184,6 @@ class SocialFriendsFragment : Fragment() {
         else {
             if(seen == "unseen") {
                 holder.lastMessage?.typeface = Typeface.DEFAULT_BOLD
-//                holder.lastMessage?.setTextColor(ContextCompat.getColor(requireContext(),R.color.c_accent))
                 holder.lastMessage?.setTextColor(Color.parseColor("#FF5722"))
             }
 

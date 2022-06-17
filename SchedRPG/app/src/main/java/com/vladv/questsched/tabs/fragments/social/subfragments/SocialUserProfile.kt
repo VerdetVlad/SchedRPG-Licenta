@@ -305,8 +305,6 @@ class SocialUserProfile : Fragment {
 
                 }
             }
-
-
     }
 
     private fun cancelFriendRequest() {

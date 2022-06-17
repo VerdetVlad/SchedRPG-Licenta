@@ -48,6 +48,9 @@ class Register : AppCompatActivity() {
         progressBar = binding!!.progressBarReg
     }
 
+
+
+
     private fun registerUser() {
         username = editTextFullName!!.text.toString().trim { it <= ' ' }
         email = editTextEmail!!.text.toString().trim { it <= ' ' }
@@ -85,8 +88,6 @@ class Register : AppCompatActivity() {
             editTextPasswordConfirmation!!.requestFocus()
             return
         }
-
-
 
 
 

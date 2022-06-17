@@ -52,31 +52,21 @@ class CalendarFragment : Fragment() {
 
 
         binding.calendarView.setOnDayClickListener { eventDay ->
-            val clickedDay = eventDay.calendar.time
-            val words = clickedDay.toString().split("\\s".toRegex()).toTypedArray()
-            val date = MyDate(words[0], words[2], words[1], words[5])
 
+            val date = MyDate(eventDay.calendar)
             if(date == MyDate(Calendar.getInstance()))
             {
                 parentFragmentManager.commit {
-                    setCustomAnimations(
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout,
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout
-                    )
+                    setCustomAnimations(R.anim.fragment_fadein, R.anim.fragment_fadeout,
+                        R.anim.fragment_fadein, R.anim.fragment_fadeout)
                     replace(R.id.flFragment, HomeNavFragment())
                 }
             }
             else
             {
                 parentFragmentManager.commit {
-                    setCustomAnimations(
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout,
-                        R.anim.fragment_fadein,
-                        R.anim.fragment_fadeout
-                    )
+                    setCustomAnimations(R.anim.fragment_fadein, R.anim.fragment_fadeout,
+                        R.anim.fragment_fadein, R.anim.fragment_fadeout)
                     replace(R.id.flFragment, CalendarDayFragment(date))
                 }
             }
@@ -107,17 +97,13 @@ class CalendarFragment : Fragment() {
         val highlightDays: MutableList<Calendar> = ArrayList()
 
         for(i in 1..lastMonthDay) {
-
-            if(auxDate == MyDate(Calendar.getInstance()))
-            {
-                if(!User().lastLogIn?.unfinishedQuests.isNullOrEmpty())
-                    {
+            if(auxDate == MyDate(Calendar.getInstance())) {
+                if(!User().lastLogIn?.unfinishedQuests.isNullOrEmpty()) {
                         val newTime = calendar.clone() as Calendar
                         events.add(EventDay(newTime, R.drawable.calendar_event_notification3))
                     }
             }
             else if(!auxDate.compareDates(MyDate(Calendar.getInstance()))){
-
                 if(User().questHistory != null)
                     if(!User().questHistory!!
                             .questHistoryMap[auxDate.toStringDateKey()].isNullOrEmpty())

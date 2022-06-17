@@ -55,9 +55,7 @@ class ChangePasswordFragment : Fragment() {
 
                 val user = auth.currentUser
                 if (user != null && user.email != null) {
-                    val credential = EmailAuthProvider
-                        .getCredential(user.email!!, currentPassword)
-
+                    val credential = EmailAuthProvider.getCredential(user.email!!, currentPassword)
 
                     user.reauthenticate(credential)
                         .addOnCompleteListener {
@@ -70,7 +68,6 @@ class ChangePasswordFragment : Fragment() {
                                             auth.signOut()
                                         }
                                     }
-
                             } else {
                                 Toast.makeText(context, "Re-Authentication failed.", Toast.LENGTH_SHORT).show()
                             }

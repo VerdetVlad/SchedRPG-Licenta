@@ -81,11 +81,10 @@ class CalendarDayFragment : Fragment {
                 binding.noQuestTextView2.visibility = View.VISIBLE
                 return
             }
-
-            binding.noQuestTextView2.visibility = View.GONE
-
             val questArray = ArrayList(quests)
             listAdapterHistory = CalendarDayHistoryAdapter(requireContext(), questArray)
+
+            binding.noQuestTextView2.visibility = View.GONE
             listView = binding.dayview
             listView!!.adapter = listAdapterHistory
 
